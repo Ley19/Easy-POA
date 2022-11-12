@@ -12,6 +12,10 @@ router.get('/agregarArticulo',(req,res) =>{
     console.log(req.file);
     res.render('agregarArticulo');
 });
+router.get('/requisicion',(req,res) =>{
+    console.log(req.file);
+    res.render('requisicion');
+});
 
 router.post('/agregarArticulo',async(req,res) =>{
     const image = new Image();
