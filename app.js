@@ -7,8 +7,10 @@ const app = express()
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
 
+app.set('view engine', 'ejs');
+
 app.get('/requisicion', (req,res)=>{
-    res.sendFile('./static/requisicion.html', {root:__dirname})
+    res.render('requisicion')
 })
 
 app.listen(3000)
