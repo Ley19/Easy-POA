@@ -112,27 +112,27 @@
         </tr>
       </tbody>
     </table>
-    <div class="container" style="margin-left: 83%; width:auto;">
+    <div class="container" style="margin-left: 83%; width:auto; margin-top: 15px; margin-bottom: 15px;">
       <button class="btn btn-outline-dark btn-circle btn-circle-sm"><i class="bi bi-dash" style="color: black;"></i></button>
       <button class="btn btn-outline-dark btn-circle btn-circle-sm"><i class="bi bi-plus" style="color: black;"></i></button>
     </div>
-    <div class="container">
-      <div class="row mb-3" style="margin-left: 83%; width:auto;">
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
+      <div class="row" style="margin-left: 76%; width:auto;">
         <label for="colFormLabel" class="col-sm col-form-label">Importe Total</label>
         <div class="col-sm">
-          <input type="email" class="form-control" id="Total">
+          <input type="email" class="form-control" id="Total" disabled>
         </div>
       </div>
   </div>
   <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
     <div class="col-sm">
       <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Fuente de Financiamiento" aria-label="Fuente" disabled>
+        <input type="text" class="form-control" placeholder="Fuente de Financiamiento" aria-label="Fuente">
       </div>
     </div>
     <div class="col-sm">
       <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Programa Especial" aria-label="Programa" disabled>
+        <input type="text" class="form-control" placeholder="Programa Especial" aria-label="Programa" >
       </div>
     </div>
     <div class="col-sm">
@@ -145,7 +145,7 @@
     </div>   
     <div class="col-sm">
       <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Periodo de Utilización" aria-label="Periodo" disabled>
+        <input type="text" class="form-control" placeholder="Periodo de Utilización" aria-label="Periodo">
       </div>
     </div>
     <div class="col-sm">
@@ -157,5 +157,14 @@
       </select>
     </div>
   </div>
-  </form>
+  <div class="row" style="align-items:center; margin:auto; width: 80%;">
+    <div class="col-sm-5">
+      <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" aria-label="Leyenda" style="height: 100px;">
+    </div>
+  </div>
+  <div class="container" style="margin-left: 78%; width:auto; margin-top: 15px; margin-bottom: 15px;">
+    <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-printer-fill"></i>   Imprimir</button>
+    <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
+  </div>
+  </form> 
 </body>
