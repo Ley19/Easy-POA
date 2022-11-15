@@ -11,6 +11,14 @@ router.get('/agregarArticulo',(req,res) =>{
     console.log(req.file);
     res.render('agregarArticulo');
 });
+router.get('/Resguardos',(req,res) =>{
+    console.log(req.file);
+    res.render('Resguardos');
+});
+router.get('/transferencias',(req,res) =>{
+    console.log(req.file);
+    res.render('transferencias');
+});
 router.get('/requisicion',(req,res) =>{
     console.log(req.file);
     res.render('requisicion');
