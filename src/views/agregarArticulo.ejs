@@ -17,69 +17,69 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/upload" method="POST" enctype="multipart/form-data" class="row">
+                        <form action="/agregarArticulo" method="POST" enctype="multipart/form-data" class="row">
                             <!--Nombre del Bien-->
                             <div class="form-group col-6">
                                 <h6>NOMBRE DEL BIEN</h6>
-                                <input type = "text" name="tittle" placeholder="Nombre del Bien" class="form-control">
+                                <input type = "text" name="nombreBien" placeholder="Nombre del Bien" class="form-control">
                             </div>
                             <!--Numero de Inventario-->
                             <div class="form-group col-6">
                                 <h6>NÚMERO DE INVENTARIO UPP</h6>
-                                <input type = "text" name="tittle" placeholder="Número de Inventario" class="form-control">
+                                <input type = "text" name="numInventario" placeholder="Número de Inventario" class="form-control">
                             </div>
                             <!--Clave de control-->
                             <h6>CLAVE DE CONTROL</h6>
                             <div class="form-group col-1">
-                                <select name="select" class="form-control">
+                                <select name="clvControl2" class="form-control">
                                     <option value="si">SI</option>
                                     <option value="no">NO</option>
                                 </select>
                             </div>
                             <div class="form-group col-5">
-                                <input type = "text" name="tittle" placeholder="Clave de Control" class="form-control">
+                                <input type = "text" name="clvControl" placeholder="Clave de Control" class="form-control">
                             </div>
 
                             <!--Marca-->
                             <div class="form-group col-6">
                                 <h6>MARCA</h6>
-                                <input type = "text" name="tittle" placeholder="Marca" class="form-control">
+                                <input type = "text" name="marca" placeholder="Marca" class="form-control">
                             </div>
 
                             <!--Modelo-->
                             <div class="form-group col-6">
                                 <h6>MODELO</h6>
-                                <input type = "text" name="tittle" placeholder="Modelo" class="form-control">
+                                <input type = "text" name="modelo" placeholder="Modelo" class="form-control">
                             </div>
 
                             <!--Tipo de Alta-->
                             <div class="form-group col-6">
                                 <h6>TIPO DE ALTA</h6>
-                                <select name="select" class="form-control">
-                                    <option value="si">COMPRA</option>
-                                    <option value="no">DONACIÓN</option>
-                                    <option value="si">REPOSICIÓN</option>
-                                    <option value="no">PERMUTAR</option>
-                                    <option value="no">COMODATO</option>
+                                <select name="tipoAlta" class="form-control">
+                                    <option value="Compra">COMPRA</option>
+                                    <option value="Donación">DONACIÓN</option>
+                                    <option value="Reposición">REPOSICIÓN</option>
+                                    <option value="Permutar">PERMUTAR</option>
+                                    <option value="Comodato">COMODATO</option>
                                 </select>
                             </div>
 
                              <!--Costo de Adquisición-->
                              <div class="form-group col-6">
                                 <h6>COSTO DE ADQUISICIÓN</h6>
-                                <input type = "text" name="tittle" placeholder="Costo de Adquisición" class="form-control">
+                                <input type = "text" name="costoAdquisicion" placeholder="Costo de Adquisición" class="form-control">
                             </div>
 
                             <!--Numero de Factura-->
                             <div class="form-group col-6">
                                 <h6>Número de Factura</h6>
-                                <input type = "text" name="tittle" placeholder="Número de Factura" class="form-control">
+                                <input type = "text" name="numFactura" placeholder="Número de Factura" class="form-control">
                             </div>
 
                             <!--Descripción del Bien-->
                             <div class="form-group col-6">
                                 <h6>DESCRIPCIÓN DEL BIEN</h6>
-                                <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                <textarea name="descripcion" class="form-control" placeholder="Description"></textarea>
                             </div>
 
 

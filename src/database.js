@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-mongoose.connect('mongodb://localhost/Imagenes',{
+mongoose.connect('mongodb://localhost/Inventarios',{
     useNewUrlParser:true
 })
 

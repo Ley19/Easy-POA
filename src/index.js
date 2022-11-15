@@ -3,6 +3,7 @@ const path=require('path');
 const morgan= require('morgan');
 const multer=require('multer');
 const uuid=require('uuid').v4;
+const bodyParser=require("body-parser");
 
 //Inicializaciones
 const app = express();
@@ -16,14 +17,16 @@ app.set('view engine','ejs');
 //Middlewares
 
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 const storage = multer.diskStorage({
-    destination:path.join(__dirname,'public/img/uploads'),
-    filename:(req,file,cb,filename)=>{
-        cb(null, uuid() + path.extname(file.originalname));
-    }
-});
-app.use(multer({storage: storage}).single('image'));
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+app.use(multer({storage: storage}).single('articulo'));
 
 //Variables Globales
 

@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagenes de la Base</title>
-    <%- include("partials/head")%>
-</head>
+<%- include('layouts/layout.ejs') %>
 <body>
 
     <h1>PANTALLA PRINCIPAL DEL SISTEMA</h1>
     <h6>/agregarArticulo</h6>
     <h6>/requisicion</h6>
     
-<div class="cointainer p-4">
-    <div class="row">
-        <div class="card-columns">
-            <%images.forEach(function(image){%>
-                <div class="card">
-                    <img src="<%=image.path%>" class="card-img-top">
-                    <div class="card-body">
-                        
-                    </div>
-                </div>
-                <%})%>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>

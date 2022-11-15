@@ -1,11 +1,10 @@
 const {Router}=require ('express');
 const router =Router();
 
-const Image=require('../models/image');
+const Articulo=require('../models/articulo');
 
 router.get('/', async (req,res) =>{
-    const images = await Image.find();
-    res.render('index',{images});
+    res.render('index');
 });
 
 router.get('/agregarArticulo',(req,res) =>{
@@ -18,18 +17,20 @@ router.get('/requisicion',(req,res) =>{
 });
 
 router.post('/agregarArticulo',async(req,res) =>{
-    const image = new Image();
-    image.tittle=req.body.tittle;
-    image.description=req.body.description;
-    image.filename= req.file.filename;
-    image.path='/img/uploads/'+req.file.filename;
-    image.originalname=req.file.originalname;
-    image.mimetype=req.file.mimetype;
-    image.size=req.file.size;
+    const articulo = new Articulo();
+    articulo.nombre=req.body.nombreBien;
+    articulo.numInventario=req.body.numInventario;
+    articulo.clvControl= req.body.clvControl;
+    articulo.marca=req.body.marca;
+    articulo.modelo=req.body.modelo;
+    articulo.tipoAlta=req.body.tipoAlta;
+    articulo.costoAdquisicion=req.body.costoAdquisicion;
+    articulo.numFactura=req.body.numFactura;
+    articulo.description=req.body.descripcion;
+    //articulo.image=req.file.image;
+    await articulo.save();
 
-    await image.save();
-
-    console.log(image);
+    console.log(articulo);
     res.redirect('/');
 });
 
