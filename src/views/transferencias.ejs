@@ -7,16 +7,16 @@
   
  
     </style>
- <h1>Transferencias</h1>
+ <h1>TRANSFERENCIAS</h1>
     <form>
     <script>
         function agregarFila2(){
-         document.getElementById("tabla").insertRow(+1).innerHTML = '<td> <input type="number" id="PartidaR" name="PartidaR" min="10" max="100"></td><td><input type="number" id="EneroR" name="EneroR" min="10" max="100"></td><td><input type="number" id="FebreroR" name="FebreroR" min="10" max="100"></td><td><input type="number" id="MarzoR" name="MarzoR" min="10" max="100"></td><td><input type="number" id="AbrilR" name="AbrilR" min="10" max="100"></td><td><input type="number" id="MayoR" name="MayoR" min="10" max="100"></td><td><input type="number" id="JunioR" name="JunioR" min="10" max="100"></td><td><input type="number" id="JulioR" name="JulioR" min="10" max="100"></td><td><input type="number" id="AgostoR" name="AgostoR" min="10" max="100"></td><td><input type="number" id="SeptiembreR" name="SeptiembreR" min="10" max="100"></td><td><input type="number" id="OctubreR" name="OctubreR" min="10" max="100"></td> <td><input type="number" id="NoviembreR" name="NoviembreR" min="10" max="100"></td><td><input type="number" id="DiciembreR" name="DiciembreR" min="10" max="100"></td>';
+         document.getElementById("tabla").insertRow(+1).innerHTML = '<td> <input type="number" id="PartidaR" name="PartidaR" min="10" max="100"></td><td><input type="number" id="EneroR" name="EneroR" min="10" max="100"></td><td><input type="number" id="FebreroR" name="FebreroR" min="10" max="100"></td><td><input type="number" id="MarzoR" name="MarzoR" min="10" max="100"></td><td><input type="number" id="AbrilR" name="AbrilR" min="10" max="100"></td><td><input type="number" id="MayoR" name="MayoR" min="10" max="100"></td><td><input type="number" id="JunioR" name="JunioR" min="10" max="100"></td><td><input type="number" id="JulioR" name="JulioR" min="10" max="100"></td><td><input type="number" id="AgostoR" name="AgostoR" min="10" max="100"></td><td><input type="number" id="SeptiembreR" name="SeptiembreR" min="10" max="100"></td><td><input type="number" id="OctubreR" name="OctubreR" min="10" max="100"></td> <td><input type="number" id="NoviembreR" name="NoviembreR" min="10" max="100"></td><td><input type="number" id="DiciembreR" name="DiciembreR" min="10" max="100"></td><td><input type="number" id="TotalR" readonly  min="10" max="100"></td>';
          }
      </script>
   <script>
    function agregarFila(){
-    document.getElementById("table").insertRow(+1).innerHTML = '<td> <input type="number" id="Partida" name="Partida" min="10" max="100"></td><td><input type="number" id="Enero" name="Enero" min="10" max="100"></td><td><input type="number" id="Febrero" name="Febrero" min="10" max="100"></td><td><input type="number" id="Marzo" name="Marzo" min="10" max="100"></td><td><input type="number" id="Abril" name="Abril" min="10" max="100"></td><td><input type="number" id="Mayo" name="Mayo" min="10" max="100"></td><td><input type="number" id="Junio" name="Junio" min="10" max="100"></td><td><input type="number" id="Julio" name="Julio" min="10" max="100"></td><td><input type="number" id="Agosto" name="Agosto" min="10" max="100"></td><td><input type="number" id="Septiembre" name="Septiembre" min="10" max="100"></td><td><input type="number" id="Octubre" name="Octubre" min="10" max="100"></td> <td><input type="number" id="Noviembre" name="Noviembre" min="10" max="100"></td><td><input type="number" id="Diciembre" name="Diciembre" min="10" max="100"></td>';
+    document.getElementById("table").insertRow(+1).innerHTML = '<td> <input type="number" id="Partida" name="Partida" min="10" max="100"></td><td><input type="number" id="Enero" name="Enero" min="10" max="100"></td><td><input type="number" id="Febrero" name="Febrero" min="10" max="100"></td><td><input type="number" id="Marzo" name="Marzo" min="10" max="100"></td><td><input type="number" id="Abril" name="Abril" min="10" max="100"></td><td><input type="number" id="Mayo" name="Mayo" min="10" max="100"></td><td><input type="number" id="Junio" name="Junio" min="10" max="100"></td><td><input type="number" id="Julio" name="Julio" min="10" max="100"></td><td><input type="number" id="Agosto" name="Agosto" min="10" max="100"></td><td><input type="number" id="Septiembre" name="Septiembre" min="10" max="100"></td><td><input type="number" id="Octubre" name="Octubre" min="10" max="100"></td> <td><input type="number" id="Noviembre" name="Noviembre" min="10" max="100"></td><td><input type="number" id="Diciembre" name="Diciembre" min="10" max="100"></td><td><input type="number" id="Total" readonly  min="10" max="100"></td>';
     }
 </script>
 <script>
@@ -47,7 +47,7 @@ function eliminarFila(){
 
        
         <table id="table" class="table table-bordered">
-        <b>Costo reduccion</b>
+        <b>COSTO REDUCCION</b>
         <tr>
             <td>Partida</td>
             <td>Enero</td>
@@ -78,14 +78,15 @@ function eliminarFila(){
             <td><input type="number" id="Octubre" name="Octubre" min="10" max="100"></td>
             <td><input type="number" id="Noviembre" name="Noviembre" min="10" max="100"></td>
             <td><input type="number" id="Diciembre" name="Diciembre" min="10" max="100"></td>
+            <td><input type="number" id="Total" readonly  min="10" max="100"></td>
         </tr>
     </table>
-    <button type="button"  class="btn btn-primary" onclick="agregarFila()">agregar Fila</button>
-    <button type="button"  class="btn btn-danger" onclick="eliminarFila()">Eliminar Fila</button>
+    <button type="button"  class="btn btn-primary" onclick="agregarFila()">AGREGAR FILA</button>
+    <button type="button"  class="btn btn-danger" onclick="eliminarFila()">ELIMINAR FILA</button>
     <br>
     <br>
     <br>
-<b>Aumento</b>
+<b>AUMENTO</b>
     <table id="tabla" class="table table-bordered">
         <tr>
             <td>Partida</td>
@@ -117,19 +118,21 @@ function eliminarFila(){
             <td><input type="number" id="OctubreR" name="OctubreR" min="10" max="100"></td>
             <td><input type="number" id="NoviembreR" name="NoviembreR" min="10" max="100"></td>
             <td><input type="number" id="DiciembreR" name="DiciembreR" min="10" max="100"></td>
+            <td><input type="number" id="TotalR" readonly  min="10" max="100"></td>
+
             </tr>
     </table>
-    <button type="button"  class="btn btn-primary" onclick="agregarFila2()">agregar Fila</button>
-    <button type="button"  class="btn btn-danger" onclick="eliminarFila2()">Eliminar Fila</button>
+    <button type="button"  class="btn btn-primary" onclick="agregarFila2()">AGREGAR FILA</button>
+    <button type="button"  class="btn btn-danger" onclick="eliminarFila2()">ELIMINAR FILA</button>
     
     <div class="form-group"style="text-align: right">
         <button type="submit" class="btn btn-success btn-block"style="background-color:#91133C">
-            <i class="bi bi-device-ssd-fill"></i> Subir
+            <i class="bi bi-device-ssd-fill"></i> Solicitar
         </button>
 </div>
-<select name="select">
-    <option value="value1">Porfavor seleccione un motivo de la transferencia</option>
-    <option value="value2" selected>Por ampliacion del periodo de gestion</option>
+<select class="form-select" name="select" style="width: auto;">
+    <option disabled selected>Porfavor seleccione un motivo de la transferencia</option>
+    <option value="value2">Por ampliacion del periodo de gestion</option>
     <option value="value3">Por diferencia en costos</option>
     <option value="value4">Por error en la fecha o suficienca presupuestal</option>
     <option value="value4">Por cambio de periodo</option>
