@@ -15,6 +15,10 @@ router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
 });
+router.get('/anteproyecto',(req,res) =>{
+    console.log(req.file);
+    res.render('anteproyecto');
+});
 router.get('/transferencias',(req,res) =>{
     console.log(req.file);
     res.render('transferencias');
