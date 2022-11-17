@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/Inventarios',{
     .catch(err=>console.error(err))
 
 const mysql = require('mysql');
-var mysqlConnection = mysql.createConnection({
+var connection = mysql.createConnection({
     host : "localhost",
     user : "root",
     password : "",
@@ -16,10 +16,12 @@ var mysqlConnection = mysql.createConnection({
     multipleStatements : true
  })
 
- mysqlConnection.connect((err)=>{
+ connection.connect((err)=>{
     if(!err){
         console.log("Conectado a la base de datos")
     }else{
         console.log("Conexión a la base de datos fallida")
     }
  })
+
+ module.exports = connection;

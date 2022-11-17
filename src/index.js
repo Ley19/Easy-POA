@@ -28,6 +28,7 @@ const storage = multer.diskStorage({
 })
 app.use(multer({storage: storage}).single('articulo'));
 
+
 //Variables Globales
 
 //Routes
