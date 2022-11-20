@@ -25,6 +25,10 @@ router.get('/transferencias',(req,res) =>{
     console.log(req.file);
     res.render('transferencias');
 });
+router.get('/infoadicional',(req,res) =>{
+    console.log(req.file);
+    res.render('infoadicional');
+});
 router.get('/requisicion',function(req,res,next){
     database.query('SELECT * FROM actividad ORDER BY idActividad ASC', function(err,data){
         data = JSON.parse(JSON.stringify(data))
