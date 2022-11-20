@@ -33,12 +33,19 @@ router.get('/requisicion',function(req,res,next){
 
     
 })
-router.get('/get_calendario', function(req,res,next){
+router.get('/get_calendario', function(req,res){
     var idActividad = req.query.idActividad
     
-    database.query('SELECT * FROM calendario WHERE idActividad ='+idActividad, function(err,data){
+    database.query('SELECT * FROM calendario WHERE idActividad ='+idActividad+' ORDER BY idPartida ASC', function(err,data){
         data = JSON.parse(JSON.stringify(data))
-        console.log(data)
+        res.json(data);
+    })
+})
+
+router.get('/get_partida', function(req,res){
+    var idPartida = req.query.idPartida
+    database.query('SELECT * FROM partida WHERE idPartida ='+idPartida+' LIMIT 1', function(err,data){
+        data = JSON.parse(JSON.stringify(data[0]))
         res.json(data);
     })
 })

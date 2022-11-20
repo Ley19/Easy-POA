@@ -50,7 +50,7 @@
           </select>
         </div>
       </div>
-      <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
+      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
         <div class="col-sm">
           <select class="form-select form-select-sm" aria-label="Tipo">
             <option selected disabled>Tipo de Requisición</option>
@@ -59,15 +59,17 @@
           </select>
         </div>
         <div class="col-sm">
-          <select class="form-select form-select-sm" id="NoPartida"></select>
+          <select class="form-select form-select-sm" id="NoPartida">
+            <option selected disabled>Número de Partida</option>
+          </select>
         </div>
         <div class="col-sm">
           <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Nombre Partida" aria-label="Partida" disabled>
+            <input type="text" class="form-control" placeholder="Nombre Partida" id="Partida" disabled>
           </div>
         </div>
       </div>
-      <table style="width: 80%; margin:auto; align-items: center; text-align: center;">
+      <table id="Tabla" style="width: 80%; margin:auto; align-items: center; text-align: center;">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -87,12 +89,9 @@
               </div>
             </td>
             <td>
-              <select class="form-select form-select-sm" aria-label="Unidad" style="width: 90%; margin:auto;">
-                <option selected disabled>Unidad</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" aria-label="UnidadM">
+              </div>
             </td>
             <td>
               <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
@@ -113,8 +112,8 @@
         </tbody>
       </table>
       <div class="container" style="margin-left: 83%; width:auto; margin-top: 15px; margin-bottom: 15px;">
-        <button class="btn btn-outline-dark btn-circle btn-circle-sm"><i class="bi bi-dash" style="color: black;"></i></button>
-        <button class="btn btn-outline-dark btn-circle btn-circle-sm"><i class="bi bi-plus" style="color: black;"></i></button>
+        <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="eliminarFila()"><i class="bi bi-dash" style="color: black;"></i></button>
+        <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="agregarFila()"><i class="bi bi-plus" style="color: black;"></i></button>
       </div>
       <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
         <div class="row" style="margin-left: 65%; width: 400px;;">
@@ -124,7 +123,7 @@
           </div>
         </div>
     </div>
-    <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
       <div class="col-sm">
         <div class="input-group input-group-sm">
           <input type="text" class="form-control" placeholder="Fuente de Financiamiento" aria-label="Fuente">
@@ -138,9 +137,18 @@
       <div class="col-sm">
         <select class="form-select form-select-sm" aria-label="Mes Afectar">
           <option selected disabled>Mes a Afectar</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="Enero">Enero</option>
+          <option value="Febrero">Febrero</option>
+          <option value="Marzo">Marzo</option>
+          <option value="Abril">Abril</option>
+          <option value="Mayo">Mayo</option>
+          <option value="Junio">Junio</option>
+          <option value="Julio">Julio</option>
+          <option value="Agosto">Agosto</option>
+          <option value="Septiembre">Septiembre</option>
+          <option value="Octubre">Octubre</option>
+          <option value="Noviembre">Noviembre</option>
+          <option value="Diciembre">Diciembre</option>
         </select>
       </div>   
       <div class="col-sm">
@@ -151,13 +159,12 @@
       <div class="col-sm">
         <select class="form-select form-select-sm" aria-label="Para">
           <option selected disabled>Requisición Para</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="Gestion">Gestión</option>
+          <option value="Liberacion">Liberación</option>
         </select>
       </div>
     </div>
-    <div class="row" style="align-items:center; margin:auto; width: 80%;">
+    <div class="row" style="align-items:center; margin:auto; width: 90%;">
       <div class="col-sm-5">
         <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" aria-label="Leyenda" style="height: 100px;">
       </div>
@@ -173,13 +180,14 @@
 
 <script type="text/javascript">
   var datos = <%- JSON.stringify(actividad_data) %>;
+  var partidas;
   function _(element){
     return document.getElementById(element);
   }
-  function fetch_data(idActividad){
-    fetch('/get_calendario?idActividad='+idActividad).then(
+  function fetch_data(id){
+    fetch('/get_calendario?idActividad='+id).then(
       function(response){
-        return response.json()
+        return response.json();
       }
     ).then(function(responseData){
       var html = '<option selected disabled>Número de Partida</option>'
@@ -190,6 +198,7 @@
     })
   }
   _('Actividad').onchange = function(){
+    _('Partida').value=""
     _('NoPartida').innerHTML = '<option selected disabled>Número de Partida</option>';
     var id = _('Actividad').value
     datos.forEach(function(actividad){
@@ -202,5 +211,26 @@
     fetch_data(id);
     
   };
+  _('NoPartida').onchange = function(){
+    fetch('/get_partida?idPartida='+_('NoPartida').value).then(
+        function(response){
+          return response.json()
+        }
+      ).then(function(responseData){
+        if(responseData.idPartida==_('NoPartida').value){
+          _('Partida').value=responseData.nombre
+        }
+      })
+  }
+  function agregarFila(){
+    var filas=_('Tabla').rows.length
+    _('Tabla').insertRow(-1).innerHTML ='<th scope="row">'+filas+'</th><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Cantidad"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="UnidadM"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Clave"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Descripcion"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Presupuesto"></div></td>'
+  }
+  function eliminarFila(){
+    var filas = _('Tabla').rows.length
+    if(filas>2){
+      _('Tabla').deleteRow(filas -1)
+    }
+  }
   
 </script>
