@@ -1,57 +1,98 @@
-<!-- Boxicons CSS -->
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<%- include('layouts/layout.ejs') %>
+<body>
+        <script>
+            // Arreglar lo de insertar fila abajo
+            function agregarFila(){
+             document.getElementById("tabla").insertRow(+1).innerHTML = '<td> <input type="number" id="Partida" style="width:60px" ></td><td><input type="string" id="Descripcion" name="Descripcion"  style="width:150px" disabled></td><td><input type="number" id="Enero" name="Enero" style="width:60px"></td><td><input type="number" id="Febrero" name="Febrero" style="width:60px"></td><td><input type="number" id="Marzo" name="Marzo" style="width:60px"></td><td><input type="number" id="Abril" name="Abril" style="width:60px"></td><td><input type="number" id="Mayo" name="Mayo" style="width:60px"></td><td><input type="number" id="Junio" name="Junio" style="width:60px"></td><td><input type="number" id="Julio" name="Julio" style="width:60px"></td><td><input type="number" id="Agosto" name="Agosto" style="width:60px"></td><td><input type="number" id="Septiembre" name="Septiembre" style="width:60px"></td><td><input type="number" id="Octubre" name="Octubre" style="width:60px"></td><td><input type="number" id="Noviembre" name="Noviembre" style="width:60px"></td><td><input type="number" id="Diciembre" name="Diciembre" style="width:60px"></td><td><input type="text" id="Total" name="Total" style="width:60px" disabled></td><td><a type="button" id="Eliminar" name="Eliminar" class="btn btn-success btn-block" style="background-color:#91133C; border-radius: 50%;" onclick="eliminarfila()"><i class="bx bx-message-square-x bx-xs"></i></a></td>';
+            }
+            // Arreglar lo de eliminar la fila donde esta
+            function eliminarfila(){
+                var table = document.getElementById("tabla");
+                var rowCount = table.rows.length;
+                if(rowCount <= 1)
+                  alert('No se puede eliminar el encabezado');
+                else
+                  table.deleteRow(rowCount -1);
+            }
+            function contar(){
 
+            }
+            </script>
 
-<div class="container" style="margin: auto; text-align: center; margin-top: 3%;">
-    <h1>Anteproyecto</h1>
-    <p>En este apartado deberas definir el anteproyecto de acuerdo a tu area y actividad 
-    donde te encuentras, recuerda que el anteproyecto que se realice en este apartado debe 
-    ser aprobado por el area de planeación.</p>
+        <div class="container" style="margin: 0.5em; margin-top: 3%; ">
+            <!--Temporizador para fecha de envio-->
+            <div class="cont-temporizador" style="display: flex; justify-content: center; margin-top: 50px; float:right;">
+                <div class="bloque" style="margin: 0px 4px; display: flex; flex-direction: column; align-items: center;" >
+                     <div class="dias" id="dias" style="display: flex; justify-content: center; align-items: center; background-color: rgb(80,80,80); box-shadow: 0px 0px 6px 2px #727272 inset; color: #ffff; font-size: 15px; font-weight: bold; width: 30px; height: 20px; margin-bottom: 10px; border-radius: 5px; ">00</div>
+                     <p style="font-size: 11px; font-weight: bold; color:rgb(26, 18, 18); ">DIAS</p>
+                </div>
+                <div class="bloque" style="margin: 0px 4px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="horas" id="horas" style="display: flex; justify-content: center; align-items: center; background-color: rgb(80,80,80); box-shadow: 0px 0px 6px 2px #727272 inset; color: #ffff; font-size: 15px; font-weight: bold; width: 30px; height: 20px; margin-bottom: 10px; border-radius: 5px; ">--</div>
+                    <p style="font-size: 11px; font-weight: bold; color: rgb(26, 18, 18);; ">HRS</p>
+                </div>
+                <div class="bloque" style="margin: 0px 4px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="minutos" id="minutos" style="display: flex; justify-content: center; align-items: center; background-color: rgb(80,80,80); box-shadow: 0px 0px 6px 2px #727272 inset; color: #ffff; font-size: 15px; font-weight: bold; width: 30px; height: 20px; margin-bottom: 10px; border-radius: 5px; ">--</div>
+                    <p style="font-size: 11px; font-weight: bold; color: rgb(26, 18, 18);; ">MIN</p>
+                </div>
+                <div class="bloque" style="margin: 0px 4px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="segundos" id="segundos" style="display: flex; justify-content: center; align-items: center; background-color: rgb(80,80,80); box-shadow: 0px 0px 6px 2px #727272 inset; color: #ffff; font-size: 15px; font-weight: bold; width: 30px; height: 20px; margin-bottom: 10px; border-radius: 5px; ">--</div>
+                    <p style="font-size: 11px; font-weight: bold; color: rgb(26, 18, 18);; ">SEG</p>
+                </div>
+            </div>
+            <script src="anteproyectoTotal.js"></script>
+            <h1 style=" text-align: center;">Anteproyecto</h1>
+            <p>En este apartado deberas definir el anteproyecto de acuerdo a tu area y actividad 
+            donde te encuentras, recuerda que el anteproyecto que se realice en este apartado debe 
+            ser aprobado por el area de planeación.</p>
+            <h5>Nombre de la actividad: </h5> 
 
-        <table class="table table-hover" >
-            <thead>
-                <th scope="col">Partida</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Ene.</th>
-                <th scope="col">Feb.</th>
-                <th scope="col">Mar.</th>
-                <th scope="col">Abr.</th>
-                <th scope="col">May.</th>
-                <th scope="col">Jun.</th>
-                <th scope="col">Jul.</th>
-                <th scope="col">Agt.</th>
-                <th scope="col">Sept.</th>
-                <th scope="col">Oct.</th>
-                <th scope="col">Nov.</th>
-                <th scope="col">Dic.</th>
-                <th scope="col">   </th>
-
-            </thead>
-            <tbody>
-                    <tr>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>  
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td> ... </td>
-                        <td>
-                            <a href="/delete" type="button_delete" class="btn btn-outline-info"><i class='bx bx-message-square-x bx-xs' ></i></a>
-                            <a href="/edit" type="button_edit" class="btn btn-outline-info"><i class='bx bx-message-square-edit bx-xs' ></i></a>
-                        </td>
-                    </tr>
-            </tbody>
-        </table>
-        <div style="text-align: right;">
-            <a href="/create" type="button_create" class="btn btn-outline-info" ><i class='bx bxs-plus-circle bx-sm'></i></a>
+                <table id="tabla" class="table table-hover">
+                    <thead>
+                        <th scope="col">Partida</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Ene.</th>
+                        <th scope="col">Feb.</th>
+                        <th scope="col">Mar.</th>
+                        <th scope="col">Abr.</th>
+                        <th scope="col">May.</th>
+                        <th scope="col">Jun.</th>
+                        <th scope="col">Jul.</th>
+                        <th scope="col">Ago.</th>
+                        <th scope="col">Sept.</th>
+                        <th scope="col">Oct.</th>
+                        <th scope="col">Nov.</th>
+                        <th scope="col">Dic.</th>
+                        <th scope="col">Ingreso</th>
+                        <th scope="col"></th>
+                    </thead>
+                    <tbody>
+                            <% results.forEach((anteproyecto)=>{ %>
+                            <tr>
+                                <td> <input type="number" id="Partida" name="Partida" style="width:60px"><%= anteproyecto.Partida %></td>
+                                <td><input type="text" id="Descripcion" name="Descripcion" style="width:150px;" disabled><%= anteproyecto.Descripción %></td>
+                                <td><input type="number" id="Enero" name="Enero" style="width:60px"><%= anteproyecto.Enero %></td>
+                                <td><input type="number" id="Febrero" name="Febrero" style="width:60px"><%= anteproyecto.Febrero %></td>
+                                <td><input type="number" id="Marzo" name="Marzo" style="width:60px"><%= anteproyecto.Marzo %></td>
+                                <td><input type="number" id="Abril" name="Abril" style="width:60px"><%= anteproyecto.Abril %></td>
+                                <td><input type="number" id="Mayo" name="Mayo" style="width:60px"><%= anteproyecto.Mayo %></td>
+                                <td><input type="number" id="Junio" name="Junio" style="width:60px"><%= anteproyecto.Junio %></td>
+                                <td><input type="number" id="Julio" name="Julio" style="width:60px"><%= anteproyecto.Julio %></td>
+                                <td><input type="number" id="Agosto" name="Agosto" style="width:60px"><%= anteproyecto.Agosto %></td>
+                                <td><input type="number" id="Septiembre" name="Septiembre" style="width:60px"><%= anteproyecto.Septiembre %></td>
+                                <td><input type="number" id="Octubre" name="Octubre" style="width:60px"><%= anteproyecto.Octubre %></td>
+                                <td><input type="number" id="Noviembre" name="Noviembre" style="width:60px"><%= anteproyecto.Noviembre %></td>
+                                <td><input type="number" id="Diciembre" name="Diciembre" style="width:60px"><%= anteproyecto.Diciembre %></td>
+                                <td><input type="text" id="Total" name="Total" style="width:60px" disabled><%= anteproyecto.Total %></td>
+                                <td>
+                                    <a type="button" id="Eliminar" name="Eliminar" class="btn btn-success btn-block" style="background-color:#91133C; border-radius: 50%;" onclick="eliminarfila()"><i class="bx bx-message-square-x bx-xs"></i></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+                <div class="form-group"style="text-align: right">
+                    <a type="button" class="btn btn-success btn-block " onclick="agregarFila()" style="background-color:#91133C"><i class='bx bxs-plus-circle bx-xs'></i> Añadir </a>
+                    <a type="button" class="btn btn-success btn-block" style="background-color:#91133C">Guardar</a>
+                </div>
         </div>
-
-</div>
+</body>
