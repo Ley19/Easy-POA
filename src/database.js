@@ -9,10 +9,11 @@ mongoose.connect('mongodb://localhost/Inventarios',{
 
 const mysql = require('mysql');
 var connection = mysql.createConnection({
-    host : "localhost",
-    user : "root",
-    password : "",
-    database : "easypoa",
+    host : "easypoa.cxvh0pslqhaf.us-east-2.rds.amazonaws.com",
+    user : "admin",
+    password : "Prometeo2022",
+    database : "EasyPOA",
+    port: 3306,
     multipleStatements : true
  })
 
