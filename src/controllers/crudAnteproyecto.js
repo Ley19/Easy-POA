@@ -1,5 +1,5 @@
 
-const mysqlConnection = require('../database');
+const connection = require('../database');
 
 //Guardar registro
     exports.saveAnteproyecto = (req, res)=>{
@@ -21,7 +21,7 @@ const mysqlConnection = require('../database');
         const Fecha = new Date();
 
         console.log("Resultados: ", Total, " - ", Fecha);
-        mysqlConnection.query('INSERT INTO anteproyecto SET ?',{Actividad:Actividad, Partida:Partida, Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total, Fecha:Fecha}, (error, results)=>{
+        connection.query('INSERT INTO anteproyecto SET ?',{Actividad:Actividad, Partida:Partida, Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total, Fecha:Fecha}, (error, results)=>{
             if(error){
                 console.log(error);
             }else{  
@@ -50,7 +50,7 @@ const mysqlConnection = require('../database');
         const Total = req.body.Total;
         const Fecha = req.body.Fecha;
         
-        mysqlConnection.query('UPDATE anteproyecto SET ? WHERE id = ?',[{Actividad:Actividad, Partida:Partida, Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total, Fecha:Fecha}, id], (error, results)=>{
+        connection.query('UPDATE anteproyecto SET ? WHERE id = ?',[{Actividad:Actividad, Partida:Partida, Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total, Fecha:Fecha}, id], (error, results)=>{
             if(error){
                 console.log(error);
             }else{           

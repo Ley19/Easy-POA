@@ -6,7 +6,6 @@ const fontkit = require('@pdf-lib/fontkit')
 const Articulo=require('../models/articulo');
 var database = require('../database');
 
-
 router.get('/', async (req,res) =>{
     res.render('index');
 });
@@ -20,13 +19,14 @@ router.get('/Resguardos',(req,res) =>{
     res.render('Resguardos');
 });
 
+//RUTAS PARA ANTEPROYECTO
 router.get('/crearAnteproyecto',(req,res) =>{
     console.log(req.file);
     res.render('crearAnteproyecto');
 });
 router.get('/editarAnteproyecto:ID',(req, res)=>{
     const id = req.params.ID;
-    mysqlConnection.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
+    database.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
         if (error) {
             throw error;
         }else{
@@ -38,7 +38,7 @@ router.get('/editarAnteproyecto:ID',(req, res)=>{
 router.get('/anteproyecto',(req,res) =>{
     console.log(req.file);
 
-    mysqlConnection.query('SELECT * FROM anteproyecto', (error, results)=>{
+    database.query('SELECT * FROM anteproyecto', (error, results)=>{
         if (error) {
             throw error;
         }else{
@@ -51,6 +51,8 @@ router.get('/anteproyecto',(req,res) =>{
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
 router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
+
+//RUTAS DE TRANSFERENCIAS
 
 router.get('/transferencias',(req,res) =>{
     console.log(req.file);

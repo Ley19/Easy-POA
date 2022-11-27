@@ -1,4 +1,3 @@
-<%- include('layouts/layout.ejs') %>
 
     <head>
         <style>
@@ -14,21 +13,6 @@
     </head>
 
     <body>
-        <script>
-           
-            // Arreglar lo de eliminar la fila donde esta
-            function eliminarfila() {
-                var table = document.getElementById("tabla");
-                var rowCount = table.rows.length;
-                if (rowCount <= 1)
-                    alert('No se puede eliminar el encabezado');
-                else
-                    table.deleteRow(rowCount - 1);
-            }
-            function contar() {
-
-            }
-        </script>
         
         <div class="cont-temporizador">
             <div class="bloque">
