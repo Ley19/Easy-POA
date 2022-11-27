@@ -1,0 +1,124 @@
+<!-- Boxicons CSS -->
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <body>
+        <!--CUERPO DE LA PAGINA-->
+        <div style="color:#fff">.</div>
+        <div class="cointainer">
+            <div class="row">
+                <div class="col-md-9 offset-md-1">
+                    <h2>INFORMACION ADICIONAL</h2>
+                </div>
+                <div class="col-md-8 offset-md-1">
+                    <h6>datos adicionales del producto</h6>
+                </div>
+            </div>
+        </div>
+        <div class="cointainer p-5 ">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/agregarArticulo" method="POST" enctype="multipart/form-data" class="row">
+                                <!--Cuenta con etiqueta-->
+                                <div class="form-group col-6">
+                                    <h6>CUENTA CON ETIQUETA EL BIEN</h6>
+                                    <select name="clvControl2" class="form-control">
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+                                
+                                <!--Seguimiento a etiqueta-->
+                                <div class="form-group col-6">
+                                    <h6>SEGUIMIENTO A ETIQUETA</h6>
+                                    <select name="select" class="form-control">
+                                        <option value="generada">GENERADA</option>
+                                    </select>
+                                </div>
+
+                                <!--Estatus del bien-->
+                                <h6>ESTATUS DEL BIEN</h6>
+                                <div class="form-group col-6">
+                                    <select name="select" class="form-control">
+                                        <option value="activo">ACTIVO</option>
+                                        <option value="baja">BAJA</option>
+                                        <option value="en proceso">EN PROCESO DE DESINCORPORACIÓN</option>
+                                    </select>
+                                </div>
+    
+                                <!--Motivo e baja-->
+                                <div class="form-group col-6">
+                                    <h6>MOTIVO DE BAJA DEL BIEN</h6>
+                                    <select name="select" class="form-control">
+                                        <option value="DESINCORPORACIÓN">DESINCORPORACIÓN</option>
+                                        <option value="no">NO APLICA</option>
+                                    </select>
+                                </div>
+
+                                <!--Fecha de baja b-->
+                                <div class="form-group col-6">
+                                    <h6>FECHA DE BAJA DEL BIEN</h6>
+                                    <input type="datetime-local" name="fechaba" id="">
+                                </div>
+    
+                                 <!--registro contable-->
+                                 <div class="form-group col-6">
+                                    <h6>APLICA REGISTRO CONTABLE</h6>
+                                    <select name="select" class="form-control">
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+    
+                                <!--registrado en la base contable-->
+                                <div class="form-group col-6">
+                                    <h6>ESTA REGISTRADO EN LA BASE CONTABLE (CÉDULA DEPRECIACIÓN)</h6>
+                                    <select name="select" class="form-control">
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+    
+                                <!--grupo de bienes-->
+                                <div class="form-group col-6">
+                                    <h6>GRUPO DE BIENES (ACORDE A LA CÉDULA DE DEPRECIACIÓN)</h6>
+                                    <select name="select" class="form-control">
+                                        <option value="NO APLICA">NO APLICA</option>
+                                        <option value="MOBILIARIO">MOBILIARIO Y EQUIPO DE ADMINISTRACIÓN</option>
+                                    </select>
+                                </div>
+    
+                                <!--tratamiento contable-->
+                                <div class="form-group col-6">
+                                    <h6>TRATAMIENTO CONTABLE</h6>
+                                    <select name="select" class="form-control">
+                                        <option value="PATRIMONIO">PATRIMONIO</option>
+                                        <option value="SUJETO A CONTROL">SUJETO A CONTROL</option>
+                                    </select>
+                                </div>
+
+                                  <!--Nombre del solicitante-->
+                                  <div class="form-group col-6">
+                                    <h6>NOMBRE DE QUIEN SOLICITO EL BIEN</h6>
+                                    <input type = "text" name="NombreSo" placeholder="Nombre" class="form-control">
+                                </div>
+
+                                <!--Area solicitante-->
+                                <center>
+                                <div class="form-group">
+                                    <h6>AREA DEL SOLICITANTE</h6>
+                                    <input type = "text" name="NombreSo" placeholder="Nombre" class="form-control">
+                                </div>
+                            </center>
+    
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+    </body>
+
+    </html>

@@ -4,11 +4,15 @@ const morgan= require('morgan');
 const multer=require('multer');
 const uuid=require('uuid').v4;
 const bodyParser=require("body-parser");
+const expressLayouts=require('express-ejs-layouts')
 
 //Inicializaciones
 const app = express();
 require('./database');
+
 //Settings
+app.use(expressLayouts)
+app.set('layout','./layouts/layout')
 app.set('port',process.env.PORT || 3000);
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine','ejs');
@@ -29,6 +33,7 @@ const storage = multer.diskStorage({
   }
 })
 app.use(multer({storage: storage}).single('articulo'));
+
 
 //Variables Globales
 

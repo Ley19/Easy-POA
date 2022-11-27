@@ -27,7 +27,7 @@
         </style>
     </head>
 
-    <body>
+    <body style="position: absolute; margin: 0; min-height: 100%; width: 100%; padding-bottom: 2rem;">
         
         <!-- NAVBAR DE LA PAGINA -->
 
@@ -35,7 +35,7 @@
             <div class="container-fluid">
                 <!-- icono o nombre -->
 
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <i class="bi bi-shop"></i>
                     <span style="color:#fff">EasyPOA</span>
                 </a>
@@ -76,7 +76,7 @@
                                 <li><a class="dropdown-item" href="/agregarArticulo">Agregar Articulo</a>
                                 <li><a class="dropdown-item" href="/Resguardos">Resguardos</a>
                                 <li>
-                                <li><a class="dropdown-item" href="#">Información Adicional</a></li>
+                                <li><a class="dropdown-item" href="/infoadicional">Información Adicional</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -109,15 +109,17 @@
 
             </div>
         </nav>
+        <main><%-body%></main>
         
         <!--FOOTER DE LA PAGINA-->
-        <footer class="text-center text-white" style="background-color: #91133C; position: absolute; width: 100%; height: auto; bottom: 0;">
-            <!-- Copyright -->
-            <div class="text-center text-white p-1" style="background-color: #91133C;">
-            © 2022 Copyright:
-            <a class="text-white" href="https://www.upp.edu.mx/main/">Universidad Politécnica de Pachuca</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
+        
     </body>
+    <footer class="text-center text-white" style="background-color: #91133C; width: 100%; height: auto; position: absolute; bottom: 0;">
+        <!-- Copyright -->
+        <div class="text-center text-white p-1" style="background-color: #91133C;">
+        © 2022 Copyright:
+        <a class="text-white" href="https://www.upp.edu.mx/main/">Universidad Politécnica de Pachuca</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 </html>

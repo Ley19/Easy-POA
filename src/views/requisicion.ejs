@@ -1,170 +1,249 @@
-<%- include('layouts/layout.ejs') %>
+
 <head>
   <style>
     .btn-circle {width: 45px; height: 45px; line-height: 45px; text-align: center; padding: 0; border-radius: 50%;}
     .btn-circle-sm {width: 35px; height: 35px; line-height: 35px; font-size: 1.5rem; font-weight:9000;}
   </style>
 </head>
-<body>
     <div class="container" style="margin: auto; text-align: center; margin-top: 3%;">
     <h1>Requisición</h1>
     <p>Aqui podemos realizar la definicion de la planeacion sobre los gastos que se piensan utilizar durante el año siguiente, y poder desglosar la descripcion de los mismos.</p>
   </div>
-  <form>
-    <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
-      <div class="col-sm">
-        <select class="form-select form-select-sm" aria-label="Actividad">
-          <option selected disabled>Selecciona Actividad</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="col-sm">
-        <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Componente" aria-label="Componente" disabled>
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Área Superior" aria-label="Area" disabled>
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Unidad Administrativa" aria-label="Unidad" disabled>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
-      <div class="col-sm">
-        <select class="form-select form-select-sm" aria-label="Solicitud">
-          <option selected disabled>Solicitud De</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="col-sm">
-        <select class="form-select form-select-sm" aria-label="Tipo">
-          <option selected disabled>Tipo de Requisición</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="col-sm">
-        <select class="form-select form-select-sm" aria-label="No Partida">
-          <option selected disabled>Número de Partida</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="col-sm">
-        <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Nombre Partida" aria-label="Partida" disabled>
-        </div>
-      </div>
-    </div>
-    <table style="width: 80%; margin:auto; align-items: center; text-align: center;">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Unidad de Medida</th>
-          <th scope="col">Clave Bien o Servicio</th>
-          <th scope="col">Descripción Detallada del Bien o Servicio</th>
-          <th scope="col">Presupuesto</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>
-            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-              <input type="number" class="form-control" aria-label="Cantidad">
-            </div>
-          </td>
-          <td>
-            <select class="form-select form-select-sm" aria-label="Unidad" style="width: 90%; margin:auto;">
-              <option selected disabled>Unidad</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </td>
-          <td>
-            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-              <input type="text" class="form-control" aria-label="Clave">
-            </div>
-          </td>
-          <td>
-            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-              <input type="text" class="form-control" aria-label="Descripcion">
-            </div>
-          </td>
-          <td>
-            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-              <input type="number" class="form-control" aria-label="Presupuesto">
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="container" style="margin-left: 83%; width:auto; margin-top: 15px; margin-bottom: 15px;">
-      <button class="btn btn-outline-dark btn-circle btn-circle-sm"><i class="bi bi-dash" style="color: black;"></i></button>
-      <button class="btn btn-outline-dark btn-circle btn-circle-sm"><i class="bi bi-plus" style="color: black;"></i></button>
-    </div>
-    <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
-      <div class="row" style="margin-left: 76%; width:auto;">
-        <label for="colFormLabel" class="col-sm col-form-label">Importe Total</label>
+    <form>
+      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
         <div class="col-sm">
-          <input type="email" class="form-control" id="Total" disabled>
+          <select class="form-select form-select-sm" id="Actividad">
+            <option selected disabled>Selecciona Actividad</option>
+            <% actividad_data.forEach(function(actividad){ %>
+              <option value="<%=actividad.idActividad%>"><%=actividad.idActividad%> - <%=actividad.nombre%></option>
+            <%})%>
+          </select>
+        </div>
+        <div class="col-sm">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Componente" id="Componente" value="" disabled>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Área Superior" id="Area" value="" disabled>
+          </div>
         </div>
       </div>
-  </div>
-  <div class="row mb-3" style="align-items:center; margin:auto; width: 80%;">
-    <div class="col-sm">
-      <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Fuente de Financiamiento" aria-label="Fuente">
+      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+        <div class="col-sm">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Unidad Administrativa" id="UnidadAdministrativa" value="" disabled>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Área Solicitante" id="Solicitante">
+          </div>
+        </div>
+        <div class="col-sm">
+          <select class="form-select form-select-sm" id="Solicitud">
+            <option selected disabled>Solicitud De</option>
+            <option value="Material">Material</option>
+            <option value="Servicio">Servicio</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+        <div class="col-sm">
+          <select class="form-select form-select-sm" id="Tipo">
+            <option selected disabled>Tipo de Requisición</option>
+            <option value="Normal">Normal</option>
+            <option value="Urgente">Urgente</option>
+          </select>
+        </div>
+        <div class="col-sm">
+          <select class="form-select form-select-sm" id="NoPartida">
+            <option selected disabled>Número de Partida</option>
+          </select>
+        </div>
+        <div class="col-sm">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Nombre Partida" id="Partida" disabled>
+          </div>
+        </div>
+      </div>
+      <table id="Tabla" style="width: 80%; margin:auto; align-items: center; text-align: center;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Unidad de Medida</th>
+            <th scope="col">Clave Bien o Servicio</th>
+            <th scope="col">Descripción Detallada del Bien o Servicio</th>
+            <th scope="col">Presupuesto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>
+              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+                <input type="number" class="form-control" aria-label="Cantidad">
+              </div>
+            </td>
+            <td>
+              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" aria-label="UnidadM">
+              </div>
+            </td>
+            <td>
+              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" aria-label="Clave">
+              </div>
+            </td>
+            <td>
+              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" aria-label="Descripcion">
+              </div>
+            </td>
+            <td>
+              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+                <input type="number" class="form-control" aria-label="Presupuesto">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="container" style="margin-left: 83%; width:auto; margin-top: 15px; margin-bottom: 15px;">
+        <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="eliminarFila()"><i class="bi bi-dash" style="color: black;"></i></button>
+        <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="agregarFila()"><i class="bi bi-plus" style="color: black;"></i></button>
+      </div>
+      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+        <div class="row" style="margin-left: 65%; width: 400px;;">
+          <label for="colFormLabel" class="col-sm col-form-label">Importe Total</label>
+          <div class="col-sm">
+            <input type="email" class="form-control" id="Total" disabled>
+          </div>
+        </div>
+    </div>
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Fuente de Financiamiento" aria-label="Fuente">
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Programa Especial" aria-label="Programa" >
+        </div>
+      </div>
+      <div class="col-sm">
+        <select class="form-select form-select-sm" id="MesAfectar">
+          <option selected disabled>Mes a Afectar</option>
+        </select>
+      </div>   
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Periodo de Utilización" aria-label="Periodo">
+        </div>
+      </div>
+      <div class="col-sm">
+        <select class="form-select form-select-sm" aria-label="Para">
+          <option selected disabled>Requisición Para</option>
+          <option value="Gestion">Gestión</option>
+          <option value="Liberacion">Liberación</option>
+        </select>
       </div>
     </div>
-    <div class="col-sm">
-      <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Programa Especial" aria-label="Programa" >
+    <div class="row" style="align-items:center; margin:auto; width: 90%;">
+      <div class="col-sm-5">
+        <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" aria-label="Leyenda" style="height: 100px;">
       </div>
     </div>
-    <div class="col-sm">
-      <select class="form-select form-select-sm" aria-label="Mes Afectar">
-        <option selected disabled>Mes a Afectar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>   
-    <div class="col-sm">
-      <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Periodo de Utilización" aria-label="Periodo">
-      </div>
+    <div class="container" style="margin-left: 78%; width:auto; margin-top: 15px; margin-bottom: 15px;">
+      <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-printer-fill"></i>   Imprimir</button>
+      <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
     </div>
-    <div class="col-sm">
-      <select class="form-select form-select-sm" aria-label="Para">
-        <option selected disabled>Requisición Para</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
+    </form>
   </div>
-  <div class="row" style="align-items:center; margin:auto; width: 80%;">
-    <div class="col-sm-5">
-      <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" aria-label="Leyenda" style="height: 100px;">
-    </div>
-  </div>
-  <div class="container" style="margin-left: 78%; width:auto; margin-top: 15px; margin-bottom: 15px;">
-    <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-printer-fill"></i>   Imprimir</button>
-    <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
-  </div>
-  </form> 
-</body>
+  </div> 
+
+<script type="text/javascript">
+  var datos = <%- JSON.stringify(actividad_data) %>;
+  var partidas;
+  function _(element){
+    return document.getElementById(element);
+  }
+  function meses(search){
+    var html='<option selected disabled>Mes a Afectar</option>'
+    if(search.enero!=0) html+='<option value="Enero">Enero</option>'
+    if(search.febrero!=0) html+='<option value="Febrero">Febrero</option>'
+    if(search.marzo!=0) html+='<option value="Marzo">Marzo</option>'
+    if(search.abril!=0) html+='<option value="Abril">Abril</option>'
+    if(search.mayo!=0) html+='<option value="Mayo">Mayo</option>'
+    if(search.junio!=0) html+='<option value="Junio">Junio</option>'
+    if(search.julio!=0) html+='<option value="Julio">Julio</option>'
+    if(search.agosto!=0) html+='<option value="Agosto">Agosto</option>'
+    if(search.septiembre!=0) html+='<option value="Septiembre">Septiembre</option>'
+    if(search.octubre!=0) html+='<option value="Octubre">Octubre</option>'
+    if(search.noviembre!=0) html+='<option value="Noviembre">Noviembre</option>'
+    if(search.diciembre!=0) html+='<option value="Diciembre">Diciembre</option>'
+    return html
+  }
+  function fetch_data(id){
+    fetch('/get_calendario?idActividad='+id).then(
+      function(response){
+        return response.json();
+      }
+    ).then(function(responseData){
+      var html = '<option selected disabled>Número de Partida</option>'
+      responseData.forEach(function(partida){
+        html += '<option value="'+partida.partida+'">'+partida.partida+'</option>'
+      })
+      _('NoPartida').innerHTML = html;
+    })
+  }
+  _('Actividad').onchange = function(){
+    _('Partida').value=""
+    _('NoPartida').innerHTML = '<option selected disabled>Número de Partida</option>';
+    _('MesAfectar').innerHTML = '<option selected disabled>Mes a Afectar</option>';
+    var id = _('Actividad').value
+    datos.forEach(function(actividad){
+      if(id===actividad.idActividad){
+        _('Componente').value = actividad.componente
+        _('Area').value = actividad.areaSuperior
+        _('UnidadAdministrativa').value = actividad.unidadAdministrativa
+      }
+    })
+    fetch_data(id);
+    
+  };
+  _('NoPartida').onchange = function(){
+
+    fetch('/get_partida?idPartida='+_('NoPartida').value).then(
+        function(response){
+          return response.json()
+        }
+      ).then(function(responseData){
+        
+        if(responseData.idPartida==_('NoPartida').value){
+          _('Partida').value=responseData.nombre
+        }
+        
+      })
+    fetch('/get_mes?idActividad='+_('Actividad').value+'&idPartida='+_('NoPartida').value).then(
+      function(response){
+        return response.json()
+      }
+    ).then(function(responseData){
+      _('MesAfectar').innerHTML = meses(responseData)
+    })
+  }
+  function agregarFila(){
+    var filas=_('Tabla').rows.length
+    _('Tabla').insertRow(-1).innerHTML ='<th scope="row">'+filas+'</th><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Cantidad" id="Cantidad"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="UnidadM"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Clave"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Descripcion"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Presupuesto" id="Presupuesto" onChange="calcularTotal(this.value)"></div></td>'
+  }
+  function eliminarFila(){
+    var filas = _('Tabla').rows.length
+    if(filas>2){
+      _('Tabla').deleteRow(filas -1)
+    }
+  }
+  
+</script>

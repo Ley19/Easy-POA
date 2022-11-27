@@ -8,15 +8,16 @@ mongoose.connect('mongodb://localhost/Inventarios',{
     .catch(err=>console.error(err))
 
 const mysql = require('mysql');
-var mysqlConnection = mysql.createConnection({
-    host : "localhost",
-    user : "root",
-    password : "",
-    database : "easypoa",
+var connection = mysql.createConnection({
+    host : "easypoa.cxvh0pslqhaf.us-east-2.rds.amazonaws.com",
+    user : "admin",
+    password : "Prometeo2022",
+    database : "EasyPOA",
+    port: 3306,
     multipleStatements : true
  })
 
- mysqlConnection.connect((err)=>{
+ connection.connect((err)=>{
     if(!err){
         console.log("Conectado a la base de datos de mysql")
     }else{
@@ -24,4 +25,4 @@ var mysqlConnection = mysql.createConnection({
     }
  })
 
- module.exports = mysqlConnection;
+ module.exports = connection;
