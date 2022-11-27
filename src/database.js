@@ -18,8 +18,10 @@ var mysqlConnection = mysql.createConnection({
 
  mysqlConnection.connect((err)=>{
     if(!err){
-        console.log("Conectado a la base de datos")
+        console.log("Conectado a la base de datos de mysql")
     }else{
-        console.log("Conexión a la base de datos fallida")
+        console.log("Conexión a la base de datos de mysql fallida")
     }
  })
+
+ module.exports = mysqlConnection;

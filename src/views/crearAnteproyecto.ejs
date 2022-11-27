@@ -1,0 +1,101 @@
+<%- include('layouts/layout.ejs') %>
+<head>
+    <style>
+        .monto {width:80px; }
+    </style>
+    
+    <script>
+        function sumar(){
+            const $total = document.getElementById('Total').val;
+            let subtotal = 0;
+            [ ...document.getElementsByClassName( "monto" ) ].forEach( function ( element ) {
+                if(element.value !== '') {
+                subtotal += parseFloat(element.value);
+                }
+            });
+            $total.value = subtotal;
+        }
+
+    </script>
+</head>
+<body>
+    <div style=" margin: 20px 60px;">     
+        <div class="card border-secondary">  
+            <div class="card-header">Nuevo Partida</div>
+            <div class="card-body">
+                <form action="/saveAnteproyecto" method="POST">
+                    <div class="mb-3">
+                        <label >Nombre de la actividad: </label>
+                            <input id="Actividad" name="Actividad" style="width: 100%;" value="Actividad" >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Partida</label>
+                        <select id="Partida" name="Partida" >
+                            <option selected disabled>Número de Partida</option>
+                            <option >211001</option>
+                        </select>
+                        <!--Que las seleccione de la base de datos-->
+                    </div>   
+                    <div class="mb-3">
+                        <label >Descripción</label>
+
+                        <!--Crear Una relacion de Descripcion-->
+                            <input id="Descripcion" name="Descripcion" style="width: 100%;"  placeholder="Seleccione una partida" value="Seleccione una partida" >
+                    </div>
+                    <div class="mb-3">
+                        <table id="tabla" class="table table-hover">
+                            <thead>
+                                <th scope="col">Ene.</th>
+                                <th scope="col">Feb.</th>
+                                <th scope="col">Mar.</th>
+                                <th scope="col">Abr.</th>
+                                <th scope="col">May.</th>
+                                <th scope="col">Jun.</th>
+                                <th scope="col">Jul.</th>
+                                <th scope="col">Ago.</th>
+                                <th scope="col">Sept.</th>
+                                <th scope="col">Oct.</th>
+                                <th scope="col">Nov.</th>
+                                <th scope="col">Dic.</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="number" class="monto" id="Enero" name="Enero"  value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Febrero" name="Febrero" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Marzo" name="Marzo" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Abril" name="Abril" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Mayo" name="Mayo" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Junio" name="Junio" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Julio" name="Julio" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Agosto" name="Agosto" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number"class="monto" id="Septiembre" name="Septiembre" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number"class="monto" id="Octubre" name="Octubre" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Noviembre" name="Noviembre" value="0"  onkeyup="sumar();"></td>
+            
+                                    <td><input type="number" class="monto" id="Diciembre" name="Diciembre" value="0"  onkeyup="sumar();"></td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <label >Total</label>
+                        <input id="Total" name="Total" disabled>
+                    </div>                                   
+                    <button type="submit" class="btn btn-success btn-block" style="background-color:#91133C" tabindex="5"><i class='bx bx-message-square-check' onclick="suma();"></i> Guardar</button>
+                    <a href="/anteproyecto" class="btn btn-success btn-block" style="background-color:#91133C"><i class='bx bx-message-square-x' ></i> Cancelar</a>
+                
+                </form>
+            </div> 
+        </div>        
+  </div>
+</body>

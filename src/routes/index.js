@@ -2,6 +2,7 @@ const {Router}=require ('express');
 const router =Router();
 
 const Articulo=require('../models/articulo');
+const mysqlConnection = require('../database');
 
 router.get('/', async (req,res) =>{
     res.render('index');
@@ -15,10 +16,39 @@ router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
 });
+
+router.get('/crearAnteproyecto',(req,res) =>{
+    console.log(req.file);
+    res.render('crearAnteproyecto');
+});
+router.get('/editarAnteproyecto:ID',(req, res)=>{
+    const id = req.params.ID;
+    mysqlConnection.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
+        if (error) {
+            throw error;
+        }else{
+            res.render('editarAnteproyecto', {Partida:results[0]});
+        }
+    });
+});
+
 router.get('/anteproyecto',(req,res) =>{
     console.log(req.file);
-    res.render('anteproyecto');
+
+    mysqlConnection.query('SELECT * FROM anteproyecto', (error, results)=>{
+        if (error) {
+            throw error;
+        }else{
+            res.render('anteproyecto', {results:results});
+        }
+    })
+    
 });
+
+const crudAnteproyecto = require('../controllers/crudAnteproyecto');
+router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
+router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
+
 router.get('/transferencias',(req,res) =>{
     console.log(req.file);
     res.render('transferencias');

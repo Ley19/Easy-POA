@@ -1,80 +1,126 @@
+<%- include('layouts/layout.ejs') %>
 
-<body>
+    <head>
+        <style>
+            .cont-temporizador { display: flex; justify-content: center; margin-top: 50px; float: right; margin: 18px 18px; }
+
+            .bloque { margin: 0px 4px; display: flex; flex-direction: column; align-items: center; }
+
+            .tiempo { display: flex; justify-content: center; align-items: center; background-color: rgb(80, 80, 80); box-shadow: 0px 0px 6px 2px #727272 inset; color: #ffff; font-size: 15px; font-weight: bold; width: 30px; height: 20px; margin-bottom: 10px; border-radius: 5px; }
+
+            .p-estilo { font-size: 11px; font-weight: bold; color: rgb(26, 18, 18); }
+            
+        </style>
+    </head>
+
+    <body>
         <script>
-            // Arreglar lo de insertar fila abajo
-            function agregarFila(){
-             document.getElementById("tabla").insertRow(+1).innerHTML = '<td> <input type="number" id="Partida" style="width:60px" ></td><td><input type="string" id="Descripcion" name="Descripcion"  style="width:150px" disabled></td><td><input type="number" id="Enero" name="Enero" style="width:60px"></td><td><input type="number" id="Febrero" name="Febrero" style="width:60px"></td><td><input type="number" id="Marzo" name="Marzo" style="width:60px"></td><td><input type="number" id="Abril" name="Abril" style="width:60px"></td><td><input type="number" id="Mayo" name="Mayo" style="width:60px"></td><td><input type="number" id="Junio" name="Junio" style="width:60px"></td><td><input type="number" id="Julio" name="Julio" style="width:60px"></td><td><input type="number" id="Agosto" name="Agosto" style="width:60px"></td><td><input type="number" id="Septiembre" name="Septiembre" style="width:60px"></td><td><input type="number" id="Octubre" name="Octubre" style="width:60px"></td><td><input type="number" id="Noviembre" name="Noviembre" style="width:60px"></td><td><input type="number" id="Diciembre" name="Diciembre" style="width:60px"></td><td><input type="text" id="Total" name="Total" style="width:60px" disabled></td><td><a type="button" id="Eliminar" name="Eliminar" class="btn btn-success btn-block" style="background-color:#91133C; border-radius: 50%;" onclick="eliminarfila()"><i class="bx bx-message-square-x bx-xs"></i></a></td>';
-            }
+           
             // Arreglar lo de eliminar la fila donde esta
-            function eliminarfila(){
+            function eliminarfila() {
                 var table = document.getElementById("tabla");
                 var rowCount = table.rows.length;
-                if(rowCount <= 1)
-                  alert('No se puede eliminar el encabezado');
+                if (rowCount <= 1)
+                    alert('No se puede eliminar el encabezado');
                 else
-                  table.deleteRow(rowCount -1);
+                    table.deleteRow(rowCount - 1);
             }
-            function contar(){
+            function contar() {
 
             }
-            </script>
-
-        <div class="container" style="margin: 0.5em; margin-top: 3%;">
-            <!--Temporizador para fecha de envio-->
-            <div >
-                <h6><input type="text" id="Tiempo" name="Tiempo" style="width:100px; text-align: center; align-items:center;" placeholder="Tiempo" disabled></h6>
+        </script>
+        
+        <div class="cont-temporizador">
+            <div class="bloque">
+                <div class="tiempo" id="dias">00</div>
+                <p class="p-estilo">DIAS</p>
             </div>
-            <h1 style=" text-align: center;">Anteproyecto</h1>
-            <p>En este apartado deberas definir el anteproyecto de acuerdo a tu area y actividad 
-            donde te encuentras, recuerda que el anteproyecto que se realice en este apartado debe 
-            ser aprobado por el area de planeación.</p>
-            <h5>Nombre de la actividad: </h5> 
-
-                <table id="tabla" class="table table-hover">
-                    <thead>
-                        <th scope="col">Partida</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Ene.</th>
-                        <th scope="col">Feb.</th>
-                        <th scope="col">Mar.</th>
-                        <th scope="col">Abr.</th>
-                        <th scope="col">May.</th>
-                        <th scope="col">Jun.</th>
-                        <th scope="col">Jul.</th>
-                        <th scope="col">Ago.</th>
-                        <th scope="col">Sept.</th>
-                        <th scope="col">Oct.</th>
-                        <th scope="col">Nov.</th>
-                        <th scope="col">Dic.</th>
-                        <th scope="col">Ingreso</th>
-                        <th scope="col"></th>
-                    </thead>
-                    <tbody>
-                            <tr>
-                                <td> <input type="number" id="Partida" name="Partida" style="width:60px"></td>
-                                <td><input type="text" id="Descripcion" name="Descripcion" style="width:150px;" disabled></td>
-                                <td><input type="number" id="Enero" name="Enero" style="width:60px"></td>
-                                <td><input type="number" id="Febrero" name="Febrero" style="width:60px"></td>
-                                <td><input type="number" id="Marzo" name="Marzo" style="width:60px"></td>
-                                <td><input type="number" id="Abril" name="Abril" style="width:60px"></td>
-                                <td><input type="number" id="Mayo" name="Mayo" style="width:60px"></td>
-                                <td><input type="number" id="Junio" name="Junio" style="width:60px"></td>
-                                <td><input type="number" id="Julio" name="Julio" style="width:60px"></td>
-                                <td><input type="number" id="Agosto" name="Agosto" style="width:60px"></td>
-                                <td><input type="number" id="Septiembre" name="Septiembre" style="width:60px"></td>
-                                <td><input type="number" id="Octubre" name="Octubre" style="width:60px"></td>
-                                <td><input type="number" id="Noviembre" name="Noviembre" style="width:60px"></td>
-                                <td><input type="number" id="Diciembre" name="Diciembre" style="width:60px"></td>
-                                <td><input type="text" id="Total" name="Total" style="width:60px" disabled></td>
-                                <td>
-                                    <a type="button" id="Eliminar" name="Eliminar" class="btn btn-success btn-block" style="background-color:#91133C; border-radius: 50%;" onclick="eliminarfila()"><i class="bx bx-message-square-x bx-xs"></i></a>
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
-                <div class="form-group"style="text-align: right">
-                    <a type="button" class="btn btn-success btn-block " onclick="agregarFila()" style="background-color:#91133C"><i class='bx bxs-plus-circle bx-xs'></i> Añadir </a>
-                    <a type="button" class="btn btn-success btn-block" style="background-color:#91133C">Guardar</a>
-                </div>
+            <div class="bloque">
+                <div class="tiempo" id="horas">--</div>
+                <p class="p-estilo">HRS</p>
+            </div>
+            <div class="bloque">
+                <div class="tiempo" id="minutos">--</div>
+                <p class="p-estilo">MIN</p>
+            </div>
+            <div class="bloque">
+                <div class="tiempo" id="segundos">--</div>
+                <p class="p-estilo">SEG</p>
+            </div>
         </div>
-</body>
+
+        <div  style="margin: 2em; margin-top: 3%; ">
+            <!--Temporizador para fecha de envio-->
+            <script src="anteproyectoTotal.js"></script>
+            <h1 style=" text-align: center;">Anteproyecto</h1>
+            <p>En este apartado deberas definir el anteproyecto de acuerdo a tu area y actividad
+                donde te encuentras, recuerda que el anteproyecto que se realice en este apartado debe
+                ser aprobado por el area de planeación.</p>
+            <h5>Nombre de la actividad:</h5> 
+
+            <table id="tabla" class="table table-hover">
+                <thead>
+                    <th scope="col">Partida</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Ene.</th>
+                    <th scope="col">Feb.</th>
+                    <th scope="col">Mar.</th>
+                    <th scope="col">Abr.</th>
+                    <th scope="col">May.</th>
+                    <th scope="col">Jun.</th>
+                    <th scope="col">Jul.</th>
+                    <th scope="col">Ago.</th>
+                    <th scope="col">Sept.</th>
+                    <th scope="col">Oct.</th>
+                    <th scope="col">Nov.</th>
+                    <th scope="col">Dic.</th>
+                    <th scope="col">Ingreso</th>
+                    <th scope="col"></th>
+                </thead>
+                <tbody>
+                    <% results.forEach((anteproyecto)=>{ %>
+                        <tr style="font-size: 0.9rem;">
+                            <td style="width:60px;" disabled> <%= anteproyecto.Partida %></td>
+
+                            <td style="width:250px;" disabled> <%= anteproyecto.Descripcion %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Enero %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Febrero %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Marzo %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Abril %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Mayo %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Junio %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Julio %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Agosto %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Septiembre %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Octubre %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Noviembre %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Diciembre %></td>
+
+                            <td style="width:60px" disabled> <%= anteproyecto.Total %></td>
+
+                            <td style="display: flex; ">
+                                <a href="/editarAnteproyecto/<%= anteproyecto.ID %>"><i class='bx bx-message-square-edit bx-sm' style="color: #91133C;"></i></a>
+                                <a href="/eliminarAnteproyecto"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>    
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <div class="form-group" style="text-align: right">
+                <a href="/crearAnteproyecto" type="button" class="btn btn-success btn-block "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Añadir </a>
+                <a type="button" class="btn btn-success btn-block" style="background-color:#91133C">Guardar</a>
+            </div>
+        </div>
+    </body>
