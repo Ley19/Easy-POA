@@ -33,16 +33,16 @@
       <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
         <div class="col-sm">
           <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Unidad Administrativa" id="Unidad" value="" disabled>
+            <input type="text" class="form-control" placeholder="Unidad Administrativa" id="UnidadAdministrativa" value="" disabled>
           </div>
         </div>
         <div class="col-sm">
           <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Área Solicitante" aria-label="Solicitante">
+            <input type="text" class="form-control" placeholder="Área Solicitante" id="Solicitante">
           </div>
         </div>
         <div class="col-sm">
-          <select class="form-select form-select-sm" aria-label="Solicitud">
+          <select class="form-select form-select-sm" id="Solicitud">
             <option selected disabled>Solicitud De</option>
             <option value="Material">Material</option>
             <option value="Servicio">Servicio</option>
@@ -51,7 +51,7 @@
       </div>
       <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
         <div class="col-sm">
-          <select class="form-select form-select-sm" aria-label="Tipo">
+          <select class="form-select form-select-sm" id="Tipo">
             <option selected disabled>Tipo de Requisición</option>
             <option value="Normal">Normal</option>
             <option value="Urgente">Urgente</option>
@@ -134,20 +134,8 @@
         </div>
       </div>
       <div class="col-sm">
-        <select class="form-select form-select-sm" aria-label="Mes Afectar">
+        <select class="form-select form-select-sm" id="MesAfectar">
           <option selected disabled>Mes a Afectar</option>
-          <option value="Enero">Enero</option>
-          <option value="Febrero">Febrero</option>
-          <option value="Marzo">Marzo</option>
-          <option value="Abril">Abril</option>
-          <option value="Mayo">Mayo</option>
-          <option value="Junio">Junio</option>
-          <option value="Julio">Julio</option>
-          <option value="Agosto">Agosto</option>
-          <option value="Septiembre">Septiembre</option>
-          <option value="Octubre">Octubre</option>
-          <option value="Noviembre">Noviembre</option>
-          <option value="Diciembre">Diciembre</option>
         </select>
       </div>   
       <div class="col-sm">
@@ -182,6 +170,22 @@
   function _(element){
     return document.getElementById(element);
   }
+  function meses(search){
+    var html='<option selected disabled>Mes a Afectar</option>'
+    if(search.enero!=0) html+='<option value="Enero">Enero</option>'
+    if(search.febrero!=0) html+='<option value="Febrero">Febrero</option>'
+    if(search.marzo!=0) html+='<option value="Marzo">Marzo</option>'
+    if(search.abril!=0) html+='<option value="Abril">Abril</option>'
+    if(search.mayo!=0) html+='<option value="Mayo">Mayo</option>'
+    if(search.junio!=0) html+='<option value="Junio">Junio</option>'
+    if(search.julio!=0) html+='<option value="Julio">Julio</option>'
+    if(search.agosto!=0) html+='<option value="Agosto">Agosto</option>'
+    if(search.septiembre!=0) html+='<option value="Septiembre">Septiembre</option>'
+    if(search.octubre!=0) html+='<option value="Octubre">Octubre</option>'
+    if(search.noviembre!=0) html+='<option value="Noviembre">Noviembre</option>'
+    if(search.diciembre!=0) html+='<option value="Diciembre">Diciembre</option>'
+    return html
+  }
   function fetch_data(id){
     fetch('/get_calendario?idActividad='+id).then(
       function(response){
@@ -190,7 +194,7 @@
     ).then(function(responseData){
       var html = '<option selected disabled>Número de Partida</option>'
       responseData.forEach(function(partida){
-        html += '<option value="'+partida.idPartida+'">'+partida.idPartida+'</option>'
+        html += '<option value="'+partida.partida+'">'+partida.partida+'</option>'
       })
       _('NoPartida').innerHTML = html;
     })
@@ -198,31 +202,42 @@
   _('Actividad').onchange = function(){
     _('Partida').value=""
     _('NoPartida').innerHTML = '<option selected disabled>Número de Partida</option>';
+    _('MesAfectar').innerHTML = '<option selected disabled>Mes a Afectar</option>';
     var id = _('Actividad').value
     datos.forEach(function(actividad){
       if(id===actividad.idActividad){
         _('Componente').value = actividad.componente
         _('Area').value = actividad.areaSuperior
-        _('Unidad').value = actividad.unidadAdministrativa
+        _('UnidadAdministrativa').value = actividad.unidadAdministrativa
       }
     })
     fetch_data(id);
     
   };
   _('NoPartida').onchange = function(){
+
     fetch('/get_partida?idPartida='+_('NoPartida').value).then(
         function(response){
           return response.json()
         }
       ).then(function(responseData){
+        
         if(responseData.idPartida==_('NoPartida').value){
           _('Partida').value=responseData.nombre
         }
+        
       })
+    fetch('/get_mes?idActividad='+_('Actividad').value+'&idPartida='+_('NoPartida').value).then(
+      function(response){
+        return response.json()
+      }
+    ).then(function(responseData){
+      _('MesAfectar').innerHTML = meses(responseData)
+    })
   }
   function agregarFila(){
     var filas=_('Tabla').rows.length
-    _('Tabla').insertRow(-1).innerHTML ='<th scope="row">'+filas+'</th><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Cantidad"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="UnidadM"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Clave"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Descripcion"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Presupuesto"></div></td>'
+    _('Tabla').insertRow(-1).innerHTML ='<th scope="row">'+filas+'</th><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Cantidad" id="Cantidad"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="UnidadM"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Clave"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Descripcion"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Presupuesto" id="Presupuesto" onChange="calcularTotal(this.value)"></div></td>'
   }
   function eliminarFila(){
     var filas = _('Tabla').rows.length
