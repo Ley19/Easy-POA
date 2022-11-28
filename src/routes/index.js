@@ -18,6 +18,11 @@ router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
 });
+router.get('/inventario',(req,res) =>{
+    console.log(req.file);
+    res.render('inventario');
+});
+
 
 //RUTAS PARA ANTEPROYECTO
 router.get('/crearAnteproyecto',(req,res) =>{
@@ -58,6 +63,7 @@ router.get('/transferencias',(req,res) =>{
     console.log(req.file);
     res.render('transferencias');
 });
+
 router.get('/infoadicional',(req,res) =>{
     console.log(req.file);
     res.render('infoadicional');
