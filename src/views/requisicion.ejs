@@ -5,147 +5,148 @@
     .btn-circle-sm {width: 35px; height: 35px; line-height: 35px; font-size: 1.5rem; font-weight:9000;}
   </style>
 </head>
-    <div class="container" style="margin: auto; text-align: center; margin-top: 3%;">
+<body>
+  <div class="container" style="margin: auto; text-align: center; margin-top: 3%;">
     <h1>Requisición</h1>
     <p>Aqui podemos realizar la definicion de la planeacion sobre los gastos que se piensan utilizar durante el año siguiente, y poder desglosar la descripcion de los mismos.</p>
   </div>
-    <form>
-      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
-        <div class="col-sm">
-          <select class="form-select form-select-sm" id="Actividad">
-            <option selected disabled>Selecciona Actividad</option>
-            <% actividad_data.forEach(function(actividad){ %>
-              <option value="<%=actividad.idActividad%>"><%=actividad.idActividad%> - <%=actividad.nombre%></option>
-            <%})%>
+  <form action="/guardarRequisicion" method="POST">
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+      <div class="col-sm">
+        <select class="form-select form-select-sm" id="Actividad" name="Actividad" required>
+          <option value="" selected disabled>Selecciona Actividad</option>
+          <% actividad_data.forEach(function(actividad){ %>
+            <option value="<%=actividad.idActividad+' - '+actividad.nombre%>"><%=actividad.idActividad%> - <%=actividad.nombre%></option>
+          <%})%>
           </select>
-        </div>
-        <div class="col-sm">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Componente" id="Componente" value="" disabled>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Área Superior" id="Area" value="" disabled>
-          </div>
+      </div>
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Componente" id="Componente" name="Componente" value="" readonly required>
         </div>
       </div>
-      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
-        <div class="col-sm">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Unidad Administrativa" id="UnidadAdministrativa" value="" disabled>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Área Solicitante" id="Solicitante">
-          </div>
-        </div>
-        <div class="col-sm">
-          <select class="form-select form-select-sm" id="Solicitud">
-            <option selected disabled>Solicitud De</option>
-            <option value="Material">Material</option>
-            <option value="Servicio">Servicio</option>
-          </select>
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Área Superior" id="Area" name="Area" value="" readonly required>
         </div>
       </div>
-      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
-        <div class="col-sm">
-          <select class="form-select form-select-sm" id="Tipo">
-            <option selected disabled>Tipo de Requisición</option>
-            <option value="Normal">Normal</option>
-            <option value="Urgente">Urgente</option>
-          </select>
-        </div>
-        <div class="col-sm">
-          <select class="form-select form-select-sm" id="NoPartida">
-            <option selected disabled>Número de Partida</option>
-          </select>
-        </div>
-        <div class="col-sm">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Nombre Partida" id="Partida" disabled>
-          </div>
-        </div>
-      </div>
-      <table id="Tabla" style="width: 80%; margin:auto; align-items: center; text-align: center;">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Unidad de Medida</th>
-            <th scope="col">Clave Bien o Servicio</th>
-            <th scope="col">Descripción Detallada del Bien o Servicio</th>
-            <th scope="col">Presupuesto</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-                <input type="number" class="form-control" aria-label="Cantidad">
-              </div>
-            </td>
-            <td>
-              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-                <input type="text" class="form-control" aria-label="UnidadM">
-              </div>
-            </td>
-            <td>
-              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-                <input type="text" class="form-control" aria-label="Clave">
-              </div>
-            </td>
-            <td>
-              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-                <input type="text" class="form-control" aria-label="Descripcion">
-              </div>
-            </td>
-            <td>
-              <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-                <input type="number" class="form-control" aria-label="Presupuesto">
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="container" style="margin-left: 83%; width:auto; margin-top: 15px; margin-bottom: 15px;">
-        <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="eliminarFila()"><i class="bi bi-dash" style="color: black;"></i></button>
-        <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="agregarFila()"><i class="bi bi-plus" style="color: black;"></i></button>
-      </div>
-      <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
-        <div class="row" style="margin-left: 65%; width: 400px;;">
-          <label for="colFormLabel" class="col-sm col-form-label">Importe Total</label>
-          <div class="col-sm">
-            <input type="email" class="form-control" id="Total" disabled>
-          </div>
-        </div>
     </div>
     <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
       <div class="col-sm">
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Fuente de Financiamiento" aria-label="Fuente">
+          <input type="text" class="form-control" placeholder="Unidad Administrativa" id="UnidadAdministrativa" name="UnidadAdministrativa" value="" readonly required>
         </div>
       </div>
       <div class="col-sm">
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Programa Especial" aria-label="Programa" >
+          <input type="text" class="form-control" placeholder="Área Solicitante" id="Solicitante" name="Solicitante" required>
         </div>
       </div>
       <div class="col-sm">
-        <select class="form-select form-select-sm" id="MesAfectar">
-          <option selected disabled>Mes a Afectar</option>
+        <select class="form-select form-select-sm" id="Solicitud" name="Solicitud" required>
+          <option value="" selected disabled>Solicitud De</option>
+          <option value="Material">Material</option>
+          <option value="Servicio">Servicio</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+      <div class="col-sm">
+        <select class="form-select form-select-sm" id="Tipo" name="Tipo" required>
+          <option value="" selected disabled>Tipo de Requisición</option>
+          <option value="Normal">Normal</option>
+          <option value="Urgente">Urgente</option>
+        </select>
+      </div>
+      <div class="col-sm">
+        <select class="form-select form-select-sm" id="NoPartida" name="NoPartida" required>
+          <option value="" selected disabled>Número de Partida</option>
+        </select>
+      </div>
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Nombre Partida" id="Partida" name="Partida" readonly required>
+        </div>
+      </div>
+    </div>
+    <table id="Tabla" style="width: 80%; margin:auto; align-items: center; text-align: center;">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Unidad de Medida</th>
+          <th scope="col">Clave Bien o Servicio</th>
+          <th scope="col">Descripción Detallada del Bien o Servicio</th>
+          <th scope="col">Presupuesto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>
+            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+              <input type="number" class="form-control" id="Cantidad" name="Cantidad" required>
+            </div>
+          </td>
+          <td>
+            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+              <input type="text" class="form-control" id="UnidadM" name="UnidadM" required>
+            </div>
+          </td>
+          <td>
+            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+              <input type="text" class="form-control" id="Clave" name="Clave" required>
+            </div>
+          </td>
+          <td>
+            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+              <input type="text" class="form-control" id="Descripcion" name="Descripcion" required>
+            </div>
+          </td>
+          <td>
+            <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
+              <input type="number" class="form-control" id="Presupuesto" name="Presupuesto" required>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="container" style="margin-left: 83%; width:auto; margin-top: 15px; margin-bottom: 15px;">
+      <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="eliminarFila()"><i class="bi bi-dash" style="color: black;"></i></button>
+      <button type="button" class="btn btn-outline-dark btn-circle btn-circle-sm" onclick="agregarFila()"><i class="bi bi-plus" style="color: black;"></i></button>
+    </div>
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+      <div class="row" style="margin-left: 65%; width: 400px;;">
+        <label for="colFormLabel" class="col-sm col-form-label">Importe Total</label>
+        <div class="col-sm">
+          <input type="email" class="form-control" id="Total" name="Total" readonly required>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Fuente de Financiamiento" id="Fuente" name="Fuente" >
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Programa Especial" id="Programa" name="Programa" >
+        </div>
+      </div>
+      <div class="col-sm">
+        <select class="form-select form-select-sm" id="MesAfectar" name="MesAfectar" required>
+          <option value="" selected disabled>Mes a Afectar</option>
         </select>
       </div>   
       <div class="col-sm">
         <div class="input-group input-group-sm">
-          <input type="text" class="form-control" placeholder="Periodo de Utilización" aria-label="Periodo">
+          <input type="text" class="form-control" placeholder="Periodo de Utilización" id="Periodo" name="Periodo" required>
         </div>
       </div>
       <div class="col-sm">
-        <select class="form-select form-select-sm" aria-label="Para">
-          <option selected disabled>Requisición Para</option>
+        <select class="form-select form-select-sm" id="Para" name="Para" required>
+          <option value="" selected disabled>Requisición Para</option>
           <option value="Gestion">Gestión</option>
           <option value="Liberacion">Liberación</option>
         </select>
@@ -153,17 +154,15 @@
     </div>
     <div class="row" style="align-items:center; margin:auto; width: 90%;">
       <div class="col-sm-5">
-        <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" aria-label="Leyenda" style="height: 100px;">
+        <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" id="Leyenda" name="Leyenda" style="height: 100px;" required>
       </div>
     </div>
     <div class="container" style="margin-left: 78%; width:auto; margin-top: 15px; margin-bottom: 15px;">
-      <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-printer-fill"></i>   Imprimir</button>
-      <button type="button" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
+      <button formtarget="_blank" formaction="/get_pdf" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-printer-fill"></i>   Imprimir</button>
+      <button type="submit" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
     </div>
-    </form>
-  </div>
-  </div> 
-
+  </form>
+</body>
 <script type="text/javascript">
   var datos = <%- JSON.stringify(actividad_data) %>;
   var partidas;
@@ -192,7 +191,7 @@
         return response.json();
       }
     ).then(function(responseData){
-      var html = '<option selected disabled>Número de Partida</option>'
+      var html = '<option value="" selected disabled>Número de Partida</option>'
       responseData.forEach(function(partida){
         html += '<option value="'+partida.partida+'">'+partida.partida+'</option>'
       })
@@ -201,9 +200,9 @@
   }
   _('Actividad').onchange = function(){
     _('Partida').value=""
-    _('NoPartida').innerHTML = '<option selected disabled>Número de Partida</option>';
-    _('MesAfectar').innerHTML = '<option selected disabled>Mes a Afectar</option>';
-    var id = _('Actividad').value
+    _('NoPartida').innerHTML = '<option value="" selected disabled>Número de Partida</option>';
+    _('MesAfectar').innerHTML = '<option value="" selected disabled>Mes a Afectar</option>';
+    var id = _('Actividad').value.slice(0,3)
     datos.forEach(function(actividad){
       if(id===actividad.idActividad){
         _('Componente').value = actividad.componente
@@ -227,7 +226,7 @@
         }
         
       })
-    fetch('/get_mes?idActividad='+_('Actividad').value+'&idPartida='+_('NoPartida').value).then(
+    fetch('/get_mes?idActividad='+_('Actividad').value.slice(0,3)+'&idPartida='+_('NoPartida').value).then(
       function(response){
         return response.json()
       }

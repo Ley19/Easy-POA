@@ -23,7 +23,8 @@ app.use(express.json());
 //Middlewares
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
+/* app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json()) */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads')

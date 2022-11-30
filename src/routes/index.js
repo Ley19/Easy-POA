@@ -1,10 +1,9 @@
 const {Router, response}=require ('express');
 const router =Router();
-const {PDFDocument} = require('pdf-lib')
-const {readFile, writeFile} = require('fs/promises')
-const fontkit = require('@pdf-lib/fontkit')
 const Articulo=require('../models/articulo');
-var database = require('../database');
+const pdfCtrl=require('../controllers/creacionPdf');
+const database = require('../database');
+const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 
 router.get('/', async (req,res) =>{
     res.render('index');
@@ -53,7 +52,7 @@ router.get('/anteproyecto',(req,res) =>{
     
 });
 
-const crudAnteproyecto = require('../controllers/crudAnteproyecto');
+
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
 router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
 
@@ -105,30 +104,7 @@ router.get('/get_mes', function(req,res){
     })
 })
 
-router.post('/get_pdf',function(req,res){
-    async function createPdf (input,output){
-        try{
-            const pdfDoc = await PDFDocument.load(await readFile(input));
-
-            pdfDoc.registerFontkit(fontkit)
-            const montserratFont= await readFile('./temp/Montserrat-Regular.ttf')
-            const montserrat = await pdfDoc.embedFont(montserratFont)
-
-            const fields = pdfDoc.getForm().getFields().map(f=>f.getName())
-            console.log(fields)
-
-            const form = pdfDoc.getForm();
-
-            const pdfBytes = await pdfDoc.save();
-
-            await writeFile(output, pdfBytes);
-            console.log('PDF creado');
-        }catch(err){
-            console.log(err)
-        }
-    }
-    createPdf('./temp/formato_requisicion.pdf','./temp/output.pdf' )
-})
+router.post('/get_pdf', pdfCtrl.pdfRequisicion);
 
 
 
