@@ -1,10 +1,10 @@
 const mongoose=require('mongoose');
 
-mongoose.connect('mongodb://localhost/Inventarios',{
+mongoose.connect('mongodb+srv://Admin:Prometeo2022@cluster0.kqo6b6w.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser:true
 })
 
-    .then(db=> console.log('DB conectada'))
+    .then(db=> console.log('DB de Mongo conectada'))
     .catch(err=>console.error(err))
 
 const mysql = require('mysql');
