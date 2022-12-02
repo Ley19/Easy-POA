@@ -1,6 +1,6 @@
 const connection = require('../database');
 const date = new Date();
-//const PDF = require('pdfkit');
+const PDF = require('pdfkit');
 const fs = require('fs');
 
 //Guardar registro
