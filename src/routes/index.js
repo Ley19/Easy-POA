@@ -26,8 +26,15 @@ router.get('/inventario',(req,res) =>{
 //RUTAS PARA ANTEPROYECTO
 router.get('/crearAnteproyecto',(req,res) =>{
     console.log(req.file);
-    res.render('crearAnteproyecto');
+    database.query('SELECT * FROM partida', (error, results)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('crearAnteproyecto', {results:results});
+        }
+    })
 });
+
 router.get('/editarAnteproyecto:ID',(req, res)=>{
     const id = req.params.ID;
     database.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
@@ -35,6 +42,17 @@ router.get('/editarAnteproyecto:ID',(req, res)=>{
             throw error;
         }else{
             res.render('editarAnteproyecto', {Partida:results[0]});
+        }
+    });
+});
+
+router.get('/eliminarAnteproyecto/:id', (req, res) => {
+    const id = req.params.id;
+    database.query(" DELETE FROM anteproyecto WHERE id=?", [id], (error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            res.redirect('/anteproyecto');
         }
     });
 });
@@ -123,7 +141,7 @@ router.post('/agregarArticulo',async(req,res) =>{
     await articulo.save();
 
     console.log(articulo);
-    res.redirect('/');
+    res.redirect('/inventario');
 });
 
 router.get('/image/:id',(req,res) =>{
