@@ -3,9 +3,9 @@
         .monto {width:80px; }
     </style>
     
-    <script>
+    <script type="text/javascript">
         function sumar(){
-            const $total = document.getElementById('Total').val;
+            const $total = document.getElementById('Total');
             let subtotal = 0;
             [ ...document.getElementsByClassName( "monto" ) ].forEach( function ( element ) {
                 if(element.value !== '') {
@@ -14,7 +14,17 @@
             });
             $total.value = subtotal;
         }
-
+        _('Partida').onchange = function(){
+            var id = _('Partida').value.slice(0,3)
+            datos.forEach(function(partida){
+              if(id===partida.idPartida){
+                _('Descripcion').value = partida.nombre
+              }
+            })
+            fetch_data(id);
+            
+          };
+          
     </script>
 </head>
 <body>
@@ -24,23 +34,18 @@
             <div class="card-body">
                 <form action="/saveAnteproyecto" method="POST">
                     <div class="mb-3">
-                        <label >Nombre de la actividad: </label>
-                            <input id="Actividad" name="Actividad" style="width: 100%;" value="Actividad" >
+                        <label style="font-weight: bold; ">Nombre de la actividad: </label>
+                            <input id="Actividad" name="Actividad" style="width: 100%;" value="1.1 Colocacion de estudiantes de Educacion Superior en servicio social, estadias o residencias profesionales" readonly>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Partida</label>
-                        <select id="Partida" name="Partida" >
-                            <option selected disabled>Número de Partida</option>
-                            <option >211001</option>
+                        <label class="form-label" style="font-weight: bold;">Partida</label>
+                        <select id="Partida" name="Partida" style="width: 100%;">
+                            <option selected disabled >Número de Partida</option>
+                            <% results.forEach((partida)=>{ %>
+                            <option value="<%=partida.idPartida+' - '+partida.nombre%>"><%=partida.idPartida%> - <%=partida.nombre%></option>}
+                            <% }) %> 
                         </select>
-                        <!--Que las seleccione de la base de datos-->
-                    </div>   
-                    <div class="mb-3">
-                        <label >Descripción</label>
-
-                        <!--Crear Una relacion de Descripcion-->
-                            <input id="Descripcion" name="Descripcion" style="width: 100%;"  placeholder="Seleccione una partida" value="Seleccione una partida" >
-                    </div>
+                    </div> 
                     <div class="mb-3">
                         <table id="tabla" class="table table-hover">
                             <thead>
@@ -88,9 +93,10 @@
                     </div>
                     <div class="mb-3">
                         <label >Total</label>
-                        <input id="Total" name="Total" disabled>
+                        
+                        <input id="Total" name="Total" placeholder="0"  readonly>
                     </div>                                   
-                    <button type="submit" class="btn btn-success btn-block" style="background-color:#91133C" tabindex="5"><i class='bx bx-message-square-check' onclick="suma();"></i> Guardar</button>
+                    <button type="submit" class="btn btn-success btn-block" style="background-color:#91133C"><i class='bx bx-message-square-check'></i> Guardar</button>
                     <a href="/anteproyecto" class="btn btn-success btn-block" style="background-color:#91133C"><i class='bx bx-message-square-x' ></i> Cancelar</a>
                 
                 </form>
