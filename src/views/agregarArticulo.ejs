@@ -6,9 +6,9 @@
             <div class="col-md-9 offset-md-1">
                 <h2>REGISTRO DE NUEVO ARTICULO EN LA BASE DE DATOS</h2>
             </div>
-                <div class="col-md-8 offset-md-1">
-                    <h6>Ingresa los datos necesarios para el registro del árticulo dentro de la base de datos.</h6>
-                </div>
+            <div class="col-md-8 offset-md-1">
+                <h6>Ingresa los datos necesarios para el registro del árticulo dentro de la base de datos.</h6>
+            </div>
         </div>
     </div>
     <div class="cointainer p-5 ">
@@ -20,39 +20,55 @@
                             <!--Nombre del Bien-->
                             <div class="form-group col-6">
                                 <h6>NOMBRE DEL BIEN</h6>
-                                <input type = "text" name="nombreBien" placeholder="Nombre del Bien" class="form-control">
+                                <input type="text" name="nombreBien" placeholder="Nombre del Bien" class="form-control"
+                                    required>
                             </div>
                             <!--Numero de Inventario-->
                             <div class="form-group col-6">
                                 <h6>NÚMERO DE INVENTARIO UPP</h6>
-                                <input type = "text" name="numInventario" placeholder="Número de Inventario" class="form-control">
+                                <input type="text" name="numInventario" placeholder="Número de Inventario"
+                                    class="form-control" required>
                             </div>
                             <!--Clave de control-->
                             <h6>CLAVE DE CONTROL</h6>
                             <div class="form-group col-1">
-                                <select name="clvControl2" class="form-control">
-                                    <option value="si">SI</option>
-                                    <option value="no">NO</option>
+                                <select name="clvControl2" class="form-control" id="clvControl2">
+                                    <option value="1" id="clavePositivo" selected>SI</option>
+                                    <option value="2" id="claveNegativo">NO</option>
                                 </select>
                             </div>
                             <div class="form-group col-5">
-                                <input type = "text" name="clvControl" placeholder="Clave de Control" class="form-control">
+                                <input type="text" name="clvControl" placeholder="Clave de Control" class="form-control"
+                                    Id="clvControl">
                             </div>
-
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                                crossorigin="anonymous"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#clvControl2').change(function (e) {
+                                        if ($(this).val() === "1") {
+                                            $('#clvControl').prop("disabled", false);
+                                        } else {
+                                            $('#clvControl').prop("disabled", true);
+                                        }
+                                    })
+                                });
+                            </script>
                             <!--Marca-->
                             <div class="form-group col-6">
                                 <h6>MARCA</h6>
-                                <input type = "text" name="marca" placeholder="Marca" class="form-control">
+                                <input type="text" name="marca" placeholder="Marca" class="form-control" required>
                             </div>
 
                             <!--Modelo-->
                             <div class="form-group col-6">
                                 <h6>MODELO</h6>
-                                <input type = "text" name="modelo" placeholder="Modelo" class="form-control">
+                                <input type="text" name="modelo" placeholder="Modelo" class="form-control" required>
                             </div>
 
                             <!--Tipo de Alta-->
-                            <div class="form-group col-6">
+                            <div class="form-group col-6" required>
                                 <h6>TIPO DE ALTA</h6>
                                 <select name="tipoAlta" class="form-control">
                                     <option value="Compra">COMPRA</option>
@@ -63,20 +79,22 @@
                                 </select>
                             </div>
 
-                             <!--Costo de Adquisición-->
-                             <div class="form-group col-6">
+                            <!--Costo de Adquisición-->
+                            <div class="form-group col-6" required>
                                 <h6>COSTO DE ADQUISICIÓN</h6>
-                                <input type = "text" name="costoAdquisicion" placeholder="Costo de Adquisición" class="form-control">
+                                <input type="text" name="costoAdquisicion" placeholder="Costo de Adquisición"
+                                    class="form-control">
                             </div>
 
                             <!--Numero de Factura-->
-                            <div class="form-group col-6">
+                            <div class="form-group col-6" required>
                                 <h6>Número de Factura</h6>
-                                <input type = "text" name="numFactura" placeholder="Número de Factura" class="form-control">
+                                <input type="text" name="numFactura" placeholder="Número de Factura"
+                                    class="form-control">
                             </div>
 
                             <!--Descripción del Bien-->
-                            <div class="form-group col-6">
+                            <div class="form-group col-6" required>
                                 <h6>DESCRIPCIÓN DEL BIEN</h6>
                                 <textarea name="descripcion" class="form-control" placeholder="Description"></textarea>
                             </div>
@@ -89,19 +107,18 @@
                                     <input type="file" name="image" class="form-control" id="inputGroupFile02">
                                 </div>
                             </div>
-                            <div class="form-group"style="text-align: right">
-                                    <button type="submit" class="btn btn-success btn-block"style="background-color:#91133C">
-                                        <i class="bi bi-device-ssd-fill"></i> Subir
-                                    </button>
+                            <div class="form-group" style="text-align: right">
+                                <button type="submit" class="btn btn-success btn-block"
+                                    style="background-color:#91133C">
+                                    <i class="bi bi-device-ssd-fill"></i> Subir
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
 
 </body>
-
-</html>

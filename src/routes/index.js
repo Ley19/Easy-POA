@@ -141,7 +141,7 @@ router.post('/agregarArticulo',async(req,res) =>{
     await articulo.save();
 
     console.log(articulo);
-    res.redirect('/');
+    res.redirect('/inventario');
 });
 
 router.get('/image/:id',(req,res) =>{
