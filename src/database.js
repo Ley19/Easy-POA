@@ -7,15 +7,15 @@ mongoose.connect('mongodb+srv://Admin:Prometeo2022@cluster0.kqo6b6w.mongodb.net/
     .then(db=> console.log('DB de Mongo conectada'))
     .catch(err=>console.error(err))
 
-const mysql = require('mysql');
-var connection = mysql.createConnection({
-    host : "easypoa.cxvh0pslqhaf.us-east-2.rds.amazonaws.com",
-    user : "admin",
-    password : "Prometeo2022",
-    database : "EasyPOA",
-    port: 3306,
-    multipleStatements : true
- })
+    const mysql = require('mysql');
+    var connection = mysql.createConnection({
+        host : "easypoa.cxvh0pslqhaf.us-east-2.rds.amazonaws.com",
+        user : "admin",
+        password : "Prometeo2022",
+        database : "EasyPOA",
+        port: 3306,
+        multipleStatements : true
+     })
 
  connection.connect((err)=>{
     if(!err){

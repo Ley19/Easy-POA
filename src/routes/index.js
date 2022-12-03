@@ -4,6 +4,7 @@ const Articulo=require('../models/articulo');
 const pdfCtrl=require('../controllers/creacionPdf');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
+const transferir = require('../controllers/transferir');
 
 router.get('/', async (req,res) =>{
     res.render('index');
@@ -78,8 +79,18 @@ router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
 
 router.get('/transferencias',(req,res) =>{
     console.log(req.file);
-    res.render('transferencias');
+    database.query('SELECT * FROM anteproyecto', (error, results)=>{
+        if (error) {
+            throw error;
+        }else{
+            res.render('transferencias', {results:results});
+        }
+    })
+    
 });
+
+router.post('/saveTransferir', transferir.saveTransferir);
+
 
 router.get('/infoadicional',(req,res) =>{
     console.log(req.file);
