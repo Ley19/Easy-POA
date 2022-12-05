@@ -2,20 +2,16 @@ const {PDFDocument} = require('pdf-lib')
 const {readFile, writeFile} = require('fs/promises')
 const fontkit = require('@pdf-lib/fontkit');
 const fs = require('fs');
-const connection = require('../database')
 
 exports.pdfRequisicion = (req,res)=>{
-
     async function createPdf (input,output){
+        console.log(req.body);
         try{
             const pdfDoc = await PDFDocument.load(await readFile(input));
 
             pdfDoc.registerFontkit(fontkit)
             const montserratFont= await readFile('src/temp/Montserrat-Regular.ttf')
             const montserrat = await pdfDoc.embedFont(montserratFont)
-
-            const fields = pdfDoc.getForm().getFields().map(f=>f.getName())
-            console.log(fields)
 
             const form = pdfDoc.getForm();
             form.getTextField('areaSuperior').setText(req.body.Area)
@@ -45,6 +41,54 @@ exports.pdfRequisicion = (req,res)=>{
             form.getTextField('periodoUtilizacion').setText(req.body.Periodo)
             if(req.body.Para==='Gestion') form.getCheckBox('gestion').check()
             if(req.body.Para==='Liberacion') form.getCheckBox('liberacion').check()
+
+            if(Array.isArray(req.body.Cantidad)){
+                for (let index = 0; index < req.body.Cantidad.length; index++) {
+                    if(index==0){
+                        form.getTextField('noProgresivo').setText((index+1).toString())
+                        form.getTextField('cantidad').setText(req.body.Cantidad[index])
+                        form.getTextField('unidadM').setText(req.body.UnidadM[index])
+                        form.getTextField('claveBien').setText(req.body.Clave[index])
+                        form.getTextField('descripcion').setText(req.body.Descripcion[index])
+                        form.getTextField('presupuesto') .setText(req.body.Presupuesto[index])
+                    }else{
+                        // var noProgresivo = noProgresivo + form.getTextField('noProgresivo').getText()
+                        form.getTextField('noProgresivo').setText(form.getTextField('noProgresivo').getText()+"\n"+(index+1).toString())
+                        form.getTextField('cantidad').setText(form.getTextField('cantidad').getText()+"\n"+req.body.Cantidad[index])
+                        form.getTextField('unidadM').setText(form.getTextField('unidadM').getText()+"\n"+req.body.UnidadM[index])
+                        form.getTextField('claveBien').setText(form.getTextField('claveBien').getText()+"\n"+req.body.Clave[index])
+                        form.getTextField('descripcion').setText(form.getTextField('descripcion').getText()+"\n"+req.body.Descripcion[index])
+                        form.getTextField('presupuesto') .setText(form.getTextField('presupuesto') .getText()+"\n"+req.body.Presupuesto[index])                 
+                    }
+                }
+            }else{
+                console.log("si pasa");
+                form.getTextField('noProgresivo').setText("1")
+                form.getTextField('cantidad').setText(req.body.Cantidad)
+                form.getTextField('unidadM').setText(req.body.UnidadM)
+                form.getTextField('claveBien').setText(req.body.Clave)
+                form.getTextField('descripcion').setText(req.body.Descripcion)
+                form.getTextField('presupuesto') .setText(req.body.Presupuesto)
+            }
+            form.getTextField('total').setText(req.body.Total)
+            form.getTextField('mesAfectar').setText(req.body.MesAfectar)
+            form.getTextField('noCuenta').setText(req.body.NoCuenta)
+            const total = parseFloat(req.body.Total)
+            if(req.body.NoCuenta === '2581'){
+                
+                var sub = total/2
+                form.getTextField('subFederal').setText(sub.toFixed(2))
+                form.getTextField('subEstatal').setText(sub.toFixed(2))
+                form.getTextField('ingresosPropios').setText("-")
+
+            } else if(req.body.NoCuenta === '2554') {
+                form.getTextField('ingresosPropios').setText(total.toFixed(2))
+            }else{
+                var sub = total/3
+                form.getTextField('subFederal').setText(sub.toFixed(2))
+                form.getTextField('subEstatal').setText(sub.toFixed(2))
+                form.getTextField('ingresosPropios').setText(sub.toFixed(2))
+            }
             form.updateFieldAppearances(montserrat)
             const pdfBytes = await pdfDoc.save();
 
@@ -54,10 +98,13 @@ exports.pdfRequisicion = (req,res)=>{
             console.log(err)
         }
     }
-    createPdf('src/temp/formato_requisicion.pdf','src/temp/output.pdf' )
-    fs.readFile('src/temp/output.pdf', function(err,data){
-        res.contentType("application/pdf")
-        res.send(data)
-    })
+    createPdf('src/temp/formato_requisicion.pdf','src/temp/output.pdf' ).then(
+        fs.readFile('src/temp/output.pdf', function(err,data){
+            res.contentType("application/pdf")
+            res.send(data)
+        })
+    )
+    
+    
 }
 

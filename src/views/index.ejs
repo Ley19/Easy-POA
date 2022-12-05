@@ -1,9 +1,57 @@
 <body>
 
     <h1>PANTALLA PRINCIPAL DEL SISTEMA</h1>
-    <h6>/agregarArticulo</h6>
-    <h6>/requisicion</h6>
     
+    <div class="cointainer" style="width: 80%; margin:auto; margin-top:2rem; text-align: center;">
+        <h4>Requisiciones</h4>
+        <div class="highlight">
+        <div class="card" style="background-color: #91133dc4; margin-top: 3%;">
+            <div class="card-body">
+                <table class="table table-striped" style="background-color: white;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Folio</th>
+                        <th scope="col">Actividad</th>
+                        <th scope="col">Partida</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Mes a Afectar</th>
+                        <th scope="col">Total</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% requisiciones_data.forEach(function(requisicion){ %>
+                            <tr>
+                                <th scope="row"><%=requisicion.idRequisicion%></th>
+                                <td><%=requisicion.folio%></td>
+                                <td><%=requisicion.actividad%></td>
+                                <td><%=requisicion.partida%></td>
+                                <td><%=requisicion.fecha%></td>
+                                <td><%=requisicion.mesAfectar%></td>
+                                <td>$ <%=requisicion.total%></td>
+                                <td style="display: flex; ">
+                                    <a href="/editar-requisicion/<%=requisicion.idRequisicion%>"><i class='bx bx-message-square-edit bx-sm' style="color: #91133C;"></i></a>
+                                </td>
+                            </tr>
+                      <%})%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>  
 
 </body>
+<script>
+    function obtenerTotal(string){
+        const valores = string.split('||')
+        var total = 0.0
+        for (let index = 0; index < valores.length; index++) {
+            const element = parseFloat(valores[index])
+            valores += element            
+        }
+
+        return total.toFixed(2)
+    }
+</script>
 </html>

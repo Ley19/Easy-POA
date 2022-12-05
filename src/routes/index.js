@@ -4,9 +4,16 @@ const Articulo=require('../models/articulo');
 const pdfCtrl=require('../controllers/creacionPdf');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
+const requisicionCtrl = require('../controllers/requisicion');
 
 router.get('/', async (req,res) =>{
-    res.render('index');
+    database.query('SELECT * FROM requisicion WHERE usuario=?',0,(error,results)=>{
+        if(error) throw error
+        results = JSON.parse(JSON.stringify(results))
+        console.log(results);
+        res.render('index',{requisiciones_data:results});
+    })
+    
 });
 
 router.get('/agregarArticulo',(req,res) =>{
@@ -95,6 +102,7 @@ router.get('/requisicion',function(req,res,next){
 
     
 })
+router.get('/editar-requisicion/:id',requisicionCtrl.getRequisicion);
 router.get('/get_calendario', function(req,res){
     var idActividad = req.query.idActividad
     
@@ -115,7 +123,6 @@ router.get('/get_partida', function(req,res){
 router.get('/get_mes', function(req,res){
     var idActividad = req.query.idActividad
     var idPartida = req.query.idPartida
-    console.log(idActividad,idPartida)
     database.query('SELECT * FROM calendario WHERE actividad='+idActividad+' AND partida='+idPartida, function(err,data){
         data = JSON.parse(JSON.stringify(data[0]))
         res.json(data);
@@ -123,6 +130,10 @@ router.get('/get_mes', function(req,res){
 })
 
 router.post('/get_pdf', pdfCtrl.pdfRequisicion);
+
+router.post('/guardarRequisicion', requisicionCtrl.guardarRequisicion)
+
+router.post('/actualizarRequisicion', requisicionCtrl.actualizarRequisicion)
 
 
 

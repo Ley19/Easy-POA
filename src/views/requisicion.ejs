@@ -6,11 +6,28 @@
   </style>
 </head>
 <body>
+  <div class="modal" tabindex="-1" id="Error">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container" style="margin: auto; text-align: center; margin-top: 3%;">
     <h1>Requisición</h1>
     <p>Aqui podemos realizar la definicion de la planeacion sobre los gastos que se piensan utilizar durante el año siguiente, y poder desglosar la descripcion de los mismos.</p>
   </div>
-  <form action="/guardarRequisicion" method="POST">
+  <form action="/guardarRequisicion" method="POST" id="Formulario">
     <div class="row mb-3" style="align-items:center; margin:auto; width: 90%;">
       <div class="col-sm">
         <select class="form-select form-select-sm" id="Actividad" name="Actividad" required>
@@ -105,7 +122,7 @@
           </td>
           <td>
             <div class="input-group input-group-sm" style="width: 90%; margin: auto;">
-              <input type="number" class="form-control" id="Presupuesto" name="Presupuesto" required>
+              <input type="number" class="form-control" id="Presupuesto" name="Presupuesto" step=".01" value="0" onchange="obtenerTotal()" required>
             </div>
           </td>
         </tr>
@@ -119,7 +136,7 @@
       <div class="row" style="margin-left: 65%; width: 400px;;">
         <label for="colFormLabel" class="col-sm col-form-label">Importe Total</label>
         <div class="col-sm">
-          <input type="email" class="form-control" id="Total" name="Total" readonly required>
+          <input type="number" class="form-control" id="Total" name="Total" step=".01" value="0" readonly required>
         </div>
       </div>
     </div>
@@ -157,9 +174,10 @@
         <input type="text" class="form-control" placeholder="Leyenda Alusiva al Gasto" id="Leyenda" name="Leyenda" style="height: 100px;" required>
       </div>
     </div>
+    <input type="hidden" class="form-control" id="NoCuenta" name="NoCuenta">
     <div class="container" style="margin-left: 78%; width:auto; margin-top: 15px; margin-bottom: 15px;">
-      <button formtarget="_blank" formaction="/get_pdf" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-printer-fill"></i>   Imprimir</button>
-      <button type="submit" class="btn btn-danger" style="background-color: #91133C;"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
+      <button formtarget="_blank" formaction="/get_pdf" class="btn btn-danger" style="background-color: #91133C;" id="Imprimir"><i class="bi bi-printer-fill"></i>   Imprimir</button>
+      <button type="submit" class="btn btn-danger" style="background-color: #91133C;" id="Guardar"><i class="bi bi-device-ssd-fill"></i>   Guardar</button>
     </div>
   </form>
 </body>
@@ -170,7 +188,7 @@
     return document.getElementById(element);
   }
   function meses(search){
-    var html='<option selected disabled>Mes a Afectar</option>'
+    var html='<option selected disabled value="">Mes a Afectar</option>'
     if(search.enero!=0) html+='<option value="Enero">Enero</option>'
     if(search.febrero!=0) html+='<option value="Febrero">Febrero</option>'
     if(search.marzo!=0) html+='<option value="Marzo">Marzo</option>'
@@ -214,7 +232,6 @@
     
   };
   _('NoPartida').onchange = function(){
-
     fetch('/get_partida?idPartida='+_('NoPartida').value).then(
         function(response){
           return response.json()
@@ -223,6 +240,7 @@
         
         if(responseData.idPartida==_('NoPartida').value){
           _('Partida').value=responseData.nombre
+          _('NoCuenta').value=responseData.cuenta
         }
         
       })
@@ -233,16 +251,41 @@
     ).then(function(responseData){
       _('MesAfectar').innerHTML = meses(responseData)
     })
+
   }
   function agregarFila(){
     var filas=_('Tabla').rows.length
-    _('Tabla').insertRow(-1).innerHTML ='<th scope="row">'+filas+'</th><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Cantidad" id="Cantidad"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="UnidadM"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Clave"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" aria-label="Descripcion"></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" aria-label="Presupuesto" id="Presupuesto" onChange="calcularTotal(this.value)"></div></td>'
+    _('Tabla').insertRow(-1).innerHTML ='<th scope="row">'+filas+'</th><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" name="Cantidad" id="Cantidad"required></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" name="UnidadM" id="UnidadM" required></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" name="Clave" id="Clave" required></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="text" class="form-control" name="Descripcion" id="Descripcion" required></div></td><td><div class="input-group input-group-sm" style="width: 90%; margin: auto;"><input type="number" class="form-control" name="Presupuesto" id="Presupuesto" step=".01" value="0" onchange="obtenerTotal()" required></div></td>'
   }
   function eliminarFila(){
     var filas = _('Tabla').rows.length
     if(filas>2){
       _('Tabla').deleteRow(filas -1)
     }
+    obtenerTotal()
   }
-  
+  function obtenerTotal(){
+    var elementos = document.getElementsByName('Presupuesto').length;
+    var total = 0;
+    for (let index = 0; index < elementos; index++) {
+      if (document.getElementsByName('Presupuesto')[index].value=="")document.getElementsByName('Presupuesto')[index].value="0"
+      const num = parseFloat(document.getElementsByName('Presupuesto')[index].value)
+      total += num
+
+    }
+    _('Total').value=total.toFixed(2)
+  }
+  _('Formulario').onsubmit = function(){
+    var opciones = _('Actividad').options
+    console.log(opciones);
+    var elementos = document.getElementsByName('Presupuesto')
+    for (let index = 0; index < elementos.length; index++) {
+      if(elementos[index].value=="0"){
+        alert("El presupuesto no puede ser 0")
+        return false
+      }
+      
+    }
+    return true
+  }
 </script>
