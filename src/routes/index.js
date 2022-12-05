@@ -36,8 +36,8 @@ router.get('/crearAnteproyecto',(req,res) =>{
     })
 });
 
-router.get('/editarAnteproyecto:ID',(req, res)=>{
-    const id = req.params.ID;
+router.get('/editarAnteproyecto/:id',(req, res)=>{
+    const id = req.params.id;
     database.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
         if (error) {
             throw error;
