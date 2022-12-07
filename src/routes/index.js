@@ -18,9 +18,13 @@ router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
 });
-router.get('/inventario',(req,res) =>{
-    console.log(req.file);
-    res.render('inventario');
+router.get('/inventario',async (req,res) =>{
+    console.log(await Articulo.find())
+    var articulos=await Articulo.find()
+    articulos=JSON.parse(JSON.stringify(articulos))
+    res.render('inventario',{
+        articulos_data:articulos
+    })
 });
 
 
