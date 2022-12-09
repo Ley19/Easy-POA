@@ -2,6 +2,7 @@ const {Router, response}=require ('express');
 const router =Router();
 const Articulo=require('../models/articulo');
 const pdfCtrl=require('../controllers/creacionPdf');
+const resguardos=require('../models/resguardos');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 const transferir = require('../controllers/transferir');
@@ -19,6 +20,33 @@ router.get('/agregarArticulo',(req,res) =>{
 router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
+    router.post('/Resguardos',async(req,res) =>{
+    const resguardo = new resguardos();
+    resguardo.Resguardo=req.body.Resguardo;
+    resguardo.Tipo=req.body.TipoResguardo;
+    resguardo.FechaEla= req.body.FechaResguardo;
+    resguardo.CEtiqueta=req.body.cuenEtiq;
+    resguardo.Seguimiento=req.body.segEti;
+    resguardo.NomRes=req.body.NombreRes;
+    resguardo.NuResguardo=req.body.NumRes;
+    resguardo.AreaAds=req.body.AreaAdscrip;
+    resguardo.ubicacion=req.body.UbiFisica;
+    resguardo.PerfilAcadem=req.body.PerAcademico;
+    resguardo.Puesto=req.body.puest;
+    resguardo.estatus=req.body.EstatLaboral;
+    resguardo.correoPer=req.body.CorreoPersonal;
+    resguardo.correoIns=req.body.CorrInstitucion;
+    resguardo.firmado=req.body.ResgFirmado;
+    resguardo.añofirmado=req.body.AñoFirma;
+    resguardo.observaciones=req.body.obser;
+    //articulo.image=req.file.image;
+    await resguardo.save();
+    
+    
+    console.log(req.file);
+    res.redirect('/inventario');
+    });
+    
 });
 router.get('/inventario',async (req,res) =>{
     console.log(await Articulo.find())
