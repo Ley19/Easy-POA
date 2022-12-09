@@ -17,6 +17,7 @@ router.get('/agregarArticulo',(req,res) =>{
     console.log(req.file);
     res.render('agregarArticulo');
 });
+
 router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
@@ -56,6 +57,13 @@ router.get('/inventario',async (req,res) =>{
         articulos_data:articulos
     })
 });
+router.get('/calendario',(req,res) =>{
+     database.query('SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC', function(err,data){
+        data = JSON.parse(JSON.stringify(data))
+        res.render('calendario', {actividad_data: data})
+    });
+});
+
 
 
 //RUTAS PARA ANTEPROYECTO
@@ -95,7 +103,7 @@ router.get('/eliminarAnteproyecto/:id', (req, res) => {
 router.get('/anteproyecto',(req,res) =>{
     console.log(req.file);
 
-    database.query('SELECT * FROM anteproyecto', (error, results)=>{
+    database.query('SELECT Partida FROM anteproyecto', (error, results)=>{
         if (error) {
             throw error;
         }else{
@@ -142,6 +150,7 @@ router.get('/transferencias',(req,res) =>{
     })
     
 });
+
 
 router.post('/saveTransferir', transferir.saveTransferir);
 
