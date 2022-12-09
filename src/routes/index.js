@@ -13,6 +13,7 @@ router.get('/agregarArticulo',(req,res) =>{
     console.log(req.file);
     res.render('agregarArticulo');
 });
+
 router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
@@ -21,6 +22,13 @@ router.get('/inventario',(req,res) =>{
     console.log(req.file);
     res.render('inventario');
 });
+router.get('/calendario',(req,res) =>{
+     database.query('SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC', function(err,data){
+        data = JSON.parse(JSON.stringify(data))
+        res.render('calendario', {actividad_data: data})
+    });
+});
+
 
 
 //RUTAS PARA ANTEPROYECTO

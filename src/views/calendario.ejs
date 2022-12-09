@@ -1,0 +1,80 @@
+<body>
+  <div
+    class="container"
+    style="margin: auto; text-align: center; margin-top: 3%"
+  >
+    <h1>Calendarización</h1>
+    <p>
+      Aqui se muestran el resumen del presupuesto propuesto por cada actividad.
+    </p>
+  </div>
+  <!--CREACION DE FUNCION FOREACH-->
+  <% actividad_data.forEach(function(actividad){ %>
+    <div class="cointainer p-5">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="card">
+            <div class="card-body">
+              <h5><!--IMPRIMIR EN TABLA-->
+                <%=actividad.idActividad+ " " +actividad.nombre%>
+              </h5>
+              <table id="tabla" class="table table-hover">
+                <thead>
+                  <th scope="col">Partida</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Ene.</th>
+                  <th scope="col">Feb.</th>
+                  <th scope="col">Mar.</th>
+                  <th scope="col">Abr.</th>
+                  <th scope="col">May.</th>
+                  <th scope="col">Jun.</th>
+                  <th scope="col">Jul.</th>
+                  <th scope="col">Ago.</th>
+                  <th scope="col">Sept.</th>
+                  <th scope="col">Oct.</th>
+                  <th scope="col">Nov.</th>
+                  <th scope="col">Dic.</th>
+                  <th scope="col">Ingreso</th>
+                  <th scope="col"></th>
+                </thead>
+                <tbody>
+                  <tr style="font-size: 0.9rem">
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 250px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+
+                    <td style="width: 60px" disabled></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</body>
