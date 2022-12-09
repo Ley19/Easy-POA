@@ -160,6 +160,7 @@ router.post('/agregarArticulo',async(req,res) =>{
     articulo.numFactura=req.body.numFactura;
     articulo.description=req.body.descripcion;
     //articulo.image=req.file.image;
+    
     await articulo.save();
 
     console.log(articulo);
