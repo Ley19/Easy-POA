@@ -4,6 +4,9 @@ const Articulo=require('../models/articulo');
 const pdfCtrl=require('../controllers/creacionPdf');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
+const transferir = require('../controllers/transferir');
+const { appendBezierCurve } = require('pdf-lib');
+const { db } = require('../models/articulo');
 
 router.get('/', async (req,res) =>{
     res.render('index');
@@ -18,9 +21,13 @@ router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
 });
-router.get('/inventario',(req,res) =>{
-    console.log(req.file);
-    res.render('inventario');
+router.get('/inventario',async (req,res) =>{
+    console.log(await Articulo.find())
+    var articulos=await Articulo.find()
+    articulos=JSON.parse(JSON.stringify(articulos))
+    res.render('inventario',{
+        articulos_data:articulos
+    })
 });
 router.get('/calendario',(req,res) =>{
      database.query('SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC', function(err,data){
@@ -34,15 +41,33 @@ router.get('/calendario',(req,res) =>{
 //RUTAS PARA ANTEPROYECTO
 router.get('/crearAnteproyecto',(req,res) =>{
     console.log(req.file);
-    res.render('crearAnteproyecto');
+    database.query('SELECT * FROM partida', (error, results)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('crearAnteproyecto', {results:results});
+        }
+    })
 });
-router.get('/editarAnteproyecto:ID',(req, res)=>{
-    const id = req.params.ID;
+
+router.get('/editarAnteproyecto/:id',(req, res)=>{
+    const id = req.params.id;
     database.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
         if (error) {
             throw error;
         }else{
             res.render('editarAnteproyecto', {Partida:results[0]});
+        }
+    });
+});
+
+router.get('/eliminarAnteproyecto/:id', (req, res) => {
+    const id = req.params.id;
+    database.query(" DELETE FROM anteproyecto WHERE id=?", [id], (error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            res.redirect('/anteproyecto');
         }
     });
 });
@@ -64,12 +89,42 @@ router.get('/anteproyecto',(req,res) =>{
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
 router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
 
+//BOTONES DE EDICION
+
+/*app.get('/inventario/:id', async (req, res) => {
+    const inventario = await inventario.findByID(req.params.id)
+    console.log(inventario)
+
+    res.render('inventario', {
+        inventario
+    })
+})*/
+
+//ROUTER. DELET
+
+router.delete('/borrarArticulo',(req, res) => {
+    db.articulos.remove({
+    "ObjectId":"6383db0535d8b3d38d21ba39"
+    });
+
+})
+
 //RUTAS DE TRANSFERENCIAS
 
 router.get('/transferencias',(req,res) =>{
     console.log(req.file);
-    res.render('transferencias');
+    database.query('SELECT * FROM anteproyecto', (error, results)=>{
+        if (error) {
+            throw error;
+        }else{
+            res.render('transferencias', {results:results});
+        }
+    })
+    
 });
+
+router.post('/saveTransferir', transferir.saveTransferir);
+
 
 router.get('/infoadicional',(req,res) =>{
     console.log(req.file);
@@ -131,7 +186,26 @@ router.post('/agregarArticulo',async(req,res) =>{
     await articulo.save();
 
     console.log(articulo);
-    res.redirect('/');
+    res.redirect('/inventario');
+});
+
+router.post('/infoadicional',async(req,res) =>{
+    const Informaciona = new Articulo();
+    Informaciona.etiquebi=req.body.etibi;
+    Informaciona.seguim=req.body.segui;
+    Informaciona.estatusbi= req.body.estabi;
+    Informaciona.bajabien=req.body.bajabi;
+    Informaciona.fechabaja=req.body.fechaba;
+    Informaciona.registrocon=req.body.regicon;
+    Informaciona.registrodb=req.body.regidb;
+    Informaciona.grupobien=req.body.grubi;
+    Informaciona.trataconta=req.body.tratacon;
+    Informaciona.NombreSolici=req.body.NombreSo;
+    Informaciona.areasolici=req.body.areaso;
+    await Informaciona.save();
+
+    console.log(Informaciona);
+    res.redirect('/inventario');
 });
 
 router.get('/image/:id',(req,res) =>{

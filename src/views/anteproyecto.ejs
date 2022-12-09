@@ -1,51 +1,29 @@
 
     <head>
         <style>
-            .cont-temporizador { display: flex; justify-content: center; margin-top: 50px; float: right; margin: 18px 18px; }
-
-            .bloque { margin: 0px 4px; display: flex; flex-direction: column; align-items: center; }
-
-            .tiempo { display: flex; justify-content: center; align-items: center; background-color: rgb(80, 80, 80); box-shadow: 0px 0px 6px 2px #727272 inset; color: #ffff; font-size: 15px; font-weight: bold; width: 30px; height: 20px; margin-bottom: 10px; border-radius: 5px; }
-
-            .p-estilo { font-size: 11px; font-weight: bold; color: rgb(26, 18, 18); }
-            
+            .fecha {border-radius: 5px; float: right; margin: 0px 8px; border-style: solid; border-width: 1px;}
         </style>
     </head>
 
     <body>
-        
-        <div class="cont-temporizador">
-            <div class="bloque">
-                <div class="tiempo" id="dias">00</div>
-                <p class="p-estilo">DIAS</p>
-            </div>
-            <div class="bloque">
-                <div class="tiempo" id="horas">--</div>
-                <p class="p-estilo">HRS</p>
-            </div>
-            <div class="bloque">
-                <div class="tiempo" id="minutos">--</div>
-                <p class="p-estilo">MIN</p>
-            </div>
-            <div class="bloque">
-                <div class="tiempo" id="segundos">--</div>
-                <p class="p-estilo">SEG</p>
-            </div>
+     <!--  <div class="fecha">
+            <label class="Entrega">Entrega: 0-00-0000</label>
         </div>
-
-        <div  style="margin: 2em; margin-top: 3%; ">
+        --> 
+        <div  style="margin: 5em; margin-top: 3%; " class="container">
+            
             <!--Temporizador para fecha de envio-->
-            <script src="anteproyectoTotal.js"></script>
             <h1 style=" text-align: center;">Anteproyecto</h1>
             <p>En este apartado deberas definir el anteproyecto de acuerdo a tu area y actividad
-                donde te encuentras, recuerda que el anteproyecto que se realice en este apartado debe
+                donde te encuentras, recuerda que el anteproyecto que se realice en este apartado, debe
                 ser aprobado por el area de planeación.</p>
-            <h5>Nombre de la actividad:</h5> 
-
-            <table id="tabla" class="table table-hover">
+                
+                    <label class="form-label">Nombre de la actividad: </label>   
+                    <input type="text" placeholder="1.1 Colocacion de estudiantes de Educacion Superior en servicio social, estadias o residencias profesionales" style="border: 0; width: 100%;" readonly>
+                
+            <table id="tabla" class="table table-hover" >
                 <thead>
                     <th scope="col">Partida</th>
-                    <th scope="col">Descripción</th>
                     <th scope="col">Ene.</th>
                     <th scope="col">Feb.</th>
                     <th scope="col">Mar.</th>
@@ -64,39 +42,37 @@
                 <tbody>
                     <% results.forEach((anteproyecto)=>{ %>
                         <tr style="font-size: 0.9rem;">
-                            <td style="width:60px;" disabled> <%= anteproyecto.Partida %></td>
+                            <td style="width:100px;" disabled> <%= anteproyecto.Partida %></td>
 
-                            <td style="width:250px;" disabled> <%= anteproyecto.Descripcion %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Enero %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Enero %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Febrero %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Febrero %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Marzo %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Marzo %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Abril %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Abril %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Mayo %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Mayo %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Junio %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Junio %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Julio %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Julio %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Agosto %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Agosto %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Septiembre %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Septiembre %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Octubre %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Octubre %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Noviembre %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Noviembre %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Diciembre %></td>
 
-                            <td style="width:60px" disabled> <%= anteproyecto.Diciembre %></td>
-
-                            <td style="width:60px" disabled> <%= anteproyecto.Total %></td>
+                            <td style="width:70px" disabled> <%= anteproyecto.Total %></td>
 
                             <td style="display: flex; ">
-                                <a href="/editarAnteproyecto/<%= anteproyecto.ID %>"><i class='bx bx-message-square-edit bx-sm' style="color: #91133C;"></i></a>
-                                <a href="/eliminarAnteproyecto"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>    
+                                <a href="/editarAnteproyecto/<%= anteproyecto.id %>"><i class='bx bx-message-square-edit bx-sm' style="color: #91133C;"></i></a>
+                                <a href="/eliminarAnteproyecto/<%= anteproyecto.id %>"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>    
                             </td>
                         </tr>
                     <% }) %>
@@ -104,7 +80,7 @@
             </table>
             <div class="form-group" style="text-align: right">
                 <a href="/crearAnteproyecto" type="button" class="btn btn-success btn-block "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Añadir </a>
-                <a type="button" class="btn btn-success btn-block" style="background-color:#91133C">Guardar</a>
+                <a href="/getPDFanteproyecto" type="button" class="btn btn-success btn-block" style="background-color:#91133C"><i class="bi bi-printer-fill"></i> Imprimir</a>
             </div>
         </div>
     </body>

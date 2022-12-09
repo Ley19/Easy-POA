@@ -1,4 +1,3 @@
-
 <head>
     <style>
         .monto {width:80px; }
@@ -6,7 +5,7 @@
     
     <script>
         function sumar(){
-            const $total = document.getElementById('Total').val;
+            const $total = document.getElementById('Total');
             let subtotal = 0;
             [ ...document.getElementsByClassName( "monto" ) ].forEach( function ( element ) {
                 if(element.value !== '') {
@@ -19,31 +18,23 @@
     </script>
 </head>
 <body>
-    <% (Partida){ %>
+    <% if (Partida) { %>
     <div style=" margin: 20px 60px;">     
         <div class="card border-secondary">  
             <div class="card-header">Editar Partida</div>
             <div class="card-body">
                 <form action="/updateAnteproyecto" method="POST">
-                    <input id="id" name="id" value="<%= Partida.id %>" hidden>
                     <div class="mb-3">
-                        <label >Nombre de la actividad: </label>
-                            <input id="Actividad" name="Actividad" style="width: 100%;" value="<%= Partida.Actividad %>" >
+                        <label style="font-weight: bold; ">Nombre de la actividad: </label>
+                            <input id="Actividad" name="Actividad" style="width: 100%;" value="1.1 Colocacion de estudiantes de Educacion Superior en servicio social, estadias o residencias profesionales" readonly>
                     </div>
+                    <input name="id" id="id" value="<%=  Partida.id %>" hidden>
                     <div class="mb-3">
-                        <label class="form-label">Partida</label>
-                        <select id="Partida" name="Partida" >
-                            <option selected disabled>Número de Partida</option>
-                            <option >211001</option>
+                        <label class="form-label" style="font-weight: bold; ">Partida: </label>
+                        <input  id="Partida" name="Partida"  value="<%=  Partida.Partida %>"  readonly style="border: 0; text-decoration:underline;">
                         </select>
-                        <!--Que las seleccione de la base de datos-->
-                    </div>   
-                    <div class="mb-3">
-                        <label >Descripción</label>
-
-                        <!--Crear Una relacion de Descripcion-->
-                            <input id="Descripcion" name="Descripcion" style="width: 100%;"  placeholder="Seleccione una partida" value="Seleccione una partida" >
                     </div>
+
                     <div class="mb-3">
                         <table id="tabla" class="table table-hover">
                             <thead>
@@ -62,43 +53,43 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="number" class="monto" id="Enero" name="Enero"  value="<%= Partida.Enero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Enero" name="Enero"  value="<%=  Partida.Enero %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Febrero" name="Febrero" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Febrero" name="Febrero" value="<%=  Partida.Febrero %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Marzo" name="Marzo" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Marzo" name="Marzo" value="<%=  Partida.Marzo %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Abril" name="Abril" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Abril" name="Abril" value="<%=  Partida.Abril %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Mayo" name="Mayo" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Mayo" name="Mayo" value="<%=  Partida.Mayo %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Junio" name="Junio" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Junio" name="Junio" value="<%=  Partida.Junio %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Julio" name="Julio" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Julio" name="Julio" value="<%=  Partida.Julio %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Agosto" name="Agosto" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Agosto" name="Agosto" value="<%=  Partida.Agosto %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number"class="monto" id="Septiembre" name="Septiembre" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number"class="monto" id="Septiembre" name="Septiembre" value="<%=  Partida.Septiembre %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number"class="monto" id="Octubre" name="Octubre" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number"class="monto" id="Octubre" name="Octubre" value="<%=  Partida.Octubre %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Noviembre" name="Noviembre" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Noviembre" name="Noviembre" value="<%=  Partida.Noviembre %>"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Diciembre" name="Diciembre" value="<%= Partida.Febrero %>"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Diciembre" name="Diciembre" value="<%=  Partida.Diciembre %>"  onkeyup="sumar();"></td>
                                     </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="mb-3">
                         <label >Total</label>
-                        <input id="Total" name="Total" disabled>
+                        <input id="Total" name="Total"  value="<%=  Partida.Total %>" readonly>
                     </div>                                   
-                    <button type="submit" class="btn btn-success btn-block" style="background-color:#91133C" tabindex="5"><i class='bx bx-message-square-check' onclick="suma();"></i> Guardar</button>
+                    <button type="submit" class="btn btn-success btn-block" style="background-color:#91133C"><i class='bx bx-message-square-check' ></i> Guardar</button>
                     <a href="/anteproyecto" class="btn btn-success btn-block" style="background-color:#91133C"><i class='bx bx-message-square-x' ></i> Cancelar</a>
                 
                 </form>
             </div> 
         </div>        
-  </div>
+    </div>
   <% } %>
 </body>
