@@ -2,10 +2,13 @@ const {Router, response}=require ('express');
 const router =Router();
 const Articulo=require('../models/articulo');
 const pdfCtrl=require('../controllers/creacionPdf');
+const resguardos=require('../models/resguardos');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 const requisicionCtrl = require('../controllers/requisicion');
 const transferir = require('../controllers/transferir');
+const { appendBezierCurve } = require('pdf-lib');
+const { db } = require('../models/articulo');
 
 router.get('/', async (req,res) =>{
     database.query('SELECT * FROM requisicion WHERE usuario=?',0,(error,results)=>{
@@ -21,14 +24,54 @@ router.get('/agregarArticulo',(req,res) =>{
     console.log(req.file);
     res.render('agregarArticulo');
 });
+
 router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
-});
-router.get('/inventario',(req,res) =>{
+});   
+    router.post('/Resguardos',async(req,res) =>{
+    const resguardo = new resguardos();
+    resguardo.Resguardo=req.body.Resguardo;
+    resguardo.Tipo=req.body.TipoResguardo;
+    resguardo.FechaEla= req.body.FechaResguardo;
+    resguardo.CEtiqueta=req.body.cuenEtiq;
+    resguardo.Seguimiento=req.body.segEti;
+    resguardo.NomRes=req.body.NombreRes;
+    resguardo.NuResguardo=req.body.NumRes;
+    resguardo.AreaAds=req.body.AreaAdscrip;
+    resguardo.ubicacion=req.body.UbiFisica;
+    resguardo.PerfilAcadem=req.body.PerAcademico;
+    resguardo.Puesto=req.body.puest;
+    resguardo.estatus=req.body.EstatLaboral;
+    resguardo.correoPer=req.body.CorreoPersonal;
+    resguardo.correoIns=req.body.CorrInstitucion;
+    resguardo.firmado=req.body.ResgFirmado;
+    resguardo.añofirmado=req.body.AñoFirma;
+    resguardo.observaciones=req.body.obser;
+    //articulo.image=req.file.image;
+    await resguardo.save();
+    
+    
     console.log(req.file);
-    res.render('inventario');
+    res.redirect('/inventario');
+    });
+    
+
+router.get('/inventario',async (req,res) =>{
+    console.log(await Articulo.find())
+    var articulos=await Articulo.find()
+    articulos=JSON.parse(JSON.stringify(articulos))
+    res.render('inventario',{
+        articulos_data:articulos
+    })
 });
+router.get('/calendario',(req,res) =>{
+     database.query('SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC', function(err,data){
+        data = JSON.parse(JSON.stringify(data))
+        res.render('calendario', {actividad_data: data})
+    });
+});
+
 
 
 //RUTAS PARA ANTEPROYECTO
@@ -68,7 +111,7 @@ router.get('/eliminarAnteproyecto/:id', (req, res) => {
 router.get('/anteproyecto',(req,res) =>{
     console.log(req.file);
 
-    database.query('SELECT * FROM anteproyecto', (error, results)=>{
+    database.query('SELECT Partida FROM anteproyecto', (error, results)=>{
         if (error) {
             throw error;
         }else{
@@ -81,6 +124,26 @@ router.get('/anteproyecto',(req,res) =>{
 
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
 router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
+
+//BOTONES DE EDICION
+
+/*app.get('/inventario/:id', async (req, res) => {
+    const inventario = await inventario.findByID(req.params.id)
+    console.log(inventario)
+
+    res.render('inventario', {
+        inventario
+    })
+})*/
+
+//ROUTER. DELET
+
+router.delete('/borrarArticulo',(req, res) => {
+    db.articulos.remove({
+    "ObjectId":"6383db0535d8b3d38d21ba39"
+    });
+
+})
 
 //RUTAS DE TRANSFERENCIAS
 
@@ -95,6 +158,7 @@ router.get('/transferencias',(req,res) =>{
     })
     
 });
+
 
 router.post('/saveTransferir', transferir.saveTransferir);
 
@@ -164,6 +228,25 @@ router.post('/agregarArticulo',async(req,res) =>{
     await articulo.save();
 
     console.log(articulo);
+    res.redirect('/inventario');
+});
+
+router.post('/infoadicional',async(req,res) =>{
+    const Informaciona = new Articulo();
+    Informaciona.etiquebi=req.body.etibi;
+    Informaciona.seguim=req.body.segui;
+    Informaciona.estatusbi= req.body.estabi;
+    Informaciona.bajabien=req.body.bajabi;
+    Informaciona.fechabaja=req.body.fechaba;
+    Informaciona.registrocon=req.body.regicon;
+    Informaciona.registrodb=req.body.regidb;
+    Informaciona.grupobien=req.body.grubi;
+    Informaciona.trataconta=req.body.tratacon;
+    Informaciona.NombreSolici=req.body.NombreSo;
+    Informaciona.areasolici=req.body.areaso;
+    await Informaciona.save();
+
+    console.log(Informaciona);
     res.redirect('/inventario');
 });
 
