@@ -181,6 +181,25 @@ router.post('/agregarArticulo',async(req,res) =>{
     res.redirect('/inventario');
 });
 
+router.post('/infoadicional',async(req,res) =>{
+    const Informaciona = new Articulo();
+    Informaciona.etiquebi=req.body.etibi;
+    Informaciona.seguim=req.body.segui;
+    Informaciona.estatusbi= req.body.estabi;
+    Informaciona.bajabien=req.body.bajabi;
+    Informaciona.fechabaja=req.body.fechaba;
+    Informaciona.registrocon=req.body.regicon;
+    Informaciona.registrodb=req.body.regidb;
+    Informaciona.grupobien=req.body.grubi;
+    Informaciona.trataconta=req.body.tratacon;
+    Informaciona.NombreSolici=req.body.NombreSo;
+    Informaciona.areasolici=req.body.areaso;
+    await Informaciona.save();
+
+    console.log(Informaciona);
+    res.redirect('/inventario');
+});
+
 router.get('/image/:id',(req,res) =>{
     res.send('Perfil de la Imagen');
 });
