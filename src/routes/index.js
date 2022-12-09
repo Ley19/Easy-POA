@@ -21,6 +21,7 @@ router.get('/agregarArticulo',(req,res) =>{
 router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
+});   
     router.post('/Resguardos',async(req,res) =>{
     const resguardo = new resguardos();
     resguardo.Resguardo=req.body.Resguardo;
@@ -48,7 +49,7 @@ router.get('/Resguardos',(req,res) =>{
     res.redirect('/inventario');
     });
     
-});
+
 router.get('/inventario',async (req,res) =>{
     console.log(await Articulo.find())
     var articulos=await Articulo.find()
