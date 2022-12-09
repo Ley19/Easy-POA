@@ -11,50 +11,58 @@
             </div>
         </div>
     </div>
-<div class="cointainer p-5 ">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-body">
-                    <form action="/agregarArticulo" method="POST" enctype="multipart/form-data" class="row">
-                        <div class="form-group">
-                        <table class="table">
-                            <table class="table table-bordered">
-                            <thead>
-                              <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Numero de Inventario UPP</th>
-                                <th scope="col">Clave de Control</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Modelo</th>
-                                <th scope="col">Alta</th>
-                                <th scope="col">CostoAdquisicion</th>
-                                <th scope="col">Numero de Factura</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Verificacion</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                    </form>
+    <div class="cointainer p-5 ">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/agregarArticulo" method="POST" enctype="multipart/form-data" class="row">
+                            <table class="table">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Nombre del Bien</th>
+                                            <th scope="col">Numero de Inventario UPP</th>
+                                            <th scope="col">Clave de Control</th>
+                                            <th scope="col">Marca</th>
+                                            <th scope="col">Modelo</th>
+                                            <th scope="col">Alta</th>
+                                            <th scope="col">CostoAdquisicion</th>
+                                            <th scope="col">Numero de Factura</th>
+                                            <th scope="col">Descripcion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% articulos_data.forEach((inventario=>{%>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td><%= inventario.nombre %></td>
+                                            <td><%= inventario.numInventario %></td>
+                                            <td><%= inventario.clvControl %></td>
+                                            <td><%= inventario.marca %></td>
+                                            <td><%= inventario.modelo %></td>
+                                            <td><%= inventario.tipoAlta %></td>
+                                            <td><%= inventario.costoAdquisicion %></td>
+                                            <td><%= inventario.numFactura %></td>
+                                            <td><%= inventario.description %></td>
+                                            <td>
+                                                
+                                                <!--<a href="/inventario/{{inventario._id}}" class="btn btn-success">Detalle</a>-->
+
+                                                <a href="/infoadicional" class="btn btn-primary">Info Adicional</a>
+
+                                                <!--<a href="/borrarArticulo" class="btn btn-danger">Borrar</a>-->
+
+                                            </td>
+                                        </tr>
+                                        <% })) %>
+                                    </tbody>
+                                </table>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>  

@@ -5,6 +5,8 @@ const pdfCtrl=require('../controllers/creacionPdf');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 const transferir = require('../controllers/transferir');
+const { appendBezierCurve } = require('pdf-lib');
+const { db } = require('../models/articulo');
 
 router.get('/', async (req,res) =>{
     res.render('index');
@@ -14,14 +16,26 @@ router.get('/agregarArticulo',(req,res) =>{
     console.log(req.file);
     res.render('agregarArticulo');
 });
+
 router.get('/Resguardos',(req,res) =>{
     console.log(req.file);
     res.render('Resguardos');
 });
-router.get('/inventario',(req,res) =>{
-    console.log(req.file);
-    res.render('inventario');
+router.get('/inventario',async (req,res) =>{
+    console.log(await Articulo.find())
+    var articulos=await Articulo.find()
+    articulos=JSON.parse(JSON.stringify(articulos))
+    res.render('inventario',{
+        articulos_data:articulos
+    })
 });
+router.get('/calendario',(req,res) =>{
+     database.query('SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC', function(err,data){
+        data = JSON.parse(JSON.stringify(data))
+        res.render('calendario', {actividad_data: data})
+    });
+});
+
 
 
 //RUTAS PARA ANTEPROYECTO
@@ -36,8 +50,8 @@ router.get('/crearAnteproyecto',(req,res) =>{
     })
 });
 
-router.get('/editarAnteproyecto:ID',(req, res)=>{
-    const id = req.params.ID;
+router.get('/editarAnteproyecto/:id',(req, res)=>{
+    const id = req.params.id;
     database.query("SELECT * FROM anteproyecto WHERE id=? ", [id], (error,results)=>{
         if (error) {
             throw error;
@@ -74,6 +88,26 @@ router.get('/anteproyecto',(req,res) =>{
 
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
 router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
+
+//BOTONES DE EDICION
+
+/*app.get('/inventario/:id', async (req, res) => {
+    const inventario = await inventario.findByID(req.params.id)
+    console.log(inventario)
+
+    res.render('inventario', {
+        inventario
+    })
+})*/
+
+//ROUTER. DELET
+
+router.delete('/borrarArticulo',(req, res) => {
+    db.articulos.remove({
+    "ObjectId":"6383db0535d8b3d38d21ba39"
+    });
+
+})
 
 //RUTAS DE TRANSFERENCIAS
 
@@ -153,6 +187,25 @@ router.post('/agregarArticulo',async(req,res) =>{
     await articulo.save();
 
     console.log(articulo);
+    res.redirect('/inventario');
+});
+
+router.post('/infoadicional',async(req,res) =>{
+    const Informaciona = new Articulo();
+    Informaciona.etiquebi=req.body.etibi;
+    Informaciona.seguim=req.body.segui;
+    Informaciona.estatusbi= req.body.estabi;
+    Informaciona.bajabien=req.body.bajabi;
+    Informaciona.fechabaja=req.body.fechaba;
+    Informaciona.registrocon=req.body.regicon;
+    Informaciona.registrodb=req.body.regidb;
+    Informaciona.grupobien=req.body.grubi;
+    Informaciona.trataconta=req.body.tratacon;
+    Informaciona.NombreSolici=req.body.NombreSo;
+    Informaciona.areasolici=req.body.areaso;
+    await Informaciona.save();
+
+    console.log(Informaciona);
     res.redirect('/inventario');
 });
 
