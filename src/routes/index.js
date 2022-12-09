@@ -5,6 +5,8 @@ const pdfCtrl=require('../controllers/creacionPdf');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 const transferir = require('../controllers/transferir');
+const { appendBezierCurve } = require('pdf-lib');
+const { db } = require('../models/articulo');
 
 router.get('/', async (req,res) =>{
     res.render('index');
@@ -78,6 +80,26 @@ router.get('/anteproyecto',(req,res) =>{
 
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
 router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
+
+//BOTONES DE EDICION
+
+/*app.get('/inventario/:id', async (req, res) => {
+    const inventario = await inventario.findByID(req.params.id)
+    console.log(inventario)
+
+    res.render('inventario', {
+        inventario
+    })
+})*/
+
+//ROUTER. DELET
+
+router.delete('/borrarArticulo',(req, res) => {
+    db.articulos.remove({
+    "ObjectId":"6383db0535d8b3d38d21ba39"
+    });
+
+})
 
 //RUTAS DE TRANSFERENCIAS
 
