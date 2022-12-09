@@ -61,7 +61,7 @@ router.get('/eliminarAnteproyecto/:id', (req, res) => {
 router.get('/anteproyecto',(req,res) =>{
     console.log(req.file);
 
-    database.query('SELECT * FROM anteproyecto', (error, results)=>{
+    database.query('SELECT Partida FROM anteproyecto', (error, results)=>{
         if (error) {
             throw error;
         }else{
@@ -88,6 +88,7 @@ router.get('/transferencias',(req,res) =>{
     })
     
 });
+
 
 router.post('/saveTransferir', transferir.saveTransferir);
 

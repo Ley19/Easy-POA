@@ -18,11 +18,10 @@ const mysqlConnection = require('../database');
         const Noviembre = req.body.NoviembreR;
         const Diciembre = req.body.DiciembreR;
         const Total = req.body.TotalR;
-        const Motivo = req.body.Motivo;
-        const Jusiificacion = req.body.Jusiificacion;
-
+        const select = req.body.select;
+        const texto = req.body.texto;
       
-        mysqlConnection.query('INSERT INTO transferir SET ?',{Partida:Partida, Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total, Motivo:Motivo, Jusiificacion:Jusiificacion}, (error, results)=>{
+        mysqlConnection.query('INSERT INTO transferir SET ?',{Partida:Partida, Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total, Motivo:select, Justificacion:texto}, (error, results)=>{
             if(error){
                 console.log(error);
             }else{  
