@@ -10,13 +10,28 @@ const articuloSchema = new Schema({
     tipoAlta:{type:String},
     costoAdquisicion:{type:Number},
     numFactura:{type:Number},
-    description:{type:String}
+    description:{type:String},
+    
+    etiquebi:{type:String},
+    seguim:{type:String},
+    estatusbi:{type:String},
+    bajabien:{type:String},
+    fechabaja:{type:String},
+    registrocon:{type:String},
+    registrodb:{type:String},
+    grupobien:{type:String},
+    trataconta:{type:String},
+    NombreSolici:{type:String},
+    areasolici:{type:String}
+    
 
 });
 
-module.exports = mongoose.model('Articulos', articuloSchema);
 
-const infoadicionalSchema = new Schema ({
+const Articulos= mongoose.model('Articulos', articuloSchema);
+module.exports= Articulos;
+
+/*const infoadicionalSchema = new Schema ({
     etiquebi:{type:String},
     seguim:{type:String},
     estatusbi:{type:String},
@@ -31,4 +46,4 @@ const infoadicionalSchema = new Schema ({
 
 });
 
-module.exports = mongoose.model('InformacionAdicional', infoadicionalSchema);
+module.exports = mongoose.model('InformacionAdicional', infoadicionalSchema);*/

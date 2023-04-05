@@ -1,0 +1,68 @@
+<body>
+    <div style="color:#fff">.</div>
+    <div class="cointainer">
+        <div class="row">
+            <div class="col-md-9 offset-md-1">
+                <h2>Articulo del consulta</h2>
+            </div>
+            <div class="col-md-8 offset-md-1">
+                <h6>La información de este articulo es la siguiente.</h6>
+            </div>
+        </div>
+    </div>
+    <div class="cointainer-fluid ">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/agregarArticulo" method="POST" enctype="multipart/form-data" class="row">
+                            <table class="table">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col"><%= article.nombre %></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Numero Inventario</th>
+                                            <th scope="col"><%= article.numInventario%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Clave Control</th>
+                                            <th scope="col"><%= article.clvControl%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Marca</th>
+                                            <th scope="col"><%= article.marca%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Modelo</th>
+                                            <th scope="col"><%= article.modelo%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Tipo de Alta</th>
+                                            <th scope="col"><%= article.tipoAlta%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Costo de Adquisición</th>
+                                            <th scope="col"><%= article.costoAdquisicion%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Número de Factura</th>
+                                            <th scope="col"><%= article.numFactura%></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col"><%= article.description%></th>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

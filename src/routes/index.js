@@ -1,14 +1,19 @@
 const {Router, response}=require ('express');
 const router =Router();
-const Articulo=require('../models/articulo');
-const pdfCtrl=require('../controllers/creacionPdf');
+
+//Importaciones para Inventarios
+const Articulos=require('../models/articulo');
 const resguardos=require('../models/resguardos');
+const infAdicional=require('../models/infoAdicional');
+const mongoose=require('mongoose');
+
+//Importaciones para Anteproyecto
+const pdfCtrl=require('../controllers/creacionPdf');
 const database = require('../database');
 const crudAnteproyecto = require('../controllers/crudAnteproyecto');
 const requisicionCtrl = require('../controllers/requisicion');
 const transferir = require('../controllers/transferir');
 const { appendBezierCurve } = require('pdf-lib');
-const { db } = require('../models/articulo');
 
 router.get('/', async (req,res) =>{
     database.query('SELECT * FROM requisicion WHERE usuario=?',0,(error,results)=>{
@@ -20,51 +25,6 @@ router.get('/', async (req,res) =>{
     
 });
 
-router.get('/agregarArticulo',(req,res) =>{
-    console.log(req.file);
-    res.render('agregarArticulo');
-});
-
-router.get('/Resguardos',(req,res) =>{
-    console.log(req.file);
-    res.render('Resguardos');
-});   
-    router.post('/Resguardos',async(req,res) =>{
-    const resguardo = new resguardos();
-    resguardo.Resguardo=req.body.Resguardo;
-    resguardo.Tipo=req.body.TipoResguardo;
-    resguardo.FechaEla= req.body.FechaResguardo;
-    resguardo.CEtiqueta=req.body.cuenEtiq;
-    resguardo.Seguimiento=req.body.segEti;
-    resguardo.NomRes=req.body.NombreRes;
-    resguardo.NuResguardo=req.body.NumRes;
-    resguardo.AreaAds=req.body.AreaAdscrip;
-    resguardo.ubicacion=req.body.UbiFisica;
-    resguardo.PerfilAcadem=req.body.PerAcademico;
-    resguardo.Puesto=req.body.puest;
-    resguardo.estatus=req.body.EstatLaboral;
-    resguardo.correoPer=req.body.CorreoPersonal;
-    resguardo.correoIns=req.body.CorrInstitucion;
-    resguardo.firmado=req.body.ResgFirmado;
-    resguardo.añofirmado=req.body.AñoFirma;
-    resguardo.observaciones=req.body.obser;
-    //articulo.image=req.file.image;
-    await resguardo.save();
-    
-    
-    console.log(req.file);
-    res.redirect('/inventario');
-    });
-    
-
-router.get('/inventario',async (req,res) =>{
-    console.log(await Articulo.find())
-    var articulos=await Articulo.find()
-    articulos=JSON.parse(JSON.stringify(articulos))
-    res.render('inventario',{
-        articulos_data:articulos
-    })
-});
 router.get('/calendario',(req,res) =>{
      database.query('SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC', function(err,data){
         data = JSON.parse(JSON.stringify(data))
@@ -136,14 +96,6 @@ router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
     })
 })*/
 
-//ROUTER. DELET
-
-router.delete('/borrarArticulo',(req, res) => {
-    db.articulos.remove({
-    "ObjectId":"6383db0535d8b3d38d21ba39"
-    });
-
-})
 
 //RUTAS DE TRANSFERENCIAS
 
@@ -163,10 +115,6 @@ router.get('/transferencias',(req,res) =>{
 router.post('/saveTransferir', transferir.saveTransferir);
 
 
-router.get('/infoadicional',(req,res) =>{
-    console.log(req.file);
-    res.render('infoadicional');
-});
 
 // RUTAS PARA REQUISICION
 router.get('/requisicion',function(req,res,next){
@@ -210,46 +158,6 @@ router.post('/guardarRequisicion', requisicionCtrl.guardarRequisicion)
 
 router.post('/actualizarRequisicion', requisicionCtrl.actualizarRequisicion)
 
-
-
-router.post('/agregarArticulo',async(req,res) =>{
-    const articulo = new Articulo();
-    articulo.nombre=req.body.nombreBien;
-    articulo.numInventario=req.body.numInventario;
-    articulo.clvControl= req.body.clvControl;
-    articulo.marca=req.body.marca;
-    articulo.modelo=req.body.modelo;
-    articulo.tipoAlta=req.body.tipoAlta;
-    articulo.costoAdquisicion=req.body.costoAdquisicion;
-    articulo.numFactura=req.body.numFactura;
-    articulo.description=req.body.descripcion;
-    //articulo.image=req.file.image;
-    
-    await articulo.save();
-
-    console.log(articulo);
-    res.redirect('/inventario');
-});
-
-router.post('/infoadicional',async(req,res) =>{
-    const Informaciona = new Articulo();
-    Informaciona.etiquebi=req.body.etibi;
-    Informaciona.seguim=req.body.segui;
-    Informaciona.estatusbi= req.body.estabi;
-    Informaciona.bajabien=req.body.bajabi;
-    Informaciona.fechabaja=req.body.fechaba;
-    Informaciona.registrocon=req.body.regicon;
-    Informaciona.registrodb=req.body.regidb;
-    Informaciona.grupobien=req.body.grubi;
-    Informaciona.trataconta=req.body.tratacon;
-    Informaciona.NombreSolici=req.body.NombreSo;
-    Informaciona.areasolici=req.body.areaso;
-    await Informaciona.save();
-
-    console.log(Informaciona);
-    res.redirect('/inventario');
-});
-
 router.get('/image/:id',(req,res) =>{
     res.send('Perfil de la Imagen');
 });
@@ -257,5 +165,141 @@ router.get('/image/:id',(req,res) =>{
 router.get('/image/:id/delete',(req,res) =>{
     res.send('Imagen Eliminada');
 });
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< RUTAS DE INVENTARIOS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //<<<<<<<<<<<<<<<<< MÉTODOS GET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    router.get('/agregarArticulo',(req,res) =>{
+        console.log(req.file);
+        res.render('agregarArticulo');
+    });
+    
+    router.get('/infoadicional/:id',(req,res) =>{
+        const id = mongoose.Types.ObjectId(req.params.id);;
+        console.log(id);
+        res.render('infoadicional', { id: id });
+
+    });
+    
+    router.get('/Resguardos',(req,res) =>{
+        console.log(req.file);
+        res.render('Resguardos');
+    }); 
+
+    router.get('/inventario',async (req,res) =>{
+        //console.log(await Articulos.find())
+        var articulos=await Articulos.find()
+        articulos=JSON.parse(JSON.stringify(articulos))
+        res.render('inventario',{
+            articulos_data:articulos
+        })
+    });
+
+    router.get('/consulta/:id', (req, res) => {
+        const articleId = req.params.id;
+        Articulos.findById(articleId, (err, article) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(article);
+                res.render('consulta', { article: article });
+            }
+        });
+    });
+
+    //<<<<<<<<<<<<<<< MÉTODOS POST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    router.post('/agregarArticulo',async(req,res) =>{
+        const articulo = new Articulos();
+        articulo.nombre=req.body.nombreBien;
+        articulo.numInventario=req.body.numInventario;
+        articulo.clvControl= req.body.clvControl;
+        articulo.marca=req.body.marca;
+        articulo.modelo=req.body.modelo;
+        articulo.tipoAlta=req.body.tipoAlta;
+        articulo.costoAdquisicion=req.body.costoAdquisicion;
+        articulo.numFactura=req.body.numFactura;
+        articulo.description=req.body.descripcion;
+        //articulo.image=req.file.image;
+        await articulo.save();
+        const nuevoId = articulo._id;
+        console.log(articulo);
+        res.redirect('/infoadicional/${articulo._id}');
+    });
+    
+    router.post('/infoadicional/:id',async(req,res) =>{
+        const id = mongoose.Types.ObjectId(req.params.id);;
+        //if (!mongoose.Types.ObjectId.isValid(id)) {
+          //  return res.status(400).send('El ID del artículo es inválido');
+        //}
+        const infoAdicional = {
+            etiquebi: req.body.etibi,
+            seguim: req.body.segui,
+            estatusbi: req.body.estabi,
+            bajabien: req.body.bajabi,
+            fechabaja: req.body.fechaba,
+            registrocon: req.body.regicon,
+            registrodb: req.body.regidb,
+            grupobien: req.body.grubi,
+            trataconta: req.body.tratacon,
+            NombreSolici: req.body.NombreSo,
+            areasolici: req.body.areaso
+        };
+        
+        try {
+            const result = await Articulos.updateOne({ _id: id }, { $set: infoAdicional });
+            console.log(id);
+            console.log(result);
+            res.redirect('/inventario');
+          } catch (error) {
+            console.error(error);
+            res.send(error);
+          }
+
+        //const result = await Articulos.updateOne({ _id: id }, { $set: infoAdicional });
+    
+        //console.log(id);
+        //console.log(result);
+        //res.redirect('/inventario');
+    });
+
+    router.post('/Resguardos',async(req,res) =>{
+        const resguardo = new resguardos();
+        resguardo.Resguardo=req.body.Resguardo;
+        resguardo.Tipo=req.body.TipoResguardo;
+        resguardo.FechaEla= req.body.FechaResguardo;
+        resguardo.CEtiqueta=req.body.cuenEtiq;
+        resguardo.Seguimiento=req.body.segEti;
+        resguardo.NomRes=req.body.NombreRes;
+        resguardo.NuResguardo=req.body.NumRes;
+        resguardo.AreaAds=req.body.AreaAdscrip;
+        resguardo.ubicacion=req.body.UbiFisica;
+        resguardo.PerfilAcadem=req.body.PerAcademico;
+        resguardo.Puesto=req.body.puest;
+        resguardo.estatus=req.body.EstatLaboral;
+        resguardo.correoPer=req.body.CorreoPersonal;
+        resguardo.correoIns=req.body.CorrInstitucion;
+        resguardo.firmado=req.body.ResgFirmado;
+        resguardo.añofirmado=req.body.AñoFirma;
+        resguardo.observaciones=req.body.obser;
+        //articulo.image=req.file.image;
+        await resguardo.save();
+        
+        
+        console.log(req.file);
+        res.redirect('/inventario');
+        });
+
+    //<<<<<<<<<<<<<<<< MÉTODOS DELETE >>>>>>>>>>>>>>>>>>>>>
+
+    router.delete('/borrarArticulo',(req, res) => {
+        db.articulos.remove({
+        "ObjectId":"6383db0535d8b3d38d21ba39"
+        });
+    
+    });  
+    
+    
 
 module.exports=router;

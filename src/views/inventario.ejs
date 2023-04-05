@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div class="cointainer p-5 ">
+    <div class="cointainer-fluid ">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -27,34 +27,29 @@
                                             <th scope="col">Clave de Control</th>
                                             <th scope="col">Marca</th>
                                             <th scope="col">Modelo</th>
-                                            <th scope="col">Alta</th>
-                                            <th scope="col">CostoAdquisicion</th>
-                                            <th scope="col">Numero de Factura</th>
                                             <th scope="col">Descripcion</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% articulos_data.forEach((inventario=>{%>
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row" > <% let itemId = inventario._id; %>
+                                                <a href="/consulta/<%= itemId %>"><%= itemId %></a></th>
                                             <td><%= inventario.nombre %></td>
                                             <td><%= inventario.numInventario %></td>
                                             <td><%= inventario.clvControl %></td>
                                             <td><%= inventario.marca %></td>
                                             <td><%= inventario.modelo %></td>
-                                            <td><%= inventario.tipoAlta %></td>
-                                            <td><%= inventario.costoAdquisicion %></td>
-                                            <td><%= inventario.numFactura %></td>
                                             <td><%= inventario.description %></td>
                                             <td>
                                                 
-                                                <!--<a href="/inventario/{{inventario._id}}" class="btn btn-success">Detalle</a>-->
-
-                                                <a href="/infoadicional" class="btn btn-primary">Info Adicional</a>
-
-                                                <!--<a href="/borrarArticulo" class="btn btn-danger">Borrar</a>-->
+                                                <a href="/infoadicional/<%= itemId %>" class="btn btn-primary">
+                                                    Consultar<i class="bi bi-arrow-right-circle-fill"></i>
+                                                </a>
 
                                             </td>
+                                            
                                         </tr>
                                         <% })) %>
                                     </tbody>
