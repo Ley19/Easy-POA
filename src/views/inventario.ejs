@@ -4,10 +4,16 @@
     <div class="cointainer">
         <div class="row">
             <div class="col-md-9 offset-md-1">
-                <h2>INVENTARIO</h2>
+                <h2>
+                    Inventario
+                  </h2>
             </div>
             <div class="col-md-8 offset-md-1">
                 <h6>Consulta de tabla con elementos</h6>
+                <form method="post" action="/inventario/estatus">
+                    <button type="submit" name="estatus" value="activo">Ver activos</button>
+                    <button type="submit" name="estatus" value="inactivo">Ver inactivos</button>
+                </form>
             </div>
         </div>
     </div>
@@ -44,7 +50,7 @@
                                             <td><%= inventario.description %></td>
                                             <td>
                                                 
-                                                <a href="/infoadicional/<%= itemId %>" class="btn btn-primary">
+                                                <a href="/consulta/<%= itemId %>" class="btn btn-primary">
                                                     Consultar<i class="bi bi-arrow-right-circle-fill"></i>
                                                 </a>
 
