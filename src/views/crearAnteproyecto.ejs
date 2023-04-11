@@ -35,7 +35,7 @@
                 <form action="/saveAnteproyecto" method="POST">
                     <div class="mb-3">
                         <label style="font-weight: bold; ">Nombre de la actividad: </label>
-                            <input id="Actividad" name="Actividad" style="width: 100%;" value="1.1 Colocacion de estudiantes de Educacion Superior en servicio social, estadias o residencias profesionales" readonly>
+                            <input id="Actividad" name="Actividad" style="width: 100%;" value="<%=actividad.idActividad%> <%=actividad.nombre%>" readonly>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" style="font-weight: bold;">Partida</label>
@@ -64,29 +64,29 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="number" class="monto" id="Enero" name="Enero"  value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Enero" name="Enero" step=".01"  value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Febrero" name="Febrero" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Febrero" name="Febrero" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Marzo" name="Marzo" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Marzo" name="Marzo" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Abril" name="Abril" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Abril" name="Abril" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Mayo" name="Mayo" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Mayo" name="Mayo" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Junio" name="Junio" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Junio" name="Junio" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Julio" name="Julio" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Julio" name="Julio" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Agosto" name="Agosto" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Agosto" name="Agosto" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number"class="monto" id="Septiembre" name="Septiembre" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number"class="monto" id="Septiembre" name="Septiembre" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number"class="monto" id="Octubre" name="Octubre" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number"class="monto" id="Octubre" name="Octubre" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Noviembre" name="Noviembre" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Noviembre" name="Noviembre" step=".01" value="0"  onkeyup="sumar();"></td>
             
-                                    <td><input type="number" class="monto" id="Diciembre" name="Diciembre" value="0"  onkeyup="sumar();"></td>
+                                    <td><input type="number" class="monto" id="Diciembre" name="Diciembre" step=".01" value="0"  onkeyup="sumar();"></td>
                                     </tr>
                             </tbody>
                         </table>

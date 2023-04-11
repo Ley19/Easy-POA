@@ -37,19 +37,19 @@
                             <% }) %>
                     </select></td>
 
-                <td><input type="number" id="Enero" name="Enero" readonly style="width:70px;"></td>
-                <td><input type="number" id="Febrero" name="Febrero" readonly style="width:70px;"></td>
-                <td><input type="number" id="Marzo" name="Marzo" readonly style="width:70px;"></td>
-                <td><input type="number" id="Abril" name="Abril" readonly style="width:70px;"></td>
-                <td><input type="number" id="Mayo" name="Mayo" readonly style="width:70px;"></td>
-                <td><input type="number" id="Junio" name="Junio" readonly style="width:70px;"></td>
-                <td><input type="number" id="Julio" name="Julio" readonly style="width:70px;"></td>
-                <td><input type="number" id="Agosto" name="Agosto" readonly style="width:70px;"></td>
-                <td><input type="number" id="Septiembre" name="Septiembre" readonly style="width:70px;"></td>
-                <td><input type="number" id="Octubre" name="Octubre" readonly min="10" max="100"></td>
-                <td><input type="number" id="Noviembre" name="Noviembre" readonly min="10" max="100"></td>
-                <td><input type="number" id="Diciembre" name="Diciembre" readonly style="width:70px;"></td>
-                <td><input type="number" id="Total" readonly style="width:70px;"></td>
+                <td><input type="number" id="Enero" name="Enero"  style="width:70px;"></td>
+                <td><input type="number" id="Febrero" name="Febrero"  style="width:70px;"></td>
+                <td><input type="number" id="Marzo" name="Marzo"  style="width:70px;"></td>
+                <td><input type="number" id="Abril" name="Abril"  style="width:70px;"></td>
+                <td><input type="number" id="Mayo" name="Mayo"  style="width:70px;"></td>
+                <td><input type="number" id="Junio" name="Junio"  style="width:70px;"></td>
+                <td><input type="number" id="Julio" name="Julio"  style="width:70px;"></td>
+                <td><input type="number" id="Agosto" name="Agosto"  style="width:70px;"></td>
+                <td><input type="number" id="Septiembre" name="Septiembre"  style="width:70px;"></td>
+                <td><input type="number" id="Octubre" name="Octubre"  min="10" max="100"></td>
+                <td><input type="number" id="Noviembre" name="Noviembre"  min="10" max="100"></td>
+                <td><input type="number" id="Diciembre" name="Diciembre"  style="width:70px;"></td>
+                <td><input type="number" id="Total"  style="width:70px;"></td>
             </tr>
 
         </table>
@@ -103,7 +103,7 @@
                 <td><input type="number" class="Dinero" id="DiciembreR" name="DiciembreR" style="width:70px;" value="0"
                         onkeyup="sumars();"></td>
                 <td><input type="number" class="Dinero" id="TotalR" name="TotalR" style="width:70px;" value="0"
-                        readonly></td>
+                        ></td>
             </tr>
 
         </table>
@@ -132,13 +132,13 @@
 </body>
 <script>
     function agregarFila2() {
-        document.getElementById("tabla").insertRow(-1).innerHTML = '<td> <input type="number" class="Dinero"  id="PartidaR" name="PartidaR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="EneroR" name="EneroR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="FebreroR" name="FebreroR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="MarzoR" name="MarzoR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="AbrilR" name="AbrilR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="MayoR" name="MayoR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="JunioR" name="JunioR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="JulioR" name="JulioR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="AgostoR" name="AgostoR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="SeptiembreR" name="SeptiembreR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="OctubreR" name="OctubreR" style="width:70px;"></td> <td><input type="number" class="Dinero"  id="NoviembreR" name="NoviembreR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="DiciembreR" name="DiciembreR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="TotalR" readonly  style="width:70px;"></td>';
+        document.getElementById("tabla").insertRow(-1).innerHTML = '<td> <input type="number" class="Dinero"  id="PartidaR" name="PartidaR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="EneroR" name="EneroR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="FebreroR" name="FebreroR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="MarzoR" name="MarzoR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="AbrilR" name="AbrilR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="MayoR" name="MayoR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="JunioR" name="JunioR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="JulioR" name="JulioR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="AgostoR" name="AgostoR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="SeptiembreR" name="SeptiembreR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="OctubreR" name="OctubreR" style="width:70px;"></td> <td><input type="number" class="Dinero"  id="NoviembreR" name="NoviembreR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="DiciembreR" name="DiciembreR" style="width:70px;"></td><td><input type="number" class="Dinero"  id="TotalR"   style="width:70px;"></td>';
     }
 </script>
 <% results.forEach((transferencias)=>{ %>
     <script>
         function agregarFila() {
-            document.getElementById("table").insertRow(-1).innerHTML = '<select class="form-select"  name="Partida" id="Partida" type="submit" style="width: auto;"><option disabled selected>Seleccione una partida</option> <option ><%= transferencias.Partida %></option>    </select><td><input type="number" class="Dinero"  id="Enero" name="Enero"   value="<%= transferencias.Enero %>" readonly  style="width:70px;"></td><td><input type="number" class="Dinero" id="Febrero" name="Febrero" value="<%= transferencias.Febrero %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Marzo" name="Marzo" value="<%= transferencias.Marzo %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Abril" name="Abril" value="<%= transferencias.Abril %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Mayo" name="Mayo" value="<%= transferencias.Mayo %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Junio" name="Junio" value="<%= transferencias.Junio %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Julio" name="Julio" value="<%= transferencias.Julio %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Agosto" name="Agosto" value="<%= transferencias.Agosto %>" readonly  style="width:70px;"></td><td><input type="number" class="Dinero"   id="Septiembre" name="Septiembre" value="<%= transferencias.Septiembre %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Octubre" name="Octubre" value="<%= transferencias.Octubre %>" readonly min="10"  max="100"></td><td><input type="number" class="Dinero"  id="Noviembre" name="Noviembre" value="<%= transferencias.Noviembre %>" readonly min="10"  max="100"></td><td><input type="number" class="Dinero"  id="Diciembre" name="Diciembre" value="<%= transferencias.Diciembre %>" readonly style="width:70px;"></td><td><input type="number" class="Dinero"  id="Total" value="<%= transferencias.Total %>"  readonly  style="width:70px;"></td>';
+            document.getElementById("table").insertRow(-1).innerHTML = '<select class="form-select"  name="Partida" id="Partida" type="submit" style="width: auto;"><option disabled selected>Seleccione una partida</option> <option ><%= transferencias.Partida %></option>    </select><td><input type="number" class="Dinero"  id="Enero" name="Enero"   value="<%= transferencias.Enero %>"   style="width:70px;"></td><td><input type="number" class="Dinero" id="Febrero" name="Febrero" value="<%= transferencias.Febrero %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Marzo" name="Marzo" value="<%= transferencias.Marzo %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Abril" name="Abril" value="<%= transferencias.Abril %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Mayo" name="Mayo" value="<%= transferencias.Mayo %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Junio" name="Junio" value="<%= transferencias.Junio %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Julio" name="Julio" value="<%= transferencias.Julio %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Agosto" name="Agosto" value="<%= transferencias.Agosto %>"   style="width:70px;"></td><td><input type="number" class="Dinero"   id="Septiembre" name="Septiembre" value="<%= transferencias.Septiembre %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Octubre" name="Octubre" value="<%= transferencias.Octubre %>"  min="10"  max="100"></td><td><input type="number" class="Dinero"  id="Noviembre" name="Noviembre" value="<%= transferencias.Noviembre %>"  min="10"  max="100"></td><td><input type="number" class="Dinero"  id="Diciembre" name="Diciembre" value="<%= transferencias.Diciembre %>"  style="width:70px;"></td><td><input type="number" class="Dinero"  id="Total" value="<%= transferencias.Total %>"    style="width:70px;"></td>';
         }
     </script>
 <% }) %>

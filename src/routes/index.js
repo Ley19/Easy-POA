@@ -75,13 +75,20 @@ router.get('/calendario',(req,res) =>{
 
 
 //RUTAS PARA ANTEPROYECTO
-router.get('/crearAnteproyecto',(req,res) =>{
+router.get('/crearAnteproyecto/:id',(req,res) =>{
     console.log(req.file);
     database.query('SELECT * FROM partida', (error, results)=>{
         if(error){
             throw error;
         }else{
-            res.render('crearAnteproyecto', {results:results});
+            database.query('SELECT * FROM actividad WHERE idActividad='+req.params.id,(error, actividad)=>{
+                if(error){
+                    throw error;
+                }else{
+                    res.render('crearAnteproyecto', {results:results, actividad:actividad[0]});
+                }
+            })
+            
         }
     })
 });
@@ -111,11 +118,25 @@ router.get('/eliminarAnteproyecto/:id', (req, res) => {
 router.get('/anteproyecto',(req,res) =>{
     console.log(req.file);
 
-    database.query('SELECT Partida FROM anteproyecto', (error, results)=>{
+    database.query('SELECT * FROM anteproyecto', (error, results)=>{
         if (error) {
             throw error;
         }else{
             res.render('anteproyecto', {results:results});
+        }
+    })
+    
+});
+
+router.get('/anteproyecto/:id',(req,res) =>{
+    console.log(req.file);
+
+    database.query('SELECT * FROM actividad a LEFT OUTER JOIN anteproyecto an ON a.idActividad=an.Actividad WHERE a.idActividad='+req.params.id+" ORDER BY Partida ASC", (error, results)=>{
+        if (error) {
+            throw error;
+        }else{
+            console.log(results);
+            res.render('anteproyectoIndividual', {results:results});
         }
     })
     

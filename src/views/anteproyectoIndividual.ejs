@@ -1,0 +1,88 @@
+
+    <head>
+        <style>
+            .fecha {border-radius: 5px; float: right; margin: 0px 8px; border-style: solid; border-width: 1px;}
+        </style>
+    </head>
+
+    <body>
+     <!--  <div class="fecha">
+            <label class="Entrega">Entrega: 0-00-0000</label>
+        </div>
+        --> 
+        <div  style="margin: 5em; margin-top: 3%; " class="container">
+            
+            <!--Temporizador para fecha de envio-->
+            <h1 style=" text-align: center;">Anteproyecto</h1>
+            <p>En este apartado deberas definir el anteproyecto de acuerdo a tu area y actividad
+                donde te encuentras, recuerda que el anteproyecto que se realice en este apartado, debe
+                ser aprobado por el area de planeación.</p>
+                
+                    <label class="form-label">Nombre de la actividad: </label>   
+                    <input type="text" placeholder="<%=results[0].idActividad%> <%=results[0].nombre%>" style="border: 0; width: 100%;" readonly>
+                
+            <table id="tabla" class="table table-hover" >
+                <thead>
+                    <th scope="col">Partida</th>
+                    <th scope="col">Ene.</th>
+                    <th scope="col">Feb.</th>
+                    <th scope="col">Mar.</th>
+                    <th scope="col">Abr.</th>
+                    <th scope="col">May.</th>
+                    <th scope="col">Jun.</th>
+                    <th scope="col">Jul.</th>
+                    <th scope="col">Ago.</th>
+                    <th scope="col">Sept.</th>
+                    <th scope="col">Oct.</th>
+                    <th scope="col">Nov.</th>
+                    <th scope="col">Dic.</th>
+                    <th scope="col">Ingreso</th>
+                    <th scope="col"></th>
+                </thead>
+                <tbody>
+
+                    <% results.forEach((anteproyecto)=>{ %>
+                        <% if(anteproyecto.idAnteproyecto){ %>
+                        <tr style="font-size: 0.9rem;">
+                            <td style="width:100px;" disabled> <%= anteproyecto.Partida %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Enero %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Febrero %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Marzo %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Abril %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Mayo %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Junio %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Julio %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Agosto %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Septiembre %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Octubre %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Noviembre %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Diciembre %></td>
+
+                            <td style="width:70px" disabled> <%= anteproyecto.Total %></td>
+
+                            <td style="display: flex; ">
+                                <a href="/editarAnteproyecto/<%=anteproyecto.id %>"><i class='bx bx-message-square-edit bx-sm' style="color: #91133C;"></i></a>
+                                <a href="/eliminarAnteproyecto/<%=anteproyecto.id %>"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>    
+                            </td>
+                        </tr>
+                    <% }}) %>
+                </tbody>
+            </table>
+            <div class="form-group" style="text-align: right">
+                <a href="/crearAnteproyecto/<%=results[0].idActividad%>" type="button" class="btn btn-success "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Añadir </a>
+                <a href="/getPDFanteproyecto" type="button" class="btn btn-success btn-block" style="background-color:#91133C"><i class="bi bi-printer-fill"></i> Imprimir</a>
+            </div>
+        </div>
+    </body>

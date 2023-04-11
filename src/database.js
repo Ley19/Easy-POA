@@ -9,7 +9,7 @@ mongoose.connect('mongodb+srv://Admin:Prometeo2022@cluster0.kqo6b6w.mongodb.net/
 
     const mysql = require('mysql');
     var connection = mysql.createConnection({
-        host : "easypoa.cxvh0pslqhaf.us-east-2.rds.amazonaws.com",
+        host : "localhost",
         user : "admin",
         password : "Prometeo2022",
         database : "EasyPOA",
