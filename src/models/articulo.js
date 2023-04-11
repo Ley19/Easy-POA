@@ -10,13 +10,28 @@ const articuloSchema = new Schema({
     tipoAlta:{type:String},
     costoAdquisicion:{type:Number},
     numFactura:{type:Number},
-    description:{type:String}
+    description:{type:String},
+
+    etiquebi:{type:String},//etiqueta del bien
+    seguim:{type:String},//Seguimiento de la etiqueta del bien
+    estatusbi:{type:String},//Estatus del bien
+    bajabien:{type:String},//
+    fechabaja:{type:String},//fecha de la baja del articulo
+    registrocon:{type:String},//aplica para el registro contable
+    registrodb:{type:String},//ESTA REGISTRADO EN LA BASE CONTABLE
+    grupobien:{type:String},//GRUPO DE BIENES (ACORDE A LA CÉDULA DE DEPRECIACIÓN)
+    trataconta:{type:String},//TRATAMIENTO CONTABLE
+    NombreSolici:{type:String},//Solicitante
+    areasolici:{type:String}//area solicitante
+    
 
 });
 
-module.exports = mongoose.model('Articulos', articuloSchema);
 
-const infoadicionalSchema = new Schema ({
+const Articulos= mongoose.model('Articulos', articuloSchema);
+module.exports= Articulos;
+
+/*const infoadicionalSchema = new Schema ({
     etiquebi:{type:String},
     seguim:{type:String},
     estatusbi:{type:String},
@@ -31,4 +46,4 @@ const infoadicionalSchema = new Schema ({
 
 });
 
-module.exports = mongoose.model('InformacionAdicional', infoadicionalSchema);
+module.exports = mongoose.model('InformacionAdicional', infoadicionalSchema);*/

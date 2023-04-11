@@ -1,0 +1,269 @@
+<body>
+  <div style="color: #fff">.</div>
+  <div class="cointainer">
+    <div class="row">
+      <div class="col-md-9 offset-md-1">
+        <h2>Articulo del consulta</h2>
+      </div>
+      <div class="col-md-8 offset-md-1">
+        <h6>La información de este articulo es la siguiente.</h6>
+        <button
+          type="button"
+          onclick="toggleFields()"
+          style="background-color: #91133c"
+        >
+          Editar Información
+        </button>
+        <button
+          type="button"
+          onclick="toggleFields()"
+          style="background-color: #91133c"
+        >
+          Deshabilitar Árticulo
+        </button>
+        <button
+          type="button"
+          onclick="toggleFields()"
+          style="background-color: #91133c"
+        >
+          Guardar Cambios
+        </button>
+        <script>
+          function toggleFields() {
+            var fields = document.getElementsByTagName("input");
+            for (var i = 0; i < fields.length; i++) {
+              if (fields[i].type == "text") {
+                if (fields[i].disabled) {
+                  fields[i].disabled = false;
+                } else {
+                  fields[i].disabled = true;
+                }
+              }
+            }
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <form
+        action="/consulta"
+        method="POST"
+        enctype="multipart/form-data"
+        class="row"
+      >
+        <div class="col-6">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="nombre"
+                    value="<%= article.nombre %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Numero Inventario</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="numInventario"
+                    value="<%= article.numInventario %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Clave Control</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.clvControl %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Marca</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="marca"
+                    value="<%= article.marca%>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Modelo</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="modelo"
+                    value="<%= article.modelo%>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Tipo de Alta</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="tipoAlta"
+                    value="<%= article.tipoAlta%>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Costo de Adquisición</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="costoAdquisicion"
+                    value="<%= article.costoAdquisicion%>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Número de Factura</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="numFactura"
+                    value="<%= article.numFactura%>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Descripción</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="description"
+                    value="<%= article.description%>"
+                    disabled
+                  />
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="col">Etiqueta del Bien</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="nombre"
+                    value="<%= article.etiquebi %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Seguimiento de Etiqueta</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="numInventario"
+                    value="<%= article.seguim %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Motivo de Baja</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.estatusbi %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Fecha de Baja</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.fechabaja %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Aplica a Registro Contable</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.registrocon %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Esta Registrado en la Base Contable</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.registrocon %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Tratamiento Contable</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.registordb %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Nombre de Quien Solicito el Bien</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.NombreSolici %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">Área solicitante</th>
+                <th scope="col">
+                  <input
+                    type="text"
+                    name="clvControl"
+                    value="<%= article.areasolici %>"
+                    disabled
+                  />
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
