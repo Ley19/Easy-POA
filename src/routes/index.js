@@ -4,7 +4,6 @@ const router = Router();
 //Importaciones para Inventarios
 const Articulos = require("../models/articulo");
 const resguardos = require("../models/resguardos");
-const infAdicional = require("../models/infoAdicional");
 const mongoose = require("mongoose");
 
 //Importaciones para Anteproyecto
@@ -217,12 +216,6 @@ router.get("/agregarArticulo", (req, res) => {
   console.log(req.file);
   res.render("agregarArticulo");
 });
-
-/*router.get("/infoadicional/:id", (req, res) => {
-  const id = mongoose.Types.ObjectId(req.params.id);
-  console.log(id);
-  res.render("infoadicional", { id: id });
-});*/
 
 router.get("/Resguardos", (req, res) => {
   console.log(req.file);

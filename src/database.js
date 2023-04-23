@@ -1,12 +1,15 @@
-const mongoose=require('mongoose');
+const mongoose=require('mongoose');//Implementación de la librería de mongoose
 const fs = require('fs');
 const mysql = require('mysql');
 
+
+//Link de la base de datos de Mongo en la Nube
 mongoose.connect('mongodb+srv://Admin:Prometeo2022@cluster0.kqo6b6w.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser:true
 })
-
+    //Si se realizó la conección se muestra el mensaje de exito
     .then(db=> console.log('DB de Mongo conectada'))
+    //Si no se realizó muestra el error 
     .catch(err=>console.error(err))
 
     
