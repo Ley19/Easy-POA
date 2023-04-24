@@ -30,9 +30,16 @@ router.get("/", async (req, res) => {
 router.get("/calendario", (req, res) => {
   database.query(
     "SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC",
-    function (err, data) {
-      data = JSON.parse(JSON.stringify(data));
-      res.render("calendario", { actividad_data: data });
+    function (err, actividades) {
+      if(err) throw err;
+      database.query('SELECT * FROM actividad a INNER JOIN anteproyecto an ON a.idActividad=an.Actividad', (error, results)=>{
+        if(error) throw error;
+        results = JSON.parse(JSON.stringify(results));
+        actividades = JSON.parse(JSON.stringify(actividades));
+        res.render("calendario", { actividad_data: actividades, anteproyecto_data: results });
+    })
+      
+      
     }
   );
 });

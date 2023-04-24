@@ -38,37 +38,27 @@
                   <th scope="col"></th>
                 </thead>
                 <tbody>
-                  <tr style="font-size: 0.9rem">
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 250px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-
-                    <td style="width: 60px" disabled></td>
-                  </tr>
+                  <% anteproyecto_data.forEach(function(anteproyecto){ %>
+                    <% if(actividad.idActividad == anteproyecto.idActividad){ %>
+                      <tr>
+                        <th scope="col"><%=anteproyecto.Partida%></td>
+                        <td><%=anteproyecto.Descripcion%></td>
+                        <td>$ <%=anteproyecto.Enero%></td>
+                        <td>$ <%=anteproyecto.Febrero%></td>
+                        <td>$ <%=anteproyecto.Marzo%></td>
+                        <td>$ <%=anteproyecto.Abril%></td>
+                        <td>$ <%=anteproyecto.Mayo%></td>
+                        <td>$ <%=anteproyecto.Junio%></td>
+                        <td>$ <%=anteproyecto.Julio%></td>
+                        <td>$ <%=anteproyecto.Agosto%></td>
+                        <td>$ <%=anteproyecto.Septiembre%></td>
+                        <td>$ <%=anteproyecto.Octubre%></td>
+                        <td>$ <%=anteproyecto.Noviembre%></td>
+                        <td>$ <%=anteproyecto.Diciembre%></td>
+                        <td>$ <%=anteproyecto.Total%></td>
+                      </tr>
+                    <% } %>
+                  <% }) %>
                 </tbody>
               </table>
             </div>
