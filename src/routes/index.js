@@ -107,12 +107,12 @@ router.get("/anteproyecto", (req, res) => {
 });
 
 router.get('/anteproyecto/:id',(req,res) =>{
-    console.log(req.file);
 
     database.query('SELECT * FROM actividad a LEFT OUTER JOIN anteproyecto an ON a.idActividad=an.Actividad WHERE a.idActividad='+req.params.id+" ORDER BY Partida ASC", (error, results)=>{
         if (error) {
             throw error;
         }else{
+            results = JSON.parse(JSON.stringify(results));
             console.log(results);
             res.render('anteproyectoIndividual', {results:results});
         }

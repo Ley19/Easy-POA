@@ -30,7 +30,7 @@
 <body>
     <div style=" margin: 20px 60px;">     
         <div class="card border-secondary">  
-            <div class="card-header">Nuevo Partida</div>
+            <div class="card-header">Nueva Partida</div>
             <div class="card-body">
                 <form action="/saveAnteproyecto" method="POST">
                     <div class="mb-3">
@@ -42,7 +42,7 @@
                         <select id="Partida" name="Partida" style="width: 100%;">
                             <option selected disabled >Número de Partida</option>
                             <% results.forEach((partida)=>{ %>
-                            <option value="<%=partida.idPartida+' - '+partida.nombre%>"><%=partida.idPartida%> - <%=partida.nombre%></option>}
+                            <option value="<%=partida.idPartida%>"><%=partida.idPartida%> - <%=partida.nombre%></option>}
                             <% }) %> 
                         </select>
                     </div> 

@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //Guardar registro
     exports.saveAnteproyecto = (req, res)=>{
-        const Actividad = req.body.Actividad;
+        const Actividad = req.body.Actividad.slice(0,3);
         const Partida = req.body.Partida;
         const Enero = req.body.Enero;
         const Febrero = req.body.Febrero;
