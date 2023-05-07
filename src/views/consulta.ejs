@@ -8,26 +8,44 @@
       <div class="col-md-8 offset-md-1">
         <h6>La información de este articulo es la siguiente.</h6>
         <button
-          type="button"
+          type="submit"
+          class="btn btn-success btn-block"
           onclick="toggleFields()"
           style="background-color: #91133c"
         >
           Editar Información
         </button>
+
         <button
-          type="button"
-          onclick="toggleFields()"
+          id="deshabilitar-articulo"
+          type="submit"
+          class="btn btn-success btn-block"
           style="background-color: #91133c"
         >
           Deshabilitar Árticulo
         </button>
-        <button
-          type="button"
-          onclick="toggleFields()"
-          style="background-color: #91133c"
-        >
-          Guardar Cambios
-        </button>
+        <script>
+          const deshabilitarArticulo = async () => {
+            const id = "<%= article._id %>"; // aquí se debe reemplazar con el ID del artículo a deshabilitar
+            const response = await fetch(`/consulta/${id}/deshabilitar`, {
+              method: "POST",
+            });
+            if (response.ok) {
+              window.location.href = "/inventario";
+            } else {
+              console.error(response.statusText);
+            }
+          };
+
+          const deshabilitarArticuloButton = document.getElementById(
+            "deshabilitar-articulo"
+          );
+          deshabilitarArticuloButton.addEventListener(
+            "click",
+            deshabilitarArticulo
+          );
+
+        </script>
         <script>
           function toggleFields() {
             var fields = document.getElementsByTagName("input");
@@ -48,7 +66,7 @@
   <div class="container">
     <div class="row">
       <form
-        action="/consulta"
+        action="/consulta/<%= article._id %>"
         method="POST"
         enctype="multipart/form-data"
         class="row"
@@ -62,6 +80,7 @@
                   <input
                     type="text"
                     name="nombre"
+                    class="form-control"
                     value="<%= article.nombre %>"
                     disabled
                   />
@@ -73,6 +92,7 @@
                   <input
                     type="text"
                     name="numInventario"
+                    class="form-control"
                     value="<%= article.numInventario %>"
                     disabled
                   />
@@ -84,6 +104,7 @@
                   <input
                     type="text"
                     name="clvControl"
+                    class="form-control"
                     value="<%= article.clvControl %>"
                     disabled
                   />
@@ -95,6 +116,7 @@
                   <input
                     type="text"
                     name="marca"
+                    class="form-control"
                     value="<%= article.marca%>"
                     disabled
                   />
@@ -106,6 +128,7 @@
                   <input
                     type="text"
                     name="modelo"
+                    class="form-control"
                     value="<%= article.modelo%>"
                     disabled
                   />
@@ -117,6 +140,7 @@
                   <input
                     type="text"
                     name="tipoAlta"
+                    class="form-control"
                     value="<%= article.tipoAlta%>"
                     disabled
                   />
@@ -128,6 +152,7 @@
                   <input
                     type="text"
                     name="costoAdquisicion"
+                    class="form-control"
                     value="<%= article.costoAdquisicion%>"
                     disabled
                   />
@@ -139,6 +164,7 @@
                   <input
                     type="text"
                     name="numFactura"
+                    class="form-control"
                     value="<%= article.numFactura%>"
                     disabled
                   />
@@ -150,6 +176,7 @@
                   <input
                     type="text"
                     name="description"
+                    class="form-control"
                     value="<%= article.description%>"
                     disabled
                   />
@@ -166,7 +193,8 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="nombre"
+                    name="etiquebi"
+                    class="form-control"
                     value="<%= article.etiquebi %>"
                     disabled
                   />
@@ -177,18 +205,21 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="numInventario"
+                    name="seguim"
+                    class="form-control"
                     value="<%= article.seguim %>"
                     disabled
                   />
                 </th>
               </tr>
               <tr>
-                <th scope="col">Motivo de Baja</th>
+                <th scope="col">Estatus</th>
                 <th scope="col">
                   <input
+                  id="status"
                     type="text"
-                    name="clvControl"
+                    name="estatusbi"
+                    class="form-control"
                     value="<%= article.estatusbi %>"
                     disabled
                   />
@@ -199,8 +230,9 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="clvControl"
-                    value="<%= article.fechabaja %>"
+                    name="bajabien"
+                    class="form-control"
+                    value="<%= article.bajabien %>"
                     disabled
                   />
                 </th>
@@ -210,7 +242,8 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="clvControl"
+                    name="registrocon"
+                    class="form-control"
                     value="<%= article.registrocon %>"
                     disabled
                   />
@@ -221,7 +254,8 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="clvControl"
+                    name="registrodb"
+                    class="form-control"
                     value="<%= article.registrocon %>"
                     disabled
                   />
@@ -232,8 +266,9 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="clvControl"
-                    value="<%= article.registordb %>"
+                    name="trataconta"
+                    class="form-control"
+                    value="<%= article.trataconta %>"
                     disabled
                   />
                 </th>
@@ -243,7 +278,8 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="clvControl"
+                    name="NombreSolici"
+                    class="form-control"
                     value="<%= article.NombreSolici %>"
                     disabled
                   />
@@ -254,7 +290,8 @@
                 <th scope="col">
                   <input
                     type="text"
-                    name="clvControl"
+                    name="areasolici"
+                    class="form-control"
                     value="<%= article.areasolici %>"
                     disabled
                   />
@@ -262,6 +299,16 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="form-group" style="text-align: right">
+          <button
+            class="btn btn-success btn-block"
+            type="submit"
+            onclick="toggleFields()"
+            style="background-color: #91133c"
+          >
+            Guardar Cambios
+          </button>
         </div>
       </form>
     </div>

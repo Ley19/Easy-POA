@@ -269,7 +269,7 @@ router.get("/Resguardos", (req, res) => {
 });
 
 router.get("/inventario", async (req, res) => {
-  var articulos = await Articulos.find({ estatusbi: "Activo" }); // filter documents by estatus = 'Activo'
+  var articulos = await Articulos.find({ estatusbi: { $in: ["Activo", "activo"] }}); // filter documents by estatus = 'Activo'
   articulos = JSON.parse(JSON.stringify(articulos));
   res.render("inventario", {
     articulos_data: articulos,
@@ -295,7 +295,7 @@ router.post('/inventario/estatus', async (req, res) => {
     
     let articulos;
     if (estatus === 'activo') {
-        articulos = await Articulos.find({ estatusbi: 'Activo' }); // filtrar por estatus = 'Activo'
+        articulos = await Articulos.find({ estatusbi: { $in: ["Activo", "activo"] }}); // filtrar por estatus = 'Activo'
     } else if (estatus === 'inactivo') {
         articulos = await Articulos.find({ estatusbi: 'Inactivo' }); // filtrar por estatus = 'Inactivo'
     }
@@ -334,44 +334,22 @@ router.post("/agregarArticulo", async (req, res) => {
   res.redirect("/inventario");
 });
 
-/*router.post("/infoadicional/:id", async (req, res) => {
-  const id = mongoose.Types.ObjectId(req.params.id);
-  //if (!mongoose.Types.ObjectId.isValid(id)) {
-  //  return res.status(400).send('El ID del artículo es inválido');
-  //}
-  const infoAdicional = {
-    etiquebi: req.body.etibi,
-    seguim: req.body.segui,
-    estatusbi: req.body.estabi,
-    bajabien: req.body.bajabi,
-    fechabaja: req.body.fechaba,
-    registrocon: req.body.regicon,
-    registrodb: req.body.regidb,
-    grupobien: req.body.grubi,
-    trataconta: req.body.tratacon,
-    NombreSolici: req.body.NombreSo,
-    areasolici: req.body.areaso,
-  };
+router.post("/consulta/:id", async (req, res) => {
+  
+  const articulo=new Articulos();
+  articulo.nombre=req.body.nombre;
+  console.log(req.body);
+  await Articulos.findByIdAndUpdate(req.params.id,req.body);
+  res.redirect("/inventario")
 
-  try {
-    const result = await Articulos.updateOne(
-      { _id: id },
-      { $set: infoAdicional }
-    );
-    console.log(id);
-    console.log(result);
-    res.redirect("/inventario");
-  } catch (error) {
-    console.error(error);
-    res.send(error);
-  }
+});
 
-  //const result = await Articulos.updateOne({ _id: id }, { $set: infoAdicional });
+router.post("/consulta/:id/deshabilitar", async (req, res) => {
+  console.log("DESHABILIDANTO")
+  await Articulos.findByIdAndUpdate(req.params.id,{estatusbi:"Inactivo"});
+  res.redirect("/inventario")
 
-  //console.log(id);
-  //console.log(result);
-  //res.redirect('/inventario');
-});*/
+});
 
 router.post("/Resguardos", async (req, res) => {
   const resguardo = new resguardos();
