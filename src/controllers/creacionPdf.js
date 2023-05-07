@@ -98,8 +98,8 @@ exports.pdfRequisicion = async (req,res)=>{
         }
     }
     const nombrePDF = "formato-requisicion-" + Date.now() +".pdf"
-    await createPdf('src/temp/formato_requisicion.pdf','src/temp/' + nombrePDF )
-    fs.readFile('src/temp/' + nombrePDF, function(err,data){
+    await createPdf('src/temp/formato_requisicion.pdf','src/temp/pdf/' + nombrePDF )
+    fs.readFile('src/temp/pdf/' + nombrePDF, function(err,data){
         res.contentType("application/pdf")
         res.send(data)
     })

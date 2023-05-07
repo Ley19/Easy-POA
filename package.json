@@ -25,6 +25,7 @@
     "pdf-lib": "^1.17.1",
     "pdf-merger-js": "^4.3.0",
     "pdfkit": "^0.13.0",
+    "pdfkit-table": "^0.1.99",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
