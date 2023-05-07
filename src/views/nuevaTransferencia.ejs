@@ -107,16 +107,17 @@
 		
 			
 				[...document.getElementsByClassName("mesesIncremento"+fila)].forEach(function (element) {
-						element.value=0;				
+						element.value=0;
+							
+					if(element.getAttribute("mes")==listaMeses[mesActual.getMonth()]){
+						control =true
+					}				
 					if( control ){
 						element.removeAttribute("readonly");
 						element.setAttribute("partida", partida);
 						
 					}
-					
-					if(element.getAttribute("mes")==listaMeses[mesActual.getMonth()]){
-						control =true
-					}
+				
 					
 				});
 			
