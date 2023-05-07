@@ -1,0 +1,525 @@
+<script>
+	const listaMeses = [
+		'Enero',
+		'Febrero',
+		'Marzo',
+		'Abril',
+		'Mayo',
+		'Junio',
+		'Julio',
+		'Agosto',
+		'Septiembre',
+		'Octubre',
+		'Noviembre',
+		'Diciembre',
+	];
+	let alertas = '';
+	let alertasIncremento = '';
+	
+	let mesActual=new Date();
+	console.log(mesActual.getDate() + " de " + listaMeses[mesActual.getMonth()] + " de " + mesActual.getFullYear());
+	
+	const agregarReducciones = () => {
+		var fila = document.getElementById("reduccion").rows.length-1;
+		
+		const partidas = '<td><select class="partidaReduccion form-select" onchange="partidasReduccion('+fila+')" name="partidaReduccion'+fila+'" id="partidaReduccion'+fila+'" class="partida'+fila+'" type="submit" style="width: auto;"><option disabled selected>Seleccione una partida</option><% results.forEach((transferencias)=>{ %><option><%= transferencias.Partida %></option><% }) %></select></td>';
+		
+		let meses='';
+		listaMeses.forEach(mes => {
+			meses+='<td><span class="r'+fila+'" mes="'+mes+'"></span><input type="number" class="mesesReduccion'+fila+' '+mes+'" readonly="readonly" name="r'+mes+fila+'" mes='+mes+' onkeyup="sumarReduction('+fila+');" style="width:70px;"></td>';
+		});
+		
+		document.getElementById("reduccion").insertRow(-1).innerHTML = partidas+meses+'<td><input type="number" class="totalReduccion" name="totalReduccion'+fila+'" id="totalReduccion'+fila+'" disabled="disabled" style="width:70px;"></td>';
+		
+	};
+	
+	const agregarAmpliaciones = () => {
+		var fila = document.getElementById("incremento").rows.length-1;
+		
+		const partidas = '<td><select class="partidaIncremento form-select" onchange="partidasIncremento('+fila+')" name="partidaIncremento'+fila+'" id="partidaIncremento'+fila+'" class="partidaIncremento'+fila+'" type="submit" style="width: auto;"><option disabled selected>Seleccione una partida</option><% results.forEach((transferencias)=>{ %><option><%= transferencias.Partida %></option><% }) %></select></td>';
+		
+		let meses='';
+		listaMeses.forEach(mes => {
+			meses+='<td><input type="number" class="incremento mesesIncremento'+fila+'" readonly="readonly" name="i'+mes+fila+'" mes='+mes+' onkeyup="sumarIncremento('+fila+');" style="width:70px;"></td>';
+		});
+		
+		document.getElementById("incremento").insertRow(-1).innerHTML = partidas+meses+'<td><input type="number" class="totalIncremento" name="totalIncremento'+fila+'" id="totalIncremento'+fila+'" disabled="disabled" style="width:70px;"></td>';
+		
+	};
+	
+	function partidasReduccion(fila) {
+		select = document.getElementById("partidaReduccion"+fila)
+		partida = select.value;
+		select.classList.add("r"+partida);
+		
+		
+		//console.log( partida );
+		//console.log( meses[partida] );
+		let control =true
+		if(document.getElementsByClassName("r"+partida).length>1){
+			console.log("Ya hay una partida seleccionada");
+			[...document.getElementsByClassName("mesesReduccion"+fila)].forEach(function (element) {
+				element.setAttribute("readonly","readonly");
+				element.removeAttribute("partida");
+				element.value='';
+				
+				element.classList.remove("reduccion");
+				
+			});
+		}else{
+			[...document.getElementsByClassName("mesesReduccion"+fila)].forEach(function (element) {
+				element.value=0;
+				if( control ){
+					element.classList.add("reduccion");
+					element.removeAttribute("readonly");
+					element.setAttribute("partida", partida);
+					
+				}
+				
+				if(element.getAttribute("mes")==listaMeses[mesActual.getMonth()]){
+					control =false
+				}
+				
+				
+			});
+			/* 
+			[...document.getElementsByClassName("r"+fila)].forEach(function (element) {
+				mes= element.getAttribute("mes")
+				//console.log( meses[partida][mes] )
+				element.innerHTML =meses[partida][mes]
+			})
+			*/;
+		
+		}
+	}
+	function partidasIncremento(fila) {
+		select = document.getElementById("partidaIncremento"+fila)
+		partida = select.value;
+		select.classList.add("i"+partida);
+		let control =false
+		if(document.getElementsByClassName("i"+partida).length>1){
+			[...document.getElementsByClassName("mesesIncremento"+fila)].forEach(function (element) {
+				element.setAttribute("readonly","readonly");
+				element.removeAttribute("partida");
+				element.value='';
+			});
+		}else{
+		
+			
+				[...document.getElementsByClassName("mesesIncremento"+fila)].forEach(function (element) {
+						element.value=0;				
+					if( control ){
+						element.removeAttribute("readonly");
+						element.setAttribute("partida", partida);
+						
+					}
+					
+					if(element.getAttribute("mes")==listaMeses[mesActual.getMonth()]){
+						control =true
+					}
+					
+				});
+			
+			
+			
+		}
+		
+	}
+	
+	function sumarIncremento(fila) {
+		const $total = document.getElementById('totalIncremento'+fila);
+		const $totalIncrementos = document.getElementById('totalIncrementos');
+		const $totalReduccion = document.getElementById('totalReducciones');
+		const $alert = document.getElementById("incrementoalert");
+		
+		let subtotal = 0;
+		let sumaTotal = 0;
+		[...document.getElementsByClassName("mesesIncremento"+fila)].forEach(function (element) {
+			if (element.value !== '') {
+				subtotal += parseFloat(element.value);
+			}
+		});
+		
+		[...document.getElementsByClassName("incremento")].forEach(function (element) {
+			
+			mes= element.getAttribute("mes")
+			
+			partida= element.getAttribute("partida")
+			
+			let reducir=parseFloat(element.value)
+			
+			//console.log( "Need Reduct"+ reducir );
+			
+		});
+		
+		$total.value = subtotal;
+		
+		[...document.getElementsByClassName("totalIncremento")].forEach(function (element) {
+		
+			if (element.value !== '') {
+			
+				sumaTotal += parseFloat( element.value );
+				
+			}
+			
+			
+			
+		});
+		if( sumaTotal> $totalReduccion.value ){
+			alertasIncremento='Incremento mayor';
+			$alert.classList.remove("d-none");
+		}else{
+			$alert.classList.add("d-none");
+			alertasIncremento='';
+		}
+		
+		$totalIncrementos.value = sumaTotal;
+	}
+	
+	let mesesAlerta = {};
+	
+	function sumarReduction(fila) {
+		const $total = document.getElementById('totalReduccion'+fila);
+		const $totalReduccion = document.getElementById('totalReducciones');
+		
+		const $reduccionalert = document.getElementById("reduccionalert");
+		
+		alertas = '';
+		
+		let subtotal = 0;
+		let sumaTotal = 0;
+		
+		[...document.getElementsByClassName("mesesReduccion"+fila)].forEach(function (element) {
+		
+			if (element.value !== '') {
+			
+				subtotal += parseFloat( element.value );
+				
+			}
+		});
+		
+		
+		[...document.getElementsByClassName("reduccion")].forEach(function (element) {
+			
+			mes= element.getAttribute("mes")
+			
+			partida= element.getAttribute("partida")
+			
+			let disponible=meses[partida][mes]
+			
+			let reducir=parseFloat(element.value)
+			
+			if( reducir > disponible){
+			
+				$reduccionalert.classList.remove("d-none");
+				
+				//console.log( "No disponible de dinero suficiente en "+ mes );
+				
+				alertas+="</p>No dispones de dinero suficiente en <b>"+ mes+"</b> de la partida <b>"+partida+"</b>";
+				
+				mesesAlerta[partida+mes]=fila;
+				
+			}
+			
+		});
+		
+		
+		
+		$reduccionalert.innerHTML=alertas;
+		
+		$total.value = subtotal;
+		
+		[...document.getElementsByClassName("totalReduccion")].forEach(function (element) {
+		
+			if (element.value !== '') {
+			
+				sumaTotal += parseFloat( element.value );
+			}
+		});
+		$totalReduccion.value = sumaTotal;
+		
+		if( alertas == '' ){
+			$reduccionalert.classList.add("d-none");
+			mesesAlerta={}
+		}
+		
+		
+	}
+	
+	const transferencias = '<%- JSON.stringify(results) %>'
+	let userObj = JSON.parse(transferencias);
+	
+	console.log( userObj );
+	
+    var meses = {};
+     
+    userObj.forEach(function (element) {
+        meses[ element.Partida ] = element;
+    });
+
+	//console.log( meses );
+	//console.log( meses[336001] );
+	//console.log( meses[336001].Enero );
+	
+	
+	function validacion() {
+	  if (document.getElementById('texto')=='') {
+		// Si no se cumple la condicion...
+		alert('[ERROR] El campo debe tener un valor de...');
+		return false;
+	  }
+	  
+
+	  // Si el script ha llegado a este punto, todas las condiciones
+	  // se han cumplido, por lo que se devuelve el valor true
+	  return false;
+	}
+	
+	
+	
+	
+</script>
+
+<body>
+    <style>
+        .fecha {border-radius: 5px; float: right; margin: 0px 8px; border-style: solid; border-width: 1px;}
+    </style>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+	<div class="row">
+		<div class="col-12 p-4">
+		<h1>NUEVA TRANSFERENCIA </h1>
+		<form action="/saveTransferir" method="POST">
+			<label class="form-label">Nombre de la actividad: </label>   
+			<input type="text" placeholder="1.1 Colocacion de estudiantes de Educacion Superior en servicio social, estadias o residencias profesionales" style="border: 0; width: 100%;" readonly>
+
+			<table id="reduccion" class="table table-bordered">
+
+				<b>COSTO REDUCCION</b>
+				<thead>
+				<tr>
+					<th>Partida</th>
+					<th>Enero</th>
+					<th>Febrero</th>
+					<th>Marzo</th>
+					<th>Abril</th>
+					<th>Mayo</th>
+					<th>Junio</th>
+					<th>Julio</th>
+					<th>Agosto</th>
+					<th>Septiembre</th>
+					<th>Octubre</th>
+					<th>Noviembre</th>
+					<th>Diciembre</th>
+					<th>Total</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr style="font-size: 0.9rem;">
+				
+					<script>
+					agregarReducciones();
+					</script>
+					
+					</tr>
+				</tbody>
+				
+					
+			</table>
+			
+			<div class="row">
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-primary" onclick="agregarReducciones()">AGREGAR FILA</button>
+					<button type="button" class="btn btn-danger" onclick="eliminarReducciones()">ELIMINAR FILA</button>
+				</div>
+			
+				<div class="col-sm-6">
+					<div class="alert alert-danger d-none" id="reduccionalert" role="alert">
+						No dispones de recurso suficiente!
+					</div>
+				</div>
+				
+				<div class="col-sm-2">
+					<b>Total Reducción</b> <input type="number" id="totalReducciones" disabled="disabled" style="width:100px;">
+				</div>
+					
+			</div>
+			
+			
+			
+			
+			<br>
+			<br>
+			<br>
+			<b>AUMENTO</b>
+			<table id="incremento" class="table table-bordered">
+				<tr>
+					<th>Partida</th>
+					<td>Enero</td>
+					<td>Febrero</td>
+					<td>Marzo</td>
+					<td>Abril</td>
+					<td>Mayo</td>
+					<td>Junio</td>
+					<td>Julio</td>
+					<td>Agosto</td>
+					<td>Septiembre</td>
+					<td>Octubre</td>
+					<td>Noviembre</td>
+					<td>Diciembre</td>
+					<td>Total</td>
+				</tr>
+				<tr style="font-size: 0.9rem;">
+					
+					<script>
+					agregarAmpliaciones();
+					</script>
+				</tr>
+				
+			</table>
+
+			
+			
+			<div class="row">
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-primary" onclick="agregarAmpliaciones()">AGREGAR FILA</button>
+					<button type="button" class="btn btn-danger" onclick="eliminarAmpliaciones()">ELIMINAR FILA</button>
+				</div>
+			
+				<div class="col-sm-6">
+					<div class="alert alert-danger d-none" id="incrementoalert" role="alert">
+						El Aumento no debe ser mayor a la reducción!
+					</div>
+				</div>
+				
+				<div class="col-sm-2">
+					<b>Total Incremento</b> <input type="number" id="totalIncrementos" disabled="disabled" style="width:100px;">
+				</div>
+					
+			</div>
+			
+			<br>
+			<br>
+			
+			<div class="row">
+				<div class="col-sm-4">
+					 <select class="form-select" name="select" id="select" style="width: auto;">
+						<option disabled selected>Porfavor seleccione un motivo de la transferencia</option>
+						<option>Por cambio de periodo</option>
+						<option>Por ampliacion del periodo de gestion</option>
+						<option>Por diferencia en costos</option>
+						<option>Por error en la fecha o suficienca presupuestal</option>
+						
+					</select>
+				</div>
+			
+				<div class="col-sm-6">
+					<b>JUSTIFICACION</b><br><textarea rows="5" cols="70" id="texto" name="texto"></textarea></center>
+					
+				</div>
+				
+				
+					
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-4">
+					
+				</div>
+			
+				<div class="col-sm-6">
+					
+					<div class="alert alert-danger d-none" id="alertas" role="alert">
+						
+					</div>
+					
+				</div>
+				
+				<div class="col-sm-2">
+					<button type="submit" class="btn btn-success" style="background-color:#91133C" onsubmit="return validacion()">
+						<i class="bi bi-device-ssd-fill"></i> Guardar transferencia
+					</button>
+				</div>
+					
+			</div>
+		   
+			
+			
+		</form>
+		</div>
+	</div>
+
+    <script>
+		
+			const form  = document.getElementsByTagName('form')[0];
+			
+			const $mensaje = document.getElementById("alertas");
+			
+			form.addEventListener('submit', function (event) {
+				let mensaje ='';
+				const $totalIncrementos = document.getElementById('totalIncrementos');
+				const $totalReducciones = document.getElementById('totalReducciones');
+				if(alertas != '' || alertasIncremento!=''){
+					event.preventDefault();
+				}
+				
+				[...document.getElementsByTagName("select")].forEach(function (element) {
+					$mensaje.classList.remove("d-none");
+					if (element.value == 'Seleccione una partida') {
+						mensaje+='La <b>'+element.name+'</b> no debe ir vacía</p>';
+					}
+				});
+				
+				if (document.getElementById("select").value=="Porfavor seleccione un motivo de la transferencia") {
+					$mensaje.classList.remove("d-none");
+					mensaje+='El motivo no debe ir vacío</p>';
+					event.preventDefault();
+				}
+				if (document.getElementById("texto").value=='') {
+					$mensaje.classList.remove("d-none");
+					mensaje+='La justificación no debe ir vacía</p>';
+					event.preventDefault();
+				}
+				console.log($totalIncrementos)
+				console.log($totalReducciones)
+				if ($totalIncrementos.value!=$totalReducciones.value) {
+					$mensaje.classList.remove("d-none");
+					mensaje+='Los totales deben de ser iguales</p>';
+					event.preventDefault();
+				}
+
+				
+				
+
+				$mensaje.innerHTML= mensaje
+			});
+			
+			
+			
+            function eliminarReducciones() {
+                var reduccion = document.getElementById("reduccion");
+                var rowCount = reduccion.rows.length;
+                console.log(rowCount);
+
+                if (rowCount <= 1)
+                    alert('No se puede eliminar el encabezado');
+                else
+                    reduccion.deleteRow(rowCount - 1);
+            }
+            function eliminarAmpliaciones() {
+                var incremento = document.getElementById("incremento");
+                var rowCount = incremento.rows.length;
+                console.log(rowCount);
+
+                if (rowCount <= 1)
+                    alert('No se puede eliminar el encabezado');
+                else
+                    incremento.deleteRow(rowCount - 1);
+            }
+        
+          
+        </script>
+</body>

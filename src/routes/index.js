@@ -12,6 +12,7 @@ const database = require("../database");
 const crudAnteproyecto = require("../controllers/crudAnteproyecto");
 const requisicionCtrl = require("../controllers/requisicion");
 const transferir = require("../controllers/transferir");
+
 const { appendBezierCurve } = require("pdf-lib");
 
 router.get("/", async (req, res) => {
@@ -137,18 +138,55 @@ router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
 
 //RUTAS DE TRANSFERENCIAS
 
-router.get("/transferencias", (req, res) => {
+router.get("/transferencias/:id", (req, res) => {
   console.log(req.file);
-  database.query("SELECT * FROM anteproyecto", (error, results) => {
+  database.query('SELECT * FROM actividad a LEFT OUTER JOIN transferencia an ON a.idActividad=an.idActividad WHERE a.idActividad='+req.params.id+" ORDER BY id ASC", (error, results)=>{
     if (error) {
-      throw error;
-    } else {
+        throw error;
+    }else{
+		//results = JSON.parse(JSON.stringify(results));
+          //  console.log(results);
       res.render("transferencias", { results: results });
     }
   });
 });
 
+router.get("/eliminarTransferencia/:id", (req, res) => {
+  const id = req.params.id;
+  database.query(
+    " DELETE FROM transferencia WHERE id=?",
+    [id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.redirect("/transferencias/1.1");
+      }
+    }
+  );
+});
+
+
+router.get("/nuevaTransferencia/:id", (req, res) => {
+  console.log(req.file);
+  database.query('SELECT * FROM actividad a LEFT OUTER JOIN anteproyecto an ON a.idActividad=an.Actividad WHERE a.idActividad='+req.params.id+" ORDER BY Partida ASC", (error, results)=>{
+    if (error) {
+        throw error;
+    }else{
+		results = JSON.parse(JSON.stringify(results));
+          console.log(results);
+      res.render("nuevaTransferencia", { results: results });
+    }
+  });
+});
+
 router.post("/saveTransferir", transferir.saveTransferir);
+
+///////// router.get("/reporteTransferencia/1.1", transferir.pdfTransferencia);
+
+router.get("/reporteTransferencia/:id", transferir.pdfTransferencia);
+
+
 
 // RUTAS PARA REQUISICION
 router.get("/requisicion", function (req, res, next) {
@@ -160,6 +198,7 @@ router.get("/requisicion", function (req, res, next) {
     }
   );
 });
+
 router.get("/editar-requisicion/:id", requisicionCtrl.getRequisicion);
 router.get("/get_calendario", function (req, res) {
   var idActividad = req.query.idActividad;
