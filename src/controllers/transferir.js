@@ -314,7 +314,7 @@ exports.pdfTransferencia = async(req, res)=>{
 	
     const origenPDF = "F-PL_SF-02 Solicitud de transferencia de recursos.pdf"
     
-	const directorio= 'src/temp/pdf';
+	const directorio= 'src/temp/pdf/';
     
 	await createPdf(directorio, directorio+origenPDF, req.params.id )
 	
