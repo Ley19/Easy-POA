@@ -27,7 +27,8 @@ const listaMeses = [
 exports.saveTransferir = (req, res)=>{
 	let formulario=Object.keys(req.body);
 	//console.log(formulario)
-	
+	let actividadForm = formulario.shift();
+	let idActividad = req.body[actividadForm]
 	let justificacion = formulario.pop();
 	
 	//if( formulario.select ){
@@ -35,7 +36,7 @@ exports.saveTransferir = (req, res)=>{
 		console.log("Motivo "+motivo)
 	//}
 	
-	
+	//console.log("idActividad "+idActividad)
 	//console.log("Justificación "+justificacion)
 	
 	//console.log(req.body)
@@ -54,7 +55,7 @@ exports.saveTransferir = (req, res)=>{
 	}
 	let valores= {};
 	
-	valores['idActividad']=1.1
+	valores['Actividad']=idActividad
 	//valores['Partida']=1
 	valores['Fecha']=mesActual.toISOString().slice(0, 19).replace('T', ' ')
 	valores['Motivo']=req.body[motivo]
@@ -135,7 +136,7 @@ exports.saveTransferir = (req, res)=>{
 			
 			
 			
-			res.redirect('/transferencias/1.1');
+			res.redirect('/transferencias/'+idActividad);
 		}
 	});
 	
@@ -155,7 +156,7 @@ exports.pdfTransferencia = async(req, res)=>{
 	function getTransferencia(id) {
 		//let queryString = 'SELECT * FROM transferencia WHERE id='+id;
 		//let queryString = 'SELECT * FROM actividad a LEFT OUTER JOIN anteproyecto an ON a.idActividad=an.Actividad WHERE a.idActividad='+id+" ORDER BY Partida ASC";;
-		let queryString = 'SELECT * FROM transferencia t, actividad a WHERE a.idActividad=t.idActividad AND t.id='+id  ;
+		let queryString = 'SELECT * FROM transferencia t, actividad a WHERE a.idActividad=t.Actividad AND t.id='+id  ;
 		console.log(queryString)
 		return new Promise((resolve, reject) => {
 			mysqlConnection.query(queryString, (err, result) => {
@@ -312,11 +313,13 @@ exports.pdfTransferencia = async(req, res)=>{
         }
     }
 	
-    const origenPDF = "F-PL_SF-02 Solicitud de transferencia de recursos.pdf"
+	const origenPDF = "F-PL_SF-02 Solicitud de transferencia de recursos.pdf"
     
 	const directorio= 'src/temp/pdf/';
+
+	const fuente= 'src/temp/';
     
-	await createPdf(directorio, directorio+origenPDF, req.params.id )
+	await createPdf(directorio, fuente+origenPDF, req.params.id )
 	
     fs.readFile(directorio+"transferencia_"+req.params.id+".pdf", function(err,data){
 		

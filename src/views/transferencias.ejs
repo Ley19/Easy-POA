@@ -27,7 +27,9 @@
                     <th scope="col"></th>
                 </thead>
                 <tbody>
-                    <% results.forEach((transferencias)=>{ %>
+                    <%
+                    
+                    results.forEach((transferencias)=>{ %>
                         <tr>
 							
 							<td> <%= transferencias.id %></td>
@@ -37,19 +39,24 @@
                             <td> <%= transferencias.Justificacion %></td>
 
                             <td> <%= transferencias.Fecha %></td>
-
+                            <% if (transferencias.id){ %>
                             <td>
                                 <a href="/eliminarTransferencia/<%=transferencias.id %>"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>    
     
-								<a href="/reporteTransferencia/<%=transferencias.id %>" type="button" class="btn btn-success btn-block" style="background-color:#91133C"><i class="bi bi-printer-fill"></i> Imprimir</a>
+								<a target="_blank" href="/reporteTransferencia/<%=transferencias.id %>" type="button" class="btn btn-success btn-block" style="background-color:#91133C"><i class="bi bi-printer-fill"></i> Imprimir</a>
                             </td>
+                            <% }
+                            
+                            %>
                         </tr>
-                    <% }) %>
+                    <% }) 
+                    
+                    %>
 					
                 </tbody>
             </table>
             <div class="form-group" style="text-align: right">
-                <a href="/nuevaTransferencia/1.1" type="button" class="btn btn-success btn-block "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Nueva Transferencia </a>
+                <a href="/nuevaTransferencia/<%=results[0].idActividad%>" type="button" class="btn btn-success btn-block "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Nueva Transferencia </a>
             </div>
         </div>
     </body>

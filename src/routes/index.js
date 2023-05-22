@@ -140,7 +140,7 @@ router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
 
 router.get("/transferencias/:id", (req, res) => {
   console.log(req.file);
-  database.query('SELECT * FROM actividad a LEFT OUTER JOIN transferencia an ON a.idActividad=an.idActividad WHERE a.idActividad='+req.params.id+" ORDER BY id ASC", (error, results)=>{
+  database.query('SELECT * FROM actividad a LEFT OUTER JOIN transferencia an ON a.idActividad=an.Actividad WHERE a.idActividad='+req.params.id+" ORDER BY id ASC", (error, results)=>{
     if (error) {
         throw error;
     }else{
@@ -160,7 +160,8 @@ router.get("/eliminarTransferencia/:id", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        res.redirect("/transferencias/1.1");
+        //res.redirect("/transferencias/"+id);
+        res.redirect('back');
       }
     }
   );

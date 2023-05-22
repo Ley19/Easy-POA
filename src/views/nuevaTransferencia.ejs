@@ -295,9 +295,14 @@
 		<h1>NUEVA TRANSFERENCIA </h1>
 		<form action="/saveTransferir" method="POST">
                 
+               
 			<label class="form-label">Nombre de la actividad: </label>   
-			<input type="text" placeholder="<%=results[0].idActividad%> <%=results[0].nombre%>" style="border: 0; width: 100%;" readonly>
-		
+			<input type="hidden" id="actividad" name="actividad" value="<%=results[0].idActividad%>" style="border: 0; width: 100%;" readonly>
+		  <br>
+			<label class="form-label" > <%=results[0].idActividad%> <%=results[0].nombre%></label>   
+
+
+<br>
 			<table id="reduccion" class="table table-bordered">
 
 				<b>COSTO REDUCCION</b>
