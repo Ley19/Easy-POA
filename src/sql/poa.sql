@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `anteproyecto` (
   `Diciembre` float NOT NULL,
   `Total` float DEFAULT NULL,
   `Fecha` int DEFAULT NULL,
+  `Calendario` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 

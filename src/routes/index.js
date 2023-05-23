@@ -29,11 +29,15 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/calendario", (req, res) => {
+  database.query("SELECT * FROM calendario", (err, rows)=>{
+    console.log('calendario data \n', rows);    
+  });
+
   database.query(
     "SELECT idActividad, nombre FROM actividad ORDER BY idActividad ASC",
     function (err, actividades) {
       if(err) throw err;
-      database.query('SELECT * FROM actividad a INNER JOIN anteproyecto an ON a.idActividad=an.Actividad ORDER BY a.idActividad ASC, an.Partida ASC', (error, results)=>{
+      database.query('SELECT * FROM actividad a INNER JOIN calendario an ON a.idActividad=an.actividad ORDER BY a.idActividad ASC, an.partida ASC', (error, results)=>{
         if(error) throw error;
         results = JSON.parse(JSON.stringify(results));
         actividades = JSON.parse(JSON.stringify(actividades));
@@ -44,15 +48,17 @@ router.get("/calendario", (req, res) => {
     }
   );
 });
+  
+  
+
 
 //RUTAS PARA ANTEPROYECTO
-router.get('/crearAnteproyecto/:id',(req,res) =>{
-    console.log(req.file);
+router.get('/crearAnteproyecto/',(req,res) =>{
     database.query('SELECT * FROM partida', (error, results)=>{
         if(error){
             throw error;
         }else{
-            database.query('SELECT * FROM actividad WHERE idActividad='+req.params.id,(error, actividad)=>{
+            database.query('SELECT * FROM actividad',(error, actividad)=>{
                 if(error){
                     throw error;
                 }else{
@@ -67,13 +73,28 @@ router.get('/crearAnteproyecto/:id',(req,res) =>{
 router.get("/editarAnteproyecto/:id", (req, res) => {
   const id = req.params.id;
   database.query(
-    "SELECT * FROM anteproyecto WHERE id=? ",
+    "SELECT * FROM actividad a INNER JOIN anteproyecto an ON a.idActividad=an.Actividad WHERE an.id=? ",
     [id],
     (error, results) => {
       if (error) {
         throw error;
       } else {
         res.render("editarAnteproyecto", { Partida: results[0] });
+      }
+    }
+  );
+});
+
+router.get("/editarCalendario/:id", (req, res) => {
+  const id = req.params.id;
+  database.query(
+    "SELECT * FROM actividad a INNER JOIN calendario an ON a.idActividad=an.actividad WHERE an.idCalendario=? ",
+    [id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      } else {
+        res.render("editarCalendario", { Partida: results[0] });
       }
     }
   );
@@ -123,7 +144,52 @@ router.get('/anteproyecto/:id',(req,res) =>{
 
 
 router.post('/saveAnteproyecto', crudAnteproyecto.saveAnteproyecto);
-router.post('/updateAnteproyecto', crudAnteproyecto.updateAnteproyecto);
+router.post('/updateAnteproyecto', async (req, res)=>{
+  console.log('Formulario padrino', req.body);
+  const id = req.body.id;
+  const Enero = req.body.Enero;
+  const Febrero = req.body.Febrero;
+  const Marzo = req.body.Marzo;
+  const Abril = req.body.Abril;
+  const Mayo = req.body.Mayo;
+  const Junio = req.body.Junio;
+  const Julio = req.body.Julio;
+  const Agosto= req.body.Agosto;
+  const Septiembre = req.body.Septiembre;
+  const Octubre = req.body.Octubre;
+  const Noviembre = req.body.Noviembre;
+  const Diciembre = req.body.Diciembre;
+  const Total = req.body.Total;  
+  const dataPrj = {Enero:Enero, Febrero:Febrero, Marzo:Marzo, Abril:Abril, Mayo:Mayo, Junio:Junio, Julio:Julio, Agosto:Agosto, Septiembre:Septiembre, Octubre:Octubre, Noviembre:Noviembre, Diciembre:Diciembre, Total:Total}
+  const dataCld = {enero:Enero, febrero:Febrero, marzo:Marzo, abril:Abril, mayo:Mayo, junio:Junio, julio:Julio, agosto:Agosto, septiembre:Septiembre, octubre:Octubre, noviembre:Noviembre, diciembre:Diciembre, total:Total}
+  await crudAnteproyecto.updateAnteproyecto(dataPrj, dataCld, id);
+  
+  res.redirect('/anteproyecto')
+
+});
+
+router.post('/updateCalendario', async (req, res)=>{
+  console.log('Formulario padrino', req.body);
+  const id = req.body.id;
+  const Enero = req.body.Enero;
+  const Febrero = req.body.Febrero;
+  const Marzo = req.body.Marzo;
+  const Abril = req.body.Abril;
+  const Mayo = req.body.Mayo;
+  const Junio = req.body.Junio;
+  const Julio = req.body.Julio;
+  const Agosto= req.body.Agosto;
+  const Septiembre = req.body.Septiembre;
+  const Octubre = req.body.Octubre;
+  const Noviembre = req.body.Noviembre;
+  const Diciembre = req.body.Diciembre;
+  const Total = req.body.Total;  
+  const data = {enero:Enero, febrero:Febrero, marzo:Marzo, abril:Abril, mayo:Mayo, junio:Junio, julio:Julio, agosto:Agosto, septiembre:Septiembre, octubre:Octubre, noviembre:Noviembre, diciembre:Diciembre, total:Total}
+  await crudAnteproyecto.updateCalendario(data, id);
+  
+  res.redirect('/calendario')
+
+});
 
 //BOTONES DE EDICION
 
