@@ -4,7 +4,12 @@
             .fecha {border-radius: 5px; float: right; margin: 0px 8px; border-style: solid; border-width: 1px;}
         </style>
     </head>
-
+    <script>
+        function confirmarEliminacion() {
+          // Mostrar una alerta de confirmación
+          return confirm('¿Estás seguro de que deseas eliminar esta transferencia?');
+        }
+        </script>
     <body>
      <!--  <div class="fecha">
             <label class="Entrega">Entrega: 0-00-0000</label>
@@ -14,7 +19,7 @@
             
             <!--Temporizador para fecha de envio-->
             <h1 style=" text-align: center;">Transferencias</h1>
-            <p>En este apartado deberas ....</p>
+           
                            
             <label class="form-label">Nombre de la actividad: </label>   
             <input type="text" placeholder="<%=results[0].idActividad%> <%=results[0].nombre%>" style="border: 0; width: 100%;" readonly>
@@ -27,7 +32,9 @@
                     <th scope="col"></th>
                 </thead>
                 <tbody>
-                    <% results.forEach((transferencias)=>{ %>
+                    <%
+                    
+                    results.forEach((transferencias)=>{ %>
                         <tr>
 							
 							<td> <%= transferencias.id %></td>
@@ -37,19 +44,23 @@
                             <td> <%= transferencias.Justificacion %></td>
 
                             <td> <%= transferencias.Fecha %></td>
-
+                            <% if (transferencias.id){ %>
                             <td>
-                                <a href="/eliminarTransferencia/<%=transferencias.id %>"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>    
-    
-								<a href="/reporteTransferencia/<%=transferencias.id %>" type="button" class="btn btn-success btn-block" style="background-color:#91133C"><i class="bi bi-printer-fill"></i> Imprimir</a>
+                                <a href="/eliminarTransferencia/<%=transferencias.id %>" onclick="return confirmarEliminacion()"><i class='bx bx-message-square-x bx-sm' style="color: #91133C;"></i></a>
+								<a target="_blank" href="/reporteTransferencia/<%=transferencias.id %>" type="button" class="btn btn-success btn-block" style="background-color:#91133C"><i class="bi bi-printer-fill"></i> Imprimir</a>
                             </td>
+                            <% }
+                            
+                            %>
                         </tr>
-                    <% }) %>
+                    <% }) 
+                    
+                    %>
 					
                 </tbody>
             </table>
             <div class="form-group" style="text-align: right">
-                <a href="/nuevaTransferencia/1.1" type="button" class="btn btn-success btn-block "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Nueva Transferencia </a>
+                <a href="/nuevaTransferencia/<%=results[0].idActividad%>" type="button" class="btn btn-success btn-block "style="background-color:#91133C;"><i class='bx bxs-plus-circle bx-xs'></i> Nueva Transferencia </a>
             </div>
         </div>
     </body>
